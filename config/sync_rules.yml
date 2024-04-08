@@ -1,0 +1,4 @@
+bucket_definitions:
+  global:
+    data:
+      - SELECT * FROM customers

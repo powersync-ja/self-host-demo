@@ -1,0 +1,43 @@
+# powersync.yaml
+# ts-codec schema available here: https://github.com/journeyapps-platform/powersync/blob/master/packages/powersync-types/src/config/PowerSyncConfig.ts
+# Very similar to the config on Collide, but a little more low-level
+replication:
+  connections:
+    - type: postgresql
+      uri: postgres://db:5432/postgres
+      sslmode: disable # okay for local/private network, not for public network
+      hostname: db # From the Docker Compose service name
+      port: 5432
+      username: myuser # TODO
+      password: mypassword # TODO
+      database: mydatabase # TODO
+
+storage:
+  type: mongodb
+  uri: mongodb://mongo:27017/powersync_demo
+
+port: 8080
+
+sync_rules:
+  # path: ./sync_rules.yml
+  content: |
+    bucket_definitions:
+      global:
+        data:
+          - SELECT * FROM customers
+
+client_auth:
+  # supabase: true
+  jwks:
+    keys:
+      # This is just a demo key
+      - 'kty': 'RSA'
+        'n': '9Ch5sDpArI3wgM_5sRKJIs8mZM7bgBtqlu_rdxHtXWtiP1C4Jh5hEifEupqCKMlUjGgKtf5sJfig--4RRgDQ_ScgEr2nxPSzKErW38vrw-ARumTJFonxCPDZ03HOZjUevd8TkPX-_t0izpG0rdtrgTs1AOZN0AYXTVA16sDUKcNqfVczvK46jo15sQRaOaFIWKUTqZJDHCY_YAk3dlFgfHvgqDU4DUoyo-_jYhDkzfFyBtdWXltx4SNiUhpA8mRMF0UkvO_Qmh9GIIGd_mvVt2s7V5jD1MyNEk5Uvz-mlqzkON348V_uHAC61HAqsWXGyZqryhH5gOJ2A5MOTS7JUw'
+        'e': 'AQAB'
+        'alg': 'RS256'
+        'kid': 'powersync-0e3d5354f2'
+  audience: ['powersync-dev', 'localhost']
+
+api:
+  tokens:
+    - dev

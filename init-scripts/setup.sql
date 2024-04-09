@@ -6,5 +6,7 @@ create table
     name text not null
   ) tablespace pg_default;
 
--- Create publication for powersync
+insert into public.customers (name) ('Steven Customerson')
+
+-- Create publication for PowerSync
 create publication powersync for table customers;

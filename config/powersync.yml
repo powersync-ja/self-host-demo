@@ -4,30 +4,30 @@
 replication:
   connections:
     - type: postgresql
-      uri: postgres://db:5432/postgres
+      uri: postgres://pg-db:5432/postgres
       sslmode: disable # okay for local/private network, not for public network
-      hostname: db # From the Docker Compose service name
+      hostname: pg-db # From the Docker Compose service name
       port: 5432
       username: myuser # TODO
       password: mypassword # TODO
       database: mydatabase # TODO
 
+# This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 storage:
   type: mongodb
   uri: mongodb://mongo:27017/powersync_demo
 
+# TODO update the docker-compose file if changing this value
 port: 8080
 
 sync_rules:
-  # path: ./sync_rules.yml
-  content: |
-    bucket_definitions:
-      global:
-        data:
-          - SELECT * FROM customers
+  path: sync_rules.yml
 
 client_auth:
+  # Enable this if using Supabase Auth
   # supabase: true
+
+  # Add public keys here if using custom auth
   jwks:
     keys:
       # This is just a demo key

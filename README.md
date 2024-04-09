@@ -6,22 +6,44 @@ This repo is an example of using the PowerSync service self hosted Docker image.
 
 ## Docker
 
-Get a repository login token from PowerSync support [or create one?].
+Get a repository login token from PowerSync support. [This is created in OVERRIDE].
 
-Login to the PowerSync Docker repository
+Login to the PowerSync Docker repository. Note that the `username` is not used. Feel free to enter anything if prompted.
 
 TODO: update to production URL
 
 ```bash
-docker login container-registry.staging.journeyapps.com
+docker login container-registry.staging.journeyapps.com -u foobar
 ```
 
 ## Config
 
 Edit the files in the Config directory with your specific settings.
 
+### Connections
+
+Populate the `replication->connections` entry with your SQL server connection details.
+
+A simple Postgres server is provided in the `ps-postgres.yaml` Docker compose file. Be sure to keep the credentials in `powersync.yml` in sync with the config in `ps-postgres.yaml` if using this server.
+
+### Storage
+
+The PowerSync service uses MongoDB under the hood. A basic MongoDB replica-set service is available in `ps-mongo.yaml`. The `powersync.yml` config is configured to use this service by default. Different MongoDB servers can be configured by removing the `include` statement from `docker-compose.yaml` and updating `powersync.yml`.
+
+### Authentication
+
+This example uses JWKS which provides the public key directly to the PowerSync instance in `powersync.yml`'s `jwks` section.
+
+### Sync Rules
+
+Sync rules are currently defined by placing them in `./config/sync_rules.yml`.
+
 # Run
 
 ```bash
 docker-compose up
 ```
+
+## Demo app
+
+This compose file serves the [Example NextJS Demo App](https://github.com/powersync-ja/powersync-js/tree/main/demos/example-nextjs) at `localhost:3030`.

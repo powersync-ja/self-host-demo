@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  pg-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      # TODO update these, also in the powersync config YAML file
+      POSTGRES_DB: mydatabase # TODO
+      POSTGRES_USER: myuser # TODO
+      POSTGRES_PASSWORD: mypassword # TODO
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - '5432:5432'
+    command: ['postgres', '-c', 'wal_level=logical']
+
+volumes:
+  db_data:

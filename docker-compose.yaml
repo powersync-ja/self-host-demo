@@ -1,60 +1,34 @@
 version: '3.8'
 
-services:
-  # The POSTGRES DB
-  db:
-    image: postgres:latest
-    restart: always
-    environment:
-      # TODO update these, also in the powersync config YAML file
-      POSTGRES_DB: mydatabase # TODO
-      POSTGRES_USER: myuser # TODO
-      POSTGRES_PASSWORD: mypassword # TODO
-    volumes:
-      - db_data:/var/lib/postgresql/data
-      - ./init-scripts:/docker-entrypoint-initdb.d
-    ports:
-      - '5432:5432'
-    command: ['postgres', '-c', 'wal_level=logical']
+include:
+  # Creates a standard Postgress instance
+  - ps-postgres.yaml
 
+  # Creates the internal MongoDB replica set
+  - ps-mongo.yaml
+
+services:
   # Main PowerSync service
-  powrsync:
+  powersync:
     image: container-registry.staging.journeyapps.com/powersync-service:0.0.1
-    depends_on:
-      - db
-      - mongo
     # TODO improve this with an internal CLI
     command: ['node', 'powersync-service/lib/unified.js']
     environment:
+      # TODO use a default value via CLI
       POWERSYNC_CONFIG: /config/powersync.yml
     volumes:
+      # Mounts the specified config folder to the container
       - ./config:/config
     ports:
-      # TODO match with config yaml file
+      # TODO match with config yaml file if changed
       - 8080:8080
 
-  # MonogDB Service used internally
-  mongo:
-    image: mongo:5.0
-    command: --replSet rs0 --bind_ip_all
-    restart: unless-stopped
+  # An example demo app which is linked to the PowerSync instance above
+  demo:
+    build:
+      context: ./demo-launcher
+      dockerfile: Dockerfile
+      args:
+        POWERSYNC_PORT: 8080
     ports:
-      - 27017:27017
-    volumes:
-      - mongo_storage:/data/db
-
-  # Intializes the MongoDB replica set. This service will not usually be actively running
-  mongo-rs-init:
-    image: mongo:5.0
-    depends_on:
-      - mongo
-    restart: 'no'
-    entrypoint:
-      - bash
-      - -c
-      #  TODO neaten this
-      - 'sleep 10 && mongo --host mongo:27017 --eval ''rs.initiate({_id: "rs0", version: 1, members: [{ _id: 0, host : "mongo:27017" }]})'''
-
-volumes:
-  db_data:
-  mongo_storage:
+      - 3030:3000

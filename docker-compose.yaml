@@ -28,7 +28,7 @@ services:
     build:
       context: ./demo-launcher
       dockerfile: Dockerfile
-      args:
-        POWERSYNC_PORT: 8080
+    environment:
+      POWERSYNC_PORT: 8080
     ports:
       - 3030:3000

@@ -8,7 +8,6 @@ dotenv.config();
 
 // Very basic argument accepting
 const outDir = process.argv[2];
-const hostPort = process.argv[3];
 
 const powerSyncPrivateKey = JSON.parse(
   Buffer.from(process.env.POWERSYNC_PRIVATE_KEY!, 'base64').toString()
@@ -33,7 +32,7 @@ const launchServer = async () => {
   fs.writeFileSync(
     path.join(outDir, '.env'),
     `
-NEXT_PUBLIC_POWERSYNC_URL=http://localhost:${hostPort}
+NEXT_PUBLIC_POWERSYNC_URL=http://localhost:${process.env.POWERSYNC_PORT}
 NEXT_PUBLIC_POWERSYNC_TOKEN=${token}
   `
   );

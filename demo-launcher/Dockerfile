@@ -1,7 +1,7 @@
 # Use Node.js 20 Docker image as base
 FROM node:20
 
-ARG POWERSYNC_PORT
+ENV POWERSYNC_PORT=8080
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -39,4 +39,4 @@ RUN pnpm install && pnpm build:packages
 WORKDIR /app
 
 # Command to run the application
-CMD ["node", "demo-launcher/dist/index.js", "/app/powersync-js/demos/example-nextjs", $PS_PORT]
+CMD ["node", "demo-launcher/dist/index.js", "/app/powersync-js/demos/example-nextjs"]

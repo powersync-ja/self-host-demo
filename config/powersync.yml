@@ -8,9 +8,9 @@ replication:
       sslmode: disable # okay for local/private network, not for public network
       hostname: pg-db # From the Docker Compose service name
       port: 5432
-      username: myuser # TODO
+      database: postgres # TODO
+      username: postgres # TODO
       password: mypassword # TODO
-      database: mydatabase # TODO
 
 # This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 storage:

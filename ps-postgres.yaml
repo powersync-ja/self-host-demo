@@ -5,9 +5,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      # TODO update these, also in the powersync config YAML file
-      POSTGRES_DB: mydatabase # TODO
-      POSTGRES_USER: myuser # TODO
+      # TODO update these, also in the PowerSync config YAML file
+      POSTGRES_DB: postgres # TODO
+      POSTGRES_USER: postgres # TODO
       POSTGRES_PASSWORD: mypassword # TODO
     volumes:
       - db_data:/var/lib/postgresql/data

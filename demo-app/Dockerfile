@@ -9,10 +9,6 @@ WORKDIR /app
 # Copy demo private key to CWD
 COPY .env ./
 
-RUN mkdir demo-launcher
-
-WORKDIR /app/demo-launcher
-
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
@@ -27,16 +23,5 @@ COPY / ./
 # Build TypeScript code
 RUN pnpm run build
 
-WORKDIR /app
-
-# Clone the example app
-RUN git clone https://github.com/powersync-ja/powersync-js.git
-
-WORKDIR /app/powersync-js
-
-RUN pnpm install && pnpm build:packages
-
-WORKDIR /app
-
 # Command to run the application
-CMD ["node", "demo-launcher/dist/index.js", "/app/powersync-js/demos/example-nextjs"]
+CMD ["pnpm", "start", "--host"]

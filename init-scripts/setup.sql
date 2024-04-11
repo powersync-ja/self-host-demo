@@ -1,7 +1,7 @@
 -- Create tables
 create table
   public.customers (
-    id uuid not null default gen_random_uuid (),
+    id uuid primary key default gen_random_uuid () not null,
     created_at timestamp with time zone not null default now(),
     name text not null
   ) tablespace pg_default;

@@ -26,9 +26,9 @@ services:
   # An example demo app which is linked to the PowerSync instance above
   demo:
     build:
-      context: ./demo-launcher
+      context: ./demo-app
       dockerfile: Dockerfile
     environment:
       POWERSYNC_PORT: 8080
     ports:
-      - 3030:3000
+      - 3030:4173

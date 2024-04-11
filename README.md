@@ -46,4 +46,14 @@ docker-compose up
 
 ## Demo app
 
-This compose file serves the [Example NextJS Demo App](https://github.com/powersync-ja/powersync-js/tree/main/demos/example-nextjs) at `localhost:3030`.
+This compose file serves an example app at `localhost:3030`. This app syncs changes made from the Postgres Server DB.
+
+# Cleanup
+
+The `setup.sql` script only runs on the first initialization of the container.
+
+If you want to start from a fresh start:
+
+- Delete the Docker volumes `mongo_storage` and `db_data`
+  Their full names might vary depending on the directory where the `docker-compose` command was executed.
+- Delete the service Docker containers.

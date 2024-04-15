@@ -1,12 +1,27 @@
--- Create tables
-create table
-  public.customers (
-    id uuid primary key default gen_random_uuid () not null,
-    created_at timestamp with time zone not null default now(),
-    name text not null
-  ) tablespace pg_default;
+-- TODO change this if changing the DB connection name
+\connect postgres;
 
-insert into public.customers (name) values ('Steven Customerson');
+-- Create tables
+create table public.lists (
+    id uuid not null default gen_random_uuid (),
+    created_at timestamp with time zone not null default now(),
+    name text not null,
+    owner_id uuid not null,
+    constraint lists_pkey primary key (id)
+  );
+
+create table public.todos (
+    id uuid not null default gen_random_uuid (),
+    created_at timestamp with time zone not null default now(),
+    completed_at timestamp with time zone null,
+    description text not null,
+    completed boolean not null default false,
+    created_by uuid null,
+    completed_by uuid null,
+    list_id uuid not null,
+    photo_id uuid null,
+    constraint todos_pkey primary key (id)
+  );
 
 -- Create publication for PowerSync
-create publication powersync for table customers;
+create publication powersync for table lists, todos;

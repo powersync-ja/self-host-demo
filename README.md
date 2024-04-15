@@ -6,7 +6,9 @@ This repo is an example of using the PowerSync service self hosted Docker image.
 
 ## Docker
 
-Get a repository login token from PowerSync support. [This is created in OVERRIDE].
+Get a repository login token from PowerSync support.
+[Discord](https://discord.gg/powersync)
+[Email](support@powersync.com)
 
 Login to the PowerSync Docker repository. Note that the `username` is not used. Feel free to enter anything if prompted.
 
@@ -41,7 +43,7 @@ Sync rules are currently defined by placing them in `./config/sync_rules.yml`.
 # Run
 
 ```bash
-docker-compose up
+docker-compose --env-file=.env  up
 ```
 
 ## Demo app

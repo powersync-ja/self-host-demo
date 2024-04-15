@@ -1,5 +1,4 @@
 # powersync.yaml
-# ts-codec schema available here: https://github.com/journeyapps-platform/powersync/blob/master/packages/powersync-types/src/config/PowerSyncConfig.ts
 # Very similar to the config on Collide, but a little more low-level
 replication:
   connections:
@@ -8,9 +7,9 @@ replication:
       sslmode: disable # okay for local/private network, not for public network
       hostname: pg-db # From the Docker Compose service name
       port: 5432
-      database: postgres # TODO
-      username: postgres # TODO
-      password: mypassword # TODO
+      database: postgres # TODO Match this with Docker config
+      username: postgres # TODO Match this with Docker config
+      password: mypassword # TODO Match this with Docker config
 
 # This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 storage:
@@ -28,15 +27,22 @@ client_auth:
   # supabase: true
 
   # Add public keys here if using custom auth
+  # The demo-backend service provides a keystore
+  # jwks_uri:
+  # Note only HTTPs is supported here
+  # TODO update this if default backend config has changed
+  #   - http://demo-backend:6060/api/auth/keys
   jwks:
+    # Keys can also be added directly as below
+    # This is the private key specified in `.env`
     keys:
-      # This is just a demo key
       - 'kty': 'RSA'
         'n': '9Ch5sDpArI3wgM_5sRKJIs8mZM7bgBtqlu_rdxHtXWtiP1C4Jh5hEifEupqCKMlUjGgKtf5sJfig--4RRgDQ_ScgEr2nxPSzKErW38vrw-ARumTJFonxCPDZ03HOZjUevd8TkPX-_t0izpG0rdtrgTs1AOZN0AYXTVA16sDUKcNqfVczvK46jo15sQRaOaFIWKUTqZJDHCY_YAk3dlFgfHvgqDU4DUoyo-_jYhDkzfFyBtdWXltx4SNiUhpA8mRMF0UkvO_Qmh9GIIGd_mvVt2s7V5jD1MyNEk5Uvz-mlqzkON348V_uHAC61HAqsWXGyZqryhH5gOJ2A5MOTS7JUw'
         'e': 'AQAB'
         'alg': 'RS256'
         'kid': 'powersync-0e3d5354f2'
-  audience: ['powersync-dev', 'localhost']
+  audience: ['powersync-dev', 'powersync']
+  issuer:
 
 api:
   tokens:

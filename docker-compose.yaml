@@ -7,28 +7,30 @@ include:
   # Creates the internal MongoDB replica set
   - ps-mongo.yaml
 
+  # Demo backend server and front-end web client
+  - ps-demo.yaml
+
 services:
   # Main PowerSync service
   powersync:
+    depends_on:
+      - mongo
+      - pg-db
     image: container-registry.staging.journeyapps.com/powersync-service:0.0.1
-    # TODO improve this with an internal CLI
+    # The unified service runs an API runner and replication worker in the same container
+    # These can be ran in different containers by using individual entry commands e.g.
+    # Start the API server with
+    #   command: ['node', 'powersync-service/lib/server.js']
+    # Start the replication worker with
+    #   command: ['node', 'powersync-service/lib/stream-worker.js']
     command: ['node', 'powersync-service/lib/unified.js']
-    environment:
-      # TODO use a default value via CLI
-      POWERSYNC_CONFIG: /config/powersync.yml
     volumes:
       # Mounts the specified config folder to the container
+      # This folder should contain `powersync.yml and sync_rules.yml
       - ./config:/config
-    ports:
-      # TODO match with config yaml file if changed
-      - 8080:8080
-
-  # An example demo app which is linked to the PowerSync instance above
-  demo:
-    build:
-      context: ./demo-app
-      dockerfile: Dockerfile
     environment:
-      VITE_POWERSYNC_URL: http://localhost:8080
+      # This is the path (inside the container) to the YAML config file
+      POWERSYNC_CONFIG: /config/powersync.yml
     ports:
-      - 3030:4173
+      # TODO match with the powersync.yml config file if changed
+      - ${POWERSYNC_PORT}:${POWERSYNC_PORT}

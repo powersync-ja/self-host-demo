@@ -6,14 +6,14 @@ services:
     restart: always
     environment:
       # TODO update these, also in the PowerSync config YAML file
-      POSTGRES_DB: postgres # TODO
-      POSTGRES_USER: postgres # TODO
-      POSTGRES_PASSWORD: mypassword # TODO
+      POSTGRES_DB: ${PG_DATABASE_PORT}
+      POSTGRES_USER: ${PG_DATABASE_USER}
+      POSTGRES_PASSWORD: ${PG_DATABASE_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d
     ports:
-      - '5432:5432'
+      - '${PG_DATABASE_PORT}:${PG_DATABASE_PORT}'
     command: ['postgres', '-c', 'wal_level=logical']
 
 volumes:

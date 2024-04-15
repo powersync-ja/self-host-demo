@@ -23,6 +23,7 @@ port: 8080
 sync_rules:
   path: sync_rules.yml
 
+# Client authentication settings
 client_auth:
   # Enable this if using Supabase Auth
   # supabase: true
@@ -46,6 +47,7 @@ client_auth:
         'kid': 'powersync-0e3d5354f2'
   audience: ['powersync-dev', 'powersync']
 
+  # SSL settings
   # Defaults to verify-full
   # sslmode: 'verify-full' or 'verify-ca' or 'disable'
 
@@ -58,6 +60,13 @@ client_auth:
 
   # Expose "execute-sql"
   debug_api: true
+
+# Development settings
+dev:
+  # demo_auth: true
+  # demo_password:
+  # crud_api: true
+  # demo_client: true
 
 api:
   tokens:

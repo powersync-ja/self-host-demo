@@ -34,7 +34,7 @@ This compose file serves an example app at `localhost:3030`. This app syncs chan
 
 The configuration can be modified to match other project topologies.
 
-Edit the `.env` file and config files in the Config directory with your specific settings.
+Edit the `.env` file and config files in the `./config` directory with your specific settings.
 
 ### Connections
 

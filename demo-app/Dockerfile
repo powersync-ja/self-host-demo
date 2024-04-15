@@ -6,9 +6,6 @@ ENV POWERSYNC_PORT=8080
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy demo private key to CWD
-COPY .env ./
-
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
@@ -24,4 +21,4 @@ COPY / ./
 RUN pnpm run build
 
 # Command to run the application
-CMD ["pnpm", "start", "--host"]
+CMD ["pnpm", "preview", "--host"]

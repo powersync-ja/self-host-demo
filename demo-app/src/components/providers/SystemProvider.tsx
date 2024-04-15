@@ -1,5 +1,6 @@
+import { NavigationPanelContextProvider } from '@/components/navigation/NavigationPanelContext';
 import { AppSchema } from '@/library/powersync/AppSchema';
-import { CustomConnector } from '@/library/powersync/CustomConnector';
+import { DemoConnector } from '@/library/powersync/DemoConnector';
 import { PowerSyncContext } from '@journeyapps/powersync-react';
 import { WASQLitePowerSyncDatabaseOpenFactory } from '@journeyapps/powersync-sdk-web';
 import { CircularProgress } from '@mui/material';
@@ -11,8 +12,11 @@ export const db = new WASQLitePowerSyncDatabaseOpenFactory({
   schema: AppSchema
 }).getInstance();
 
+const ConnectorContext = React.createContext<DemoConnector | null>(null);
+export const useConnector = () => React.useContext(ConnectorContext);
+
 export const SystemProvider = ({ children }: { children: React.ReactNode }) => {
-  const [connector] = React.useState(new CustomConnector());
+  const [connector] = React.useState(new DemoConnector());
   const [powerSync] = React.useState(db);
 
   React.useEffect(() => {
@@ -29,7 +33,11 @@ export const SystemProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Suspense fallback={<CircularProgress />}>
-      <PowerSyncContext.Provider value={powerSync}>{children}</PowerSyncContext.Provider>
+      <PowerSyncContext.Provider value={powerSync}>
+        <ConnectorContext.Provider value={connector}>
+          <NavigationPanelContextProvider>{children}</NavigationPanelContextProvider>
+        </ConnectorContext.Provider>
+      </PowerSyncContext.Provider>
     </Suspense>
   );
 };

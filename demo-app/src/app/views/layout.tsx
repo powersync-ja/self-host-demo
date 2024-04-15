@@ -1,18 +1,55 @@
+import ChecklistRtlIcon from '@mui/icons-material/ChecklistRtl';
 import MenuIcon from '@mui/icons-material/Menu';
 import NorthIcon from '@mui/icons-material/North';
 import SignalWifiOffIcon from '@mui/icons-material/SignalWifiOff';
 import SouthIcon from '@mui/icons-material/South';
+import TerminalIcon from '@mui/icons-material/Terminal';
 import WifiIcon from '@mui/icons-material/Wifi';
-import { AppBar, Box, Divider, Drawer, IconButton, List, Toolbar, Typography, styled } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography,
+  styled
+} from '@mui/material';
 import React from 'react';
 
+import { useNavigationPanel } from '@/components/navigation/NavigationPanelContext';
 import { usePowerSync } from '@journeyapps/powersync-react';
+import { useNavigate } from 'react-router-dom';
+import { SQL_CONSOLE_ROUTE, TODO_LISTS_ROUTE } from '@/app/router';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function ViewsLayout({ children }: { children: React.ReactNode }) {
   const powerSync = usePowerSync();
+  const navigate = useNavigate();
 
   const [syncStatus, setSyncStatus] = React.useState(powerSync.currentStatus);
   const [openDrawer, setOpenDrawer] = React.useState(false);
+  const { title } = useNavigationPanel();
+
+  const NAVIGATION_ITEMS = React.useMemo(
+    () => [
+      {
+        path: SQL_CONSOLE_ROUTE,
+        title: 'SQL Console',
+        icon: () => <TerminalIcon />
+      },
+      {
+        path: TODO_LISTS_ROUTE,
+        title: 'TODO Lists',
+        icon: () => <ChecklistRtlIcon />
+      }
+    ],
+    [powerSync]
+  );
 
   React.useEffect(() => {
     const l = powerSync.registerListener({
@@ -37,7 +74,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography>Self Hosted Demo</Typography>
+            <Typography>{title}</Typography>
           </Box>
           <NorthIcon
             sx={{ marginRight: '-10px' }}
@@ -50,7 +87,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Drawer anchor={'left'} open={openDrawer} onClose={() => setOpenDrawer(false)}>
         <S.PowerSyncLogo alt="PowerSync Logo" width={250} height={100} src="/powersync-logo.svg" />
         <Divider />
-        <List></List>
+        <List>
+          {NAVIGATION_ITEMS.map((item) => (
+            <ListItem key={item.path}>
+              <ListItemButton
+                onClick={async () => {
+                  navigate(item.path);
+                  setOpenDrawer(false);
+                }}>
+                <ListItemIcon>{item.icon()}</ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
       <S.MainBox>{children}</S.MainBox>
     </S.MainBox>

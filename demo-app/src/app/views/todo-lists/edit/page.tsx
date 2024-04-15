@@ -32,12 +32,13 @@ const TodoEditSection = () => {
   const connector = useConnector();
   const { id: listID } = useParams();
 
-  const [listRecord] = usePowerSyncWatchedQuery<{ name: string }>(`SELECT name FROM ${LISTS_TABLE} WHERE id = ?`, [
-    listID
-  ]);
+  const [listRecord] = usePowerSyncWatchedQuery<{ name: string }>(
+    `SELECT name FROM ${LISTS_TABLE} WHERE id = ? ORDER BY created_at`,
+    [listID]
+  );
 
   const todos = usePowerSyncWatchedQuery<TodoRecord>(
-    `SELECT * FROM ${TODOS_TABLE} WHERE list_id=? ORDER BY created_at DESC, id`,
+    `SELECT * FROM ${TODOS_TABLE} WHERE list_id=? ORDER BY created_at, id`,
     [listID]
   );
 

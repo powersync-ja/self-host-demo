@@ -23,5 +23,10 @@ create table public.todos (
     constraint todos_pkey primary key (id)
   );
 
+-- Creates some initial data to be synced
+INSERT INTO lists (id, name, owner_id) VALUES ('75f89104-d95a-4f16-8309-5363f1bb377a', 'Getting Started', gen_random_uuid()  );
+INSERT INTO todos(description, list_id, completed) VALUES ('Run services locally', '75f89104-d95a-4f16-8309-5363f1bb377a', true);
+INSERT INTO todos (description, list_id, completed) VALUES ('Create a todo here. Query the todos table via a Postgres connection. Your todo should be synced', '75f89104-d95a-4f16-8309-5363f1bb377a', false);
+
 -- Create publication for PowerSync
 create publication powersync for table lists, todos;

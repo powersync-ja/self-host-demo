@@ -1,5 +1,5 @@
 {
-  "name": "@journeyapps/powersync-react-supabase-todolist",
+  "name": "@journeyapps/powersync-react-custom-auth-todolist",
   "version": "0.2.3",
   "private": true,
   "scripts": {

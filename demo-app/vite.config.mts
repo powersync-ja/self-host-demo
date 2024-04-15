@@ -22,10 +22,7 @@ export default defineConfig({
     process: {}
   },
   resolve: {
-    alias: [
-      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }
-      // https://jira.mongodb.org/browse/NODE-5773
-    ]
+    alias: [{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }]
   },
   publicDir: '../public',
   envDir: '..', // Use this dir for env vars, not 'src'.

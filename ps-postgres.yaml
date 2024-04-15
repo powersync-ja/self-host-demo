@@ -5,7 +5,6 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      # TODO update these, also in the PowerSync config YAML file
       POSTGRES_DB: ${PG_DATABASE_PORT}
       POSTGRES_USER: ${PG_DATABASE_USER}
       POSTGRES_PASSWORD: ${PG_DATABASE_PASSWORD}

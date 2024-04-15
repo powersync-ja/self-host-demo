@@ -1,7 +1,9 @@
 # Use Node.js 20 Docker image as base
 FROM node:20
 
-ENV POWERSYNC_SERVICE_PORT=8080
+ARG VITE_POWERSYNC_URL
+ARG VITE_BACKEND_URL
+
 
 # Set the working directory inside the container
 WORKDIR /app

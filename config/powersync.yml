@@ -8,9 +8,9 @@ replication:
       sslmode: disable # okay for local/private network, not for public network
       hostname: pg-db # From the Docker Compose service name
       port: 5432
-      database: postgres # TODO Match this with Docker config
-      username: postgres # TODO Match this with Docker config
-      password: mypassword # TODO Match this with Docker config
+      database: postgres # TODO Match this with Docker config if changed
+      username: postgres # TODO Match this with Docker config if changed
+      password: mypassword # TODO Match this with Docker config if changed
 
 # This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 storage:
@@ -62,11 +62,11 @@ client_auth:
   debug_api: true
 
 # Development settings
-dev:
-  # demo_auth: true
-  # demo_password:
-  # crud_api: true
-  # demo_client: true
+# dev:
+# demo_auth: true
+# demo_password:
+# crud_api: true
+# demo_client: true
 
 api:
   tokens:

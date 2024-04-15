@@ -6,11 +6,11 @@ services:
     build:
       context: ./demo-app
       dockerfile: Dockerfile
-    environment:
-      # This is from the perspective of the client running in a local machine's browser
-      VITE_POWERSYNC_URL: http://localhost:${POWERSYNC_SERVICE_PORT}
-      # From the demo-backend defined below
-      VITE_BACKEND_URL: http://localhost:${DEMO_BACKEND_PORT}
+      args:
+        # This is from the perspective of the client running in a local machine's browser
+        VITE_POWERSYNC_URL: http://localhost:${POWERSYNC_SERVICE_PORT}
+        # From the demo-backend defined below
+        VITE_BACKEND_URL: http://localhost:${DEMO_BACKEND_PORT}
     ports:
       - ${DEMO_CLIENT_PORT}:4173
 

@@ -19,8 +19,6 @@ RUN npm install -g pnpm@8
 RUN git clone https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git
 
 WORKDIR /app/powersync-nodejs-backend-todolist-demo
-RUN git fetch
-RUN git checkout fix-delete
 
 # Install dependencies
 RUN pnpm install 

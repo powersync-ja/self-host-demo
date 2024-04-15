@@ -18,9 +18,23 @@ TODO: update to production URL
 docker login container-registry.staging.journeyapps.com -u foobar
 ```
 
-## Config
+# Run
 
-Edit the files in the Config directory with your specific settings.
+This demo repository contains a basic local configuration for Postgres. The entire stack can be started with a single command.
+
+```bash
+docker-compose --env-file=.env  up
+```
+
+## Demo app
+
+This compose file serves an example app at `localhost:3030`. This app syncs changes made from the Postgres Server DB.
+
+# Config
+
+The configuration can be modified to match other project topologies.
+
+Edit the `.env` file and config files in the Config directory with your specific settings.
 
 ### Connections
 
@@ -39,16 +53,6 @@ This example uses JWKS which provides the public key directly to the PowerSync i
 ### Sync Rules
 
 Sync rules are currently defined by placing them in `./config/sync_rules.yml`.
-
-# Run
-
-```bash
-docker-compose --env-file=.env  up
-```
-
-## Demo app
-
-This compose file serves an example app at `localhost:3030`. This app syncs changes made from the Postgres Server DB.
 
 # Cleanup
 

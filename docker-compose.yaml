@@ -16,22 +16,21 @@ services:
     depends_on:
       - mongo
       - pg-db
-    image: container-registry.staging.journeyapps.com/powersync-service:0.17.5-staging.7
-    platform: linux/amd64
+    image: container-registry.staging.journeyapps.com/powersync-service:0.17.5-staging.11
     # The unified service runs an API server and replication worker in the same container.
-    # These services can be ran in different containers by using individual entry commands e.g.
+    # These services can be executed in different containers by using individual entry commands e.g.
     # Start only the API server with
-    #   command: ['powersync-runner', 'start', '-r', 'api']
+    #   command: ['start', '-r', 'api']
     # Start only the replication worker with
-    #   command: ['powersync-runner', 'start', '-r', 'sync']
-    command: ['powersync-runner', 'start', '-r', 'unified']
+    #   command: ['start', '-r', 'sync']
+    command: ['start', '-r', 'unified']
     volumes:
       # Mounts the specified config folder to the container
       # This folder should contain `powersync.yml and sync_rules.yml
       - ./config:/config
     environment:
       # This is the path (inside the container) to the YAML config file
-      PS_CONFIG: /config/powersync.yml
+      POWERSYNC_CONFIG: /config/powersync.yml
     ports:
       # TODO match with the powersync.yml config file if changed
       - ${POWERSYNC_SERVICE_PORT}:${POWERSYNC_SERVICE_PORT}

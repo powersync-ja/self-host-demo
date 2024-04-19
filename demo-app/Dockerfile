@@ -10,11 +10,12 @@ WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
+COPY pnpm-lock*.yaml ./
 
 RUN npm install -g pnpm@8
 
 # Install dependencies
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the demo launcher code to the container
 COPY / ./

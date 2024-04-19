@@ -21,7 +21,7 @@ RUN git clone https://github.com/powersync-ja/powersync-nodejs-backend-todolist-
 WORKDIR /app/powersync-nodejs-backend-todolist-demo
 
 # Install dependencies
-RUN pnpm install 
+RUN pnpm install
 
 # Command to run the application
 CMD ["pnpm", "start"]

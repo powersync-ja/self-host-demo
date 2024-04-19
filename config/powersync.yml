@@ -1,0 +1,73 @@
+# powersync.yaml
+# Very similar to the config on Collide, but a little more low-level
+replication:
+  connections:
+    - type: postgresql
+      # The PowerSync server can access the Postgres DB via the DB's service name
+      uri: postgres://pg-db:5432/postgres
+      sslmode: disable # okay for local/private network, not for public network
+      hostname: pg-db # From the Docker Compose service name
+      port: 5432
+      database: postgres # TODO Match this with Docker config if changed
+      username: postgres # TODO Match this with Docker config if changed
+      password: mypassword # TODO Match this with Docker config if changed
+
+# This is valid if using the `mongo` service defined in `ps-mongo.yaml`
+storage:
+  type: mongodb
+  uri: mongodb://mongo:27017/powersync_demo
+
+# TODO update the docker-compose file if changing this value
+port: 8080
+
+sync_rules:
+  path: sync_rules.yml
+
+# Client authentication settings
+client_auth:
+  # Enable this if using Supabase Auth
+  # supabase: true
+
+  # JWKS URIs can be specified here.
+  # Note that only HTTPs is supported.
+  jwks_uri: []
+  jwks:
+    # Public keys can be added directly as below
+    # This is the matching public key DEMO_JWKS_PUBLIC_KEY in the `.env` file
+    #
+    # The demo backend generates JWTs using the private key.
+    #   https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo/blob/5420b1a04dcb496a91a8528a523bd4ae75711bf8/src/api/auth.js#L15
+    # The demo client app uses these JWTs to authenticate with the PowerSync service
+    #  ./demo-app/src/library/powersync/DemoConnector.ts
+    keys:
+      - 'kty': 'RSA'
+        'n': '9Ch5sDpArI3wgM_5sRKJIs8mZM7bgBtqlu_rdxHtXWtiP1C4Jh5hEifEupqCKMlUjGgKtf5sJfig--4RRgDQ_ScgEr2nxPSzKErW38vrw-ARumTJFonxCPDZ03HOZjUevd8TkPX-_t0izpG0rdtrgTs1AOZN0AYXTVA16sDUKcNqfVczvK46jo15sQRaOaFIWKUTqZJDHCY_YAk3dlFgfHvgqDU4DUoyo-_jYhDkzfFyBtdWXltx4SNiUhpA8mRMF0UkvO_Qmh9GIIGd_mvVt2s7V5jD1MyNEk5Uvz-mlqzkON348V_uHAC61HAqsWXGyZqryhH5gOJ2A5MOTS7JUw'
+        'e': 'AQAB'
+        'alg': 'RS256'
+        'kid': 'powersync-0e3d5354f2'
+  audience: ['powersync-dev', 'powersync']
+
+  # SSL settings
+  # Defaults to verify-full
+  # sslmode: 'verify-full' or 'verify-ca' or 'disable'
+
+  # Required for verify-ca, optional for verify-full
+  # cacert:
+
+  # Include a certificate here for HTTPs
+  # client_certificate:
+  # client_private_key:
+
+  # Expose "execute-sql"
+  debug_api: true
+
+# Development settings
+# dev:
+# demo_auth: true
+# demo_password:
+# crud_api: true
+# demo_client: true
+
+api:
+  tokens:
+    - dev

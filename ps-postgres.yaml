@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  pg-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: ${PG_DATABASE_PORT}
+      POSTGRES_USER: ${PG_DATABASE_USER}
+      POSTGRES_PASSWORD: ${PG_DATABASE_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - '${PG_DATABASE_PORT}:${PG_DATABASE_PORT}'
+    command: ['postgres', '-c', 'wal_level=logical']
+
+volumes:
+  db_data:

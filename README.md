@@ -15,7 +15,7 @@ Login to the PowerSync Docker repository. Note that the `username` is not used. 
 TODO: update to production URL
 
 ```bash
-docker login container-registry.staging.journeyapps.com -u foobar
+docker login container-registry.journeyapps.com -u foobar
 ```
 
 # Run

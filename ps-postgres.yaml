@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: ${PG_DATABASE_PORT}
+      POSTGRES_DB: ${PG_DATABASE_NAME}
       POSTGRES_USER: ${PG_DATABASE_USER}
       POSTGRES_PASSWORD: ${PG_DATABASE_PASSWORD}
     volumes:

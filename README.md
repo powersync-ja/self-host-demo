@@ -48,6 +48,8 @@ The PowerSync service uses MongoDB under the hood. A basic MongoDB replica-set s
 
 This example uses JWKS which provides the public key directly to the PowerSync instance in `powersync.yml`'s `jwks` section.
 
+The `key-generator` project demonstrates generating RSA key pairs for token signing.
+
 ### Sync Rules
 
 Sync rules are currently defined by placing them in `./config/sync_rules.yml`.

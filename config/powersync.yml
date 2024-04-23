@@ -14,12 +14,12 @@ replication:
       #   TODO Match these params with Docker environment config if changed
       #   This will be improved in future with environment templates
 
-      uri: postgres://postgres:mypassword@pg-db:5444/postgres
+      uri: postgres://postgres:mypassword@pg-db:5432/postgres
 
       # Or use individual params
 
       # hostname: pg-db # From the Docker Compose service name
-      # port: 5444
+      # port: 5432
       # database: postgres
       # username: postgres
       # password: mypassword

@@ -58,16 +58,6 @@ client_auth:
         alg: 'RS256'
         kid: 'powersync-0e3d5354f2'
 
-      # This optional key is used for demo development auth tokens
-      # This key is used for signing JWTs.
-      # This should be a private key.
-      # The `kid` should match `powersync-dev`
-      - kty: 'oct'
-        kid: powersync-dev
-        # Valid options are HS256, HS284 and HS512
-        alg: 'HS256'
-        k: 'GLLcVV0/vqWXXfgJbEI9T2FfGLK/r9lPgTZAa8J1aGM='
-
   audience: ['powersync-dev', 'powersync']
 
   # SSL settings
@@ -83,27 +73,6 @@ client_auth:
 
   # Expose "execute-sql"
   debug_api: true
-
-dev:
-  # Development settings
-  # The PowerSync API server exposes some functionality which can make local development easier
-
-  # Example:
-  # Development API Route: /dev/auth.json
-  # Returns a development token
-  #
-  # POST a JSON payload containing the user ID which should be included in the JWT
-  # Include the `demo_password`` in the post request in order to authenticate for the development route
-  # curl -X POST \
-  #   -H "Content-Type: application/json" \
-  #   -d '{
-  #   "user": "cda67461-61c2-4553-825e-c9a33c6d2680",
-  #   "password": "mysupersecuredevpassword"
-  #   }' \
-  #   http://localhost:8080/dev/auth.json
-
-  demo_auth: true # Don't enable this in production
-  demo_password: mysupersecuredevpassword
 
 api:
   tokens:

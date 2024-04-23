@@ -86,13 +86,14 @@ client_auth:
 
 dev:
   # Development settings
-  # The PowerSync API server exposes a few dev routes which can make local development easier
+  # The PowerSync API server exposes some functionality which can make local development easier
 
-  # Route: /dev/auth.json
-  # Returns a development token
-  # POST a JSON payload containing the user ID which should be included in the JWT
-  # Include the `dev_password`` in the post request in order to authenticate for the development route
   # Example:
+  # Development API Route: /dev/auth.json
+  # Returns a development token
+  #
+  # POST a JSON payload containing the user ID which should be included in the JWT
+  # Include the `demo_password`` in the post request in order to authenticate for the development route
   # curl -X POST \
   #   -H "Content-Type: application/json" \
   #   -d '{

@@ -1,5 +1,5 @@
 # powersync.yaml
-# Very similar to the config on Collide, but a little more low-level
+# Very similar to the config in the PowerSync dashboard, but a little more low-level
 replication:
   connections:
     - type: postgresql

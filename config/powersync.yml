@@ -10,11 +10,10 @@ replication:
 
       # The connection URI or individual parameters can be specified.
       # Individual params take precedence over URI params
+      uri: ${PS_PG_URI}
 
-      #   TODO Match these params with Docker environment config if changed
-      #   This will be improved in future with environment templates
-
-      uri: postgres://postgres:mypassword@pg-db:5432/postgres
+      # Expose "execute-sql" for this connection
+      # debug_api: true
 
       # Or use individual params
 
@@ -24,14 +23,23 @@ replication:
       # username: postgres
       # password: mypassword
 
+      # SSL settings
+      # Defaults to verify-full
+      # sslmode: 'verify-full' or 'verify-ca' or 'disable'
+      # Required for verify-ca, optional for verify-full
+      # cacert: ${PS_PG_CA_CERT}
+
+      # Include a certificate here for HTTPs
+      # client_certificate: ${PS_PG_CLIENT_CERT}
+      # client_private_key: ${PS_PG_CLIENT_PRIVATE_KEY}
+
 # This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 storage:
   type: mongodb
-  uri: mongodb://mongo:27017/powersync_demo
+  uri: ${PS_MONGO_URI}
 
 # The port which the PowerSync API server will listen on
-# TODO update the docker-compose file if changing this value
-port: 8080
+port: ${PS_PORT}
 
 sync_rules:
   path: sync_rules.yml
@@ -42,38 +50,37 @@ client_auth:
   # supabase: true
 
   # JWKS URIs can be specified here.
-  # Note that only HTTPs is supported.
-  jwks_uri: []
-  jwks:
-    keys:
-      # Public key used to verify JWTs
-      # This is the matching public key DEMO_JWKS_PUBLIC_KEY in the `.env` file
-      # The demo backend generates JWTs using the private key.
-      #   https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo/blob/5420b1a04dcb496a91a8528a523bd4ae75711bf8/src/api/auth.js#L15
-      # The demo client app uses these JWTs to authenticate with the PowerSync service
-      #  ./demo-app/src/library/powersync/DemoConnector.ts
-      - kty: 'RSA'
-        n: '9Ch5sDpArI3wgM_5sRKJIs8mZM7bgBtqlu_rdxHtXWtiP1C4Jh5hEifEupqCKMlUjGgKtf5sJfig--4RRgDQ_ScgEr2nxPSzKErW38vrw-ARumTJFonxCPDZ03HOZjUevd8TkPX-_t0izpG0rdtrgTs1AOZN0AYXTVA16sDUKcNqfVczvK46jo15sQRaOaFIWKUTqZJDHCY_YAk3dlFgfHvgqDU4DUoyo-_jYhDkzfFyBtdWXltx4SNiUhpA8mRMF0UkvO_Qmh9GIIGd_mvVt2s7V5jD1MyNEk5Uvz-mlqzkON348V_uHAC61HAqsWXGyZqryhH5gOJ2A5MOTS7JUw'
-        e: 'AQAB'
-        alg: 'RS256'
-        kid: 'powersync-0e3d5354f2'
+  jwks_uri: ${PS_JWKS_URL}
+
+  # IP ranges for JWKS URIs are limited to external IPs by default
+  # Setting this to true allows local JWKs URIs
+  allow_local_jwks: true
+
+  # Optional static collection of public keys for JWT verification
+  # jwks:
+  #   keys:
+  #     - kty: 'RSA'
+  #       n: '${PS_JWK_N}'
+  #       e: '${PS_JWK_E}'
+  #       alg: 'RS256'
+  #       kid: '${PS_JWK_KID}'
 
   audience: ['powersync-dev', 'powersync']
+#
+# The PowerSync service exposes API routes such as
+#   - /api/admin/v1/execute-sql
+#   - /api/admin/v1/diagnostics
+#   - /api/admin/v1/schema
+#   - /api/admin/v1/reprocess
+#   - /api/admin/v1/validate
+#   - /api/sync-rules/v1/deploy
+#   - /api/sync-rules/v1/current
+#   - /api/sync-rules/v1/reprocess
+# Note: these routes are currently undocumented.
+# Authentication for these routes is achieved by supplying an
+# array of token strings here. The bearer tokens should be added to the
+# HTTP request Authorization header.
 
-  # SSL settings
-  # Defaults to verify-full
-  # sslmode: 'verify-full' or 'verify-ca' or 'disable'
-
-  # Required for verify-ca, optional for verify-full
-  # cacert:
-
-  # Include a certificate here for HTTPs
-  # client_certificate:
-  # client_private_key:
-
-  # Expose "execute-sql"
-  debug_api: true
-
-api:
-  tokens:
-    - dev
+# api:
+#   tokens:
+#     - '${PS_API_TOKEN}'

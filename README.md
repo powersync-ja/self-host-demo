@@ -38,21 +38,21 @@ Edit the `.env` file and config files in the `./config` directory with your spec
 
 Populate the `replication->connections` entry with your SQL server connection details.
 
-A simple Postgres server is provided in the `ps-postgres.yaml` Docker compose file. Be sure to keep the credentials in `powersync.yml` in sync with the config in `ps-postgres.yaml` if using this server.
+A simple Postgres server is provided in the `ps-postgres.yaml` Docker compose file. Be sure to keep the credentials in `powersync.yaml` in sync with the config in `ps-postgres.yaml` if using this server.
 
 ### Storage
 
-The PowerSync service uses MongoDB under the hood. A basic MongoDB replica-set service is available in `ps-mongo.yaml`. The `powersync.yml` config is configured to use this service by default. Different MongoDB servers can be configured by removing the `include` statement from `docker-compose.yaml` and updating `powersync.yml`.
+The PowerSync service uses MongoDB under the hood. A basic MongoDB replica-set service is available in `ps-mongo.yaml`. The `powersync.yaml` config is configured to use this service by default. Different MongoDB servers can be configured by removing the `include` statement from `docker-compose.yaml` and updating `powersync.yaml`.
 
 ### Authentication
 
-This example uses JWKS which provides the public key directly to the PowerSync instance in `powersync.yml`'s `jwks` section.
+This example uses JWKS which provides the public key directly to the PowerSync instance in `powersync.yaml`'s `jwks` section.
 
 The `key-generator` project demonstrates generating RSA key pairs for token signing.
 
 ### Sync Rules
 
-Sync rules are currently defined by placing them in `./config/sync_rules.yml`.
+Sync rules are currently defined by placing them in `./config/sync_rules.yaml`.
 
 # Cleanup
 

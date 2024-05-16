@@ -42,7 +42,7 @@ storage:
 port: ${PS_PORT}
 
 sync_rules:
-  path: sync_rules.yml
+  path: sync_rules.yaml
 
 # Client authentication settings
 client_auth:

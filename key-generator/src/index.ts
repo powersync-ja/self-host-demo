@@ -31,7 +31,7 @@ async function generateKeyPair() {
 
   console.log(`
 Public Key:
-Add this to the 'client_auth->jwks->keys' section of './config/powersync.yml'
+Add this to the 'client_auth->jwks->keys' section of './config/powersync.yaml'
 
 YAML:
   

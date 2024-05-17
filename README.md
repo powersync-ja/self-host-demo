@@ -1,16 +1,16 @@
-# PowerSync Self Hosted Example
+# PowerSync Self-Hosted Example
 
-This repo is an example of using the PowerSync service self hosted Docker image.
+This repo is an example of using the PowerSync Service self-hosted Docker image.
 
 # Setup
 
 ## Docker
 
-Get a repository login token from PowerSync support.
-[Discord](https://discord.gg/powersync)
-[Email](support@powersync.com)
+Get a repository login token from PowerSync Support:
+- [Discord](https://discord.gg/powersync)
+- [Email](mailto:support@powersync.com)
 
-Login to the PowerSync Docker repository. Note that the `username` is not used. Feel free to enter anything if prompted.
+Log in to the PowerSync Docker repository. Note that the `username` is not used. Feel free to enter anything if prompted.
 
 ```bash
 docker login container-registry.journeyapps.com -u foobar
@@ -26,7 +26,7 @@ docker-compose --env-file=.env  up
 
 ## Demo app
 
-This compose file serves an example app at `localhost:3030`. This app syncs changes made from the Postgres Server DB.
+This compose file serves an example app at `localhost:3030`. This app syncs changes made from the Postgres server database.
 
 # Config
 
@@ -42,7 +42,7 @@ A simple Postgres server is provided in the `ps-postgres.yaml` Docker compose fi
 
 ### Storage
 
-The PowerSync service uses MongoDB under the hood. A basic MongoDB replica-set service is available in `ps-mongo.yaml`. The `powersync.yml` config is configured to use this service by default. Different MongoDB servers can be configured by removing the `include` statement from `docker-compose.yaml` and updating `powersync.yml`.
+The PowerSync Service uses MongoDB under the hood. A basic MongoDB replica-set service is available in `ps-mongo.yaml`. The `powersync.yml` config is configured to use this service by default. Different MongoDB servers can be configured by removing the `include` statement from `docker-compose.yaml` and updating `powersync.yml`.
 
 ### Authentication
 
@@ -52,7 +52,7 @@ The `key-generator` project demonstrates generating RSA key pairs for token sign
 
 ### Sync Rules
 
-Sync rules are currently defined by placing them in `./config/sync_rules.yml`.
+[Sync Rules](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./config/sync_rules.yml`.
 
 # Cleanup
 

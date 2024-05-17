@@ -1,5 +1,10 @@
 # powersync.yaml
 # Very similar to the config in the PowerSync dashboard, but a little more low-level
+migrations:
+  # Setting this to true will run internal migrations automatically when the sync or unified runner is started.
+  # Migrations can be triggered externally by altering the container `command`.
+  auto_migrate: true
+
 replication:
   connections:
     - type: postgresql

@@ -12,9 +12,6 @@ replication:
       # Individual params take precedence over URI params
       uri: ${PS_PG_URI}
 
-      # Expose "execute-sql" for this connection
-      # debug_api: true
-
       # Or use individual params
 
       # hostname: pg-db # From the Docker Compose service name
@@ -66,21 +63,3 @@ client_auth:
   #       kid: '${PS_JWK_KID}'
 
   audience: ['powersync-dev', 'powersync']
-#
-# The PowerSync service exposes API routes such as
-#   - /api/admin/v1/execute-sql
-#   - /api/admin/v1/diagnostics
-#   - /api/admin/v1/schema
-#   - /api/admin/v1/reprocess
-#   - /api/admin/v1/validate
-#   - /api/sync-rules/v1/deploy
-#   - /api/sync-rules/v1/current
-#   - /api/sync-rules/v1/reprocess
-# Note: these routes are currently undocumented.
-# Authentication for these routes is achieved by supplying an
-# array of token strings here. The bearer tokens should be added to the
-# HTTP request Authorization header.
-
-# api:
-#   tokens:
-#     - '${PS_API_TOKEN}'

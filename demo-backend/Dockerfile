@@ -17,7 +17,7 @@ WORKDIR /app
 RUN npm install -g pnpm@8
 
 # TODO update main branch
-RUN git clone -b use_default_key --single-branch https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git
+RUN git clone https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git
 
 WORKDIR /app/powersync-nodejs-backend-todolist-demo
 

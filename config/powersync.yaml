@@ -1,9 +1,11 @@
 # powersync.yaml
 # Very similar to the config in the PowerSync dashboard, but a little more low-level
-migrations:
-  # Setting this to true will run internal migrations automatically when the sync or unified runner is started.
-  # Migrations can be triggered externally by altering the container `command`.
-  auto_migrate: true
+
+# migrations:
+#   # Migrations run automatically by default.
+#   # Setting this to true will skip automatic migrations.
+#   # Migrations can be triggered externally by altering the container `command`.
+#   disable_auto_migration: true
 
 replication:
   connections:
@@ -54,9 +56,12 @@ client_auth:
   # JWKS URIs can be specified here.
   jwks_uri: ${PS_JWKS_URL}
 
-  # IP ranges for JWKS URIs are limited to external IPs by default
-  # Setting this to true allows local JWKs URIs
-  allow_local_jwks: true
+  # IP Ranges for JWKS can be blocked for ranges: `range != 'unicast'`
+  # for better security.
+  # In order to make self hosting development easier ranges are not
+  # blocked by default.
+  # This should be enabled in production.
+  # block_local_jwks: true
 
   # Optional static collection of public keys for JWT verification
   # jwks:

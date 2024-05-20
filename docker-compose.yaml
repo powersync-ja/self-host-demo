@@ -16,9 +16,8 @@ services:
     depends_on:
       - mongo
       - pg-db
-    # image: container-registry.journeyapps.com/powersync-service:0.17.6
-    # TODO publish
-    image: ps1
+    # TODO update to master
+    image: container-registry.staging.journeyapps.com/powersync-service:0.17.9-staging.5
     # The unified service runs an API server and replication worker in the same container.
     # These services can be executed in different containers by using individual entry commands e.g.
     # Start only the API server with

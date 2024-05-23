@@ -6,9 +6,11 @@
 # Using `!env [variable name]` will substitute the value of the environment variable named
 # [variable name].
 #
-# e.g. With the environment variable `export PS_PPS_MONGO_URI=mongodb://localhost:27017`
+# Only environment variables with names starting with `PS_` can be substituted.
+#
+# e.g. With the environment variable `export PS_MONGO_URI=mongodb://localhost:27017`
 # and YAML code:
-#  uri: !env PS_PG_URI
+#  uri: !env PS_MONGO_URI
 # The YAML will resolve to:
 #  uri: mongodb://localhost:27017
 #

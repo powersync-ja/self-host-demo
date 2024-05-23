@@ -1,5 +1,18 @@
+# yaml-language-server: $schema=../schema/schema.json
 # powersync.yaml
 # Very similar to the config in the PowerSync dashboard, but a little more low-level
+
+# Note that this example uses YAML custom tags for environment variable substitution.
+# Using `!env [variable name]` will substitute the value of the environment variable named
+# [variable name].
+#
+# e.g. With the environment variable `export PS_PPS_MONGO_URI=mongodb://localhost:27017`
+# and YAML code:
+#  uri: !env PS_PG_URI
+# The YAML will resolve to:
+#  uri: mongodb://localhost:27017
+#
+# If using VS Code see the `.vscode/settings.json` definitions which define custom tags.
 
 # migrations:
 #   # Migrations run automatically by default.
@@ -11,13 +24,12 @@ replication:
   connections:
     - type: postgresql
       sslmode: disable # okay for local/private network, not for public network
-
       # The PowerSync server container can access the Postgres DB via the DB's service name.
       # In this case the hostname is pg-db
 
       # The connection URI or individual parameters can be specified.
       # Individual params take precedence over URI params
-      uri: ${PS_PG_URI}
+      uri: !env PS_PG_URI
 
       # Or use individual params
 
@@ -40,10 +52,10 @@ replication:
 # This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 storage:
   type: mongodb
-  uri: ${PS_MONGO_URI}
+  uri: !env PS_MONGO_URI
 
 # The port which the PowerSync API server will listen on
-port: ${PS_PORT}
+port: !env PS_PORT
 
 sync_rules:
   path: sync_rules.yaml
@@ -54,7 +66,7 @@ client_auth:
   # supabase: true
 
   # JWKS URIs can be specified here.
-  jwks_uri: ${PS_JWKS_URL}
+  jwks_uri: !env PS_JWKS_URL
 
   # IP Ranges for JWKS can be blocked for ranges: `range != 'unicast'`
   # for better security.

@@ -1,6 +1,4 @@
 # yaml-language-server: $schema=../schema/schema.json
-# powersync.yaml
-# Very similar to the config in the PowerSync dashboard, but a little more low-level
 
 # Note that this example uses YAML custom tags for environment variable substitution.
 # Using `!env [variable name]` will substitute the value of the environment variable named
@@ -23,9 +21,9 @@
 #   disable_auto_migration: true
 
 replication:
+  # Specify database connection details
   connections:
     - type: postgresql
-      sslmode: disable # okay for local/private network, not for public network
       # The PowerSync server container can access the Postgres DB via the DB's service name.
       # In this case the hostname is pg-db
 
@@ -42,8 +40,9 @@ replication:
       # password: mypassword
 
       # SSL settings
-      # Defaults to verify-full
-      # sslmode: 'verify-full' or 'verify-ca' or 'disable'
+      sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
+      # 'disable' is OK for local/private networks, not for public networks
+
       # Required for verify-ca, optional for verify-full
       # cacert: ${PS_PG_CA_CERT}
 
@@ -59,6 +58,7 @@ storage:
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT
 
+# Specify sync rules
 sync_rules:
   path: sync_rules.yaml
 
@@ -86,4 +86,5 @@ client_auth:
   #       alg: 'RS256'
   #       kid: '${PS_JWK_KID}'
 
+  # JWKS audience
   audience: ['powersync-dev', 'powersync']

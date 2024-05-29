@@ -1,8 +1,8 @@
 import { NavigationPanelContextProvider } from '@/components/navigation/NavigationPanelContext';
 import { AppSchema } from '@/library/powersync/AppSchema';
 import { DemoConnector } from '@/library/powersync/DemoConnector';
-import { PowerSyncContext } from '@journeyapps/powersync-react';
-import { WASQLitePowerSyncDatabaseOpenFactory } from '@journeyapps/powersync-sdk-web';
+import { PowerSyncContext } from '@powersync/react';
+import { WASQLitePowerSyncDatabaseOpenFactory } from '@powersync/web';
 import { CircularProgress } from '@mui/material';
 import Logger from 'js-logger';
 import React, { Suspense } from 'react';

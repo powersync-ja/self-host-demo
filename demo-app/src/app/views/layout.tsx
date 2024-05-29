@@ -23,7 +23,7 @@ import {
 import React from 'react';
 
 import { useNavigationPanel } from '@/components/navigation/NavigationPanelContext';
-import { usePowerSync } from '@journeyapps/powersync-react';
+import { usePowerSync } from '@powersync/react';
 import { useNavigate } from 'react-router-dom';
 import { SQL_CONSOLE_ROUTE, TODO_LISTS_ROUTE } from '@/app/router';
 

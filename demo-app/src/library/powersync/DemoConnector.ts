@@ -1,11 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import {
-  AbstractPowerSyncDatabase,
-  CrudEntry,
-  PowerSyncBackendConnector,
-  UpdateType
-} from '@journeyapps/powersync-sdk-web';
+import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from '@powersync/web';
 
 export type DemoConfig = {
   backendUrl: string;

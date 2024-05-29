@@ -1,5 +1,5 @@
 {
-  "name": "@journeyapps/powersync-react-custom-auth-todolist",
+  "name": "@powersync/react-custom-auth-todolist",
   "version": "0.2.3",
   "private": true,
   "scripts": {
@@ -12,9 +12,9 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@journeyapps/powersync-react": "1.1.1",
-    "@journeyapps/powersync-sdk-web": "0.4.0",
-    "@journeyapps/wa-sqlite": "~0.1.1",
+    "@powersync/react": "^1.3.5",
+    "@powersync/web": "^0.8.0",
+    "@journeyapps/wa-sqlite": "~0.2.0",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.12",
     "@mui/x-data-grid": "^6.19.6",

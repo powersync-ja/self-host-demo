@@ -1,6 +1,6 @@
 import { TODO_LISTS_ROUTE } from '@/app/router';
 import { LISTS_TABLE, ListRecord, TODOS_TABLE } from '@/library/powersync/AppSchema';
-import { usePowerSync, usePowerSyncWatchedQuery } from '@journeyapps/powersync-react';
+import { usePowerSync, usePowerSyncWatchedQuery } from '@powersync/react';
 import { List } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ListItemWidget } from './ListItemWidget';

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   pg-db:
     image: postgres:latest
@@ -13,8 +11,8 @@ services:
       - db_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d
     ports:
-      - '${PG_DATABASE_PORT}:${PG_DATABASE_PORT}'
-    command: ['postgres', '-c', 'wal_level=logical']
+      - "${PG_DATABASE_PORT}:${PG_DATABASE_PORT}"
+    command: ["postgres", "-c", "wal_level=logical"]
 
 volumes:
   db_data:

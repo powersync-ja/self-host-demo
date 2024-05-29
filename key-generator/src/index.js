@@ -1,8 +1,8 @@
-import * as jose from 'jose';
-import crypto from 'crypto';
+const jose = require("jose");
+const crypto = require("crypto");
 
-const alg = 'RS256';
-const kid = `powersync-${crypto.randomBytes(5).toString('hex')}`;
+const alg = "RS256";
+const kid = `powersync-${crypto.randomBytes(5).toString("hex")}`;
 
 // Run the main script
 generateKeyPair();
@@ -26,18 +26,18 @@ async function generateKeyPair() {
     kid
   };
 
-  const privateBase64 = Buffer.from(JSON.stringify(privateJwk)).toString('base64');
-  const publicBase64 = Buffer.from(JSON.stringify(publicJwk)).toString('base64');
+  const privateBase64 = Buffer.from(JSON.stringify(privateJwk)).toString("base64");
+  const publicBase64 = Buffer.from(JSON.stringify(publicJwk)).toString("base64");
 
   console.log(`
 Public Key:
-Add this to the 'client_auth->jwks->keys' section of './config/powersync.yml'
+Add this to the 'client_auth->jwks->keys' section of './config/powersync.yaml'
 
 YAML:
   
 ${Object.entries(publicJwk)
   .map(([key, value]) => `${key}: ${value}`)
-  .join('\n')}
+  .join("\n")}
 
 JSON format:
 ${JSON.stringify(publicJwk, null, 2)}

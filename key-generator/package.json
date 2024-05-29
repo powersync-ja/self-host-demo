@@ -5,13 +5,11 @@
   "description": "Creates RSA key pairs for JWT signing in PowerSync self hosted demo",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node src/index.js"
   },
   "keywords": [],
   "devDependencies": {
-    "@types/node": "^20.12.7",
-    "typescript": "^5.4.5"
+    "@types/node": "^20.12.7"
   },
   "dependencies": {
     "jose": "^5.2.4"

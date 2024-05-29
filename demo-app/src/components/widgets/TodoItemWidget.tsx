@@ -24,18 +24,15 @@ export const TodoItemWidget: React.FC<TodoItemWidgetProps> = (props) => {
               aria-label="delete"
               onClick={() => {
                 props.onDelete();
-              }}
-            >
+              }}>
               <DeleteIcon />
             </IconButton>
           </Box>
-        }
-      >
+        }>
         <ListItemButton
           onClick={() => {
             props.toggleCompletion();
-          }}
-        >
+          }}>
           <ListItemAvatar>
             <IconButton edge="end" aria-label="toggle">
               {props.isComplete ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}

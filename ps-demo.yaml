@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # An example demo app which is linked to the PowerSync instance above
   demo-client:
@@ -8,7 +6,7 @@ services:
       dockerfile: Dockerfile
       args:
         # This is from the perspective of the client running in a local machine's browser
-        VITE_POWERSYNC_URL: http://localhost:${POWERSYNC_SERVICE_PORT}
+        VITE_POWERSYNC_URL: http://localhost:${PS_PORT}
         # From the demo-backend defined below
         VITE_BACKEND_URL: http://localhost:${DEMO_BACKEND_PORT}
     ports:

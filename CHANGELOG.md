@@ -7,6 +7,7 @@
 - Renamed `.yml` files to `.yaml`
 - Neatened `powersync.yaml` layout and comments
 - Added JSON schema for `powersync.yaml`
+- Updated PowerSync Web SDK in demo app
 
 ## v0.1.0
 

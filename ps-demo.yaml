@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # An example demo app which is linked to the PowerSync instance above
   demo-client:

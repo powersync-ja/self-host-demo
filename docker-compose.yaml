@@ -1,14 +1,14 @@
-version: '3.8'
-
+# Include syntax requires Docker compose > 2.20.3
+# https://docs.docker.com/compose/release-notes/#2203
 include:
   # Creates a standard Postgress instance
-  - ps-postgres.yaml
+  - path: ps-postgres.yaml
 
   # Creates the internal MongoDB replica set
-  - ps-mongo.yaml
+  - path: ps-mongo.yaml
 
   # Demo backend server and front-end web client
-  - ps-demo.yaml
+  - path: ps-demo.yaml
 
 services:
   # Main PowerSync service
@@ -32,7 +32,7 @@ services:
     # following command:
     #     command: ['migrate', 'up']
     # Note that this container must finish executing before starting the sync or unified container.
-    command: ['start', '-r', 'unified']
+    command: ["start", "-r", "unified"]
     volumes:
       # Mounts the specified config folder to the container
       # This folder should contain `powersync.yaml and sync_rules.yaml

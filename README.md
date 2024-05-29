@@ -22,7 +22,7 @@ docker login container-registry.journeyapps.com -u foobar
 This demo repository contains a basic local configuration for Postgres. The entire stack can be started with a single command.
 
 ```bash
-docker-compose --env-file=.env  up
+docker compose up
 ```
 
 ## Demo app

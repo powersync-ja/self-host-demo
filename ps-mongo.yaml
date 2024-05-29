@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   # MongoDB Service used internally
   mongo:
     image: mongo:7.0
-    command: --replSet rs0 --bind_ip_all
+    command: --replSet rs0 --bind_ip_all --quiet
     restart: unless-stopped
     ports:
       - 27017:27017
@@ -16,11 +14,11 @@ services:
     image: mongo:7.0
     depends_on:
       - mongo
-    restart: 'no'
+    restart: "no"
     entrypoint:
       - bash
       - -c
-      - 'sleep 10 && mongosh --host mongo:27017 --eval ''rs.initiate({_id: "rs0", version: 1, members: [{ _id: 0, host : "mongo:27017" }]})'''
+      - 'sleep 10 && mongosh --host mongo:27017 --eval ''try{rs.status().ok && quit(0)} catch {} rs.initiate({_id: "rs0", version: 1, members: [{ _id: 0, host : "mongo:27017" }]})'''
 
 volumes:
   mongo_storage:

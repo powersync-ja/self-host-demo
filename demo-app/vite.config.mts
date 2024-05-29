@@ -35,7 +35,11 @@ export default defineConfig({
       '@powersync/web > event-iterator',
       '@powersync/web > js-logger',
       '@powersync/web > lodash/throttle',
-      '@powersync/web > can-ndjson-stream'
+      '@powersync/web > can-ndjson-stream',
+      '@powersync/web > buffer',
+      '@powersync/web > rsocket-core',
+      '@powersync/web > rsocket-websocket-client',
+      '@powersync/web > cross-fetch'
     ]
   },
   plugins: [

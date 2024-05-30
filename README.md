@@ -1,25 +1,14 @@
 # PowerSync Self-Hosted Example
 
-This repo is an example of using the PowerSync Service self-hosted Docker image.
+This is an example self-hosted project using the PowerSync Open Edition version of the [PowerSync Service](https://github.com/powersync-ja/powersync-service), which is published to Docker Hub as `journeyapps/powersync-service`.
 
-# Setup
+This example uses Docker Compose to define and run the containers.
 
-## Docker
-
-Get a repository login token from PowerSync Support:
-
-- [Discord](https://discord.gg/powersync)
-- [Email](mailto:support@powersync.com)
-
-Log in to the PowerSync Docker repository. Note that the `username` is not used. Feel free to enter anything if prompted.
-
-```bash
-docker login container-registry.journeyapps.com -u foobar
-```
+Learn more about the self-hosting PowerSync [here](https://docs.powersync.com/self-hosting/getting-started).
 
 # Run
 
-This demo repository contains a basic local configuration for Postgres. The entire stack can be started with a single command.
+This repository contains a basic local configuration for Postgres. The entire stack can be started with a single command.
 
 ```bash
 docker-compose --env-file=.env  up
@@ -37,7 +26,7 @@ Edit the `.env` file and config files in the `./config` directory with your spec
 
 ### Connections
 
-Populate the `replication->connections` entry with your SQL server connection details.
+Populate the `replication->connections` entry with your Postgres database connection details.
 
 A simple Postgres server is provided in the `ps-postgres.yaml` Docker compose file. Be sure to keep the credentials in `powersync.yaml` in sync with the config in `ps-postgres.yaml` if using this server.
 

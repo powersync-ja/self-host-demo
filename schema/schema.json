@@ -145,6 +145,12 @@
       "properties": { "disable_auto_migration": { "type": "boolean" } },
       "additionalProperties": true,
       "required": []
+    },
+    "telemetry": {
+      "type": "object",
+      "properties": { "disable_telemetry_sharing": { "type": "boolean" }, "client_endpoints": { "type": "array", "items": { "type": "string" }  },
+      "additionalProperties": true,
+      "required": []
     }
   },
   "additionalProperties": true,

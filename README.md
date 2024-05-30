@@ -4,7 +4,7 @@ This is an example self-hosted project using the PowerSync Open Edition version 
 
 This example uses Docker Compose to define and run the containers.
 
-Learn more about the self-hosting PowerSync [here](https://docs.powersync.com/self-hosting/getting-started).
+Learn more about self-hosting PowerSync [here](https://docs.powersync.com/self-hosting/getting-started).
 
 # Run
 

@@ -1,6 +1,7 @@
+import { NavigationPage } from '@/components/navigation/NavigationPage';
+import { useConnector } from '@/components/providers/SystemProvider';
 import { TodoItemWidget } from '@/components/widgets/TodoItemWidget';
 import { LISTS_TABLE, TODOS_TABLE, TodoRecord } from '@/library/powersync/AppSchema';
-import { usePowerSync, usePowerSyncWatchedQuery } from '@powersync/react';
 import AddIcon from '@mui/icons-material/Add';
 import {
   Box,
@@ -17,10 +18,9 @@ import {
   styled
 } from '@mui/material';
 import Fab from '@mui/material/Fab';
+import { usePowerSync, useQuery } from '@powersync/react';
 import React, { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import { NavigationPage } from '@/components/navigation/NavigationPage';
-import { useConnector } from '@/components/providers/SystemProvider';
 
 /**
  * useSearchParams causes the entire element to fall back to client side rendering
@@ -32,12 +32,12 @@ const TodoEditSection = () => {
   const connector = useConnector();
   const { id: listID } = useParams();
 
-  const [listRecord] = usePowerSyncWatchedQuery<{ name: string }>(
+  const {data: [listRecord]} = useQuery<{ name: string }>(
     `SELECT name FROM ${LISTS_TABLE} WHERE id = ? ORDER BY created_at`,
     [listID]
   );
 
-  const todos = usePowerSyncWatchedQuery<TodoRecord>(
+  const { data: todos } = useQuery<TodoRecord>(
     `SELECT * FROM ${TODOS_TABLE} WHERE list_id=? ORDER BY created_at, id`,
     [listID]
   );

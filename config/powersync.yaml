@@ -67,6 +67,9 @@ replication:
 storage:
   type: mongodb
   uri: !env PS_MONGO_URI
+  # Use these if authentication is required. The user should have `readWrite` and `dbAdmin` roles 
+  # username: my-mongo-user
+  # password: my-password
 
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT

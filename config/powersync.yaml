@@ -23,7 +23,7 @@
 # Settings for telemetry reporting
 # See https://docs.powersync.com/self-hosting/telemetry
 telemetry:
-  # Opt out of reporting to PowerSync telemetry service
+  # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
   disable_telemetry_sharing: false
   # Additional Open Telemetry metrics endpoints
   client_endpoints: []
@@ -67,6 +67,9 @@ replication:
 storage:
   type: mongodb
   uri: !env PS_MONGO_URI
+  # Use these if authentication is required. The user should have `readWrite` and `dbAdmin` roles 
+  # username: my-mongo-user
+  # password: my-password
 
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT
@@ -82,13 +85,6 @@ client_auth:
 
   # JWKS URIs can be specified here
   jwks_uri: !env PS_JWKS_URL
-
-  # IP Ranges for JWKS can be blocked for ranges: `range != 'unicast'`
-  # for better security.
-  # In order to make self hosting development easier ranges are not
-  # blocked by default.
-  # This should be enabled in production.
-  # block_local_jwks: true
 
   # Optional static collection of public keys for JWT verification
   # jwks:

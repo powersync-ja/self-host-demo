@@ -86,13 +86,6 @@ client_auth:
   # JWKS URIs can be specified here
   jwks_uri: !env PS_JWKS_URL
 
-  # IP Ranges for JWKS can be blocked for ranges: `range != 'unicast'`
-  # for better security.
-  # In order to make self hosting development easier ranges are not
-  # blocked by default.
-  # This should be enabled in production.
-  # block_local_jwks: true
-
   # Optional static collection of public keys for JWT verification
   # jwks:
   #   keys:

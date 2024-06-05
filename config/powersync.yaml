@@ -23,7 +23,7 @@
 # Settings for telemetry reporting
 # See https://docs.powersync.com/self-hosting/telemetry
 telemetry:
-  # Opt out of reporting to PowerSync telemetry service
+  # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
   disable_telemetry_sharing: false
   # Additional Open Telemetry metrics endpoints
   client_endpoints: []

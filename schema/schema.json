@@ -148,7 +148,7 @@
     },
     "telemetry": {
       "type": "object",
-      "properties": { "disable_telemetry_sharing": { "type": "boolean" }, "client_endpoints": { "type": "array", "items": { "type": "string" }  },
+      "properties": { "disable_telemetry_sharing": { "type": "boolean" } },
       "additionalProperties": true,
       "required": []
     }

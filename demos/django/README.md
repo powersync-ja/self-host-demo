@@ -21,4 +21,6 @@ or in the root directory run
 docker compose -f demos/django/docker-compose.yaml up
 ```
 
+The backend will by default be available at `http://localhost:6061`.
+
 See the client demos above for starting a client.

@@ -1,0 +1,19 @@
+# Include syntax requires Docker compose > 2.20.3
+# https://docs.docker.com/compose/release-notes/#2203
+include:
+  # Creates a standard Postgress instance
+  - path: ../../services/postgres.yaml
+
+  # Creates the internal MongoDB replica set
+  - path: ../../services/mongo.yaml
+
+  # Main PowerSync backend
+  - path: ../../services/powersync.yaml
+
+  # Demo NodeJS backend server and front-end web client
+  - path: ../../demos/django/ps-django-backend.yaml
+
+volumes:
+  # Postgres data
+  # This ensures each demo has it's own Postgres data volume
+  pg_data:

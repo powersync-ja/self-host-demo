@@ -8,21 +8,21 @@ Learn more about self-hosting PowerSync [here](https://docs.powersync.com/self-h
 
 # Run
 
-This repository contains a basic local configuration for Postgres. The entire stack can be started with a single command.
+This repository contains basic demonstrations in the `demos` folder.
 
-```bash
-docker compose up
-```
+- [NodeJS](./demos/nodejs/README.md)
 
-## Demo app
+  - This can be stared from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
 
-This compose file serves an example app at `localhost:3030`. This app syncs changes made from the Postgres server database.
+- [Django](./demos/django/README.md)
+
+  - This can be stared from the repo root with `docker compose -f demos/django/docker-compose.yaml up`
 
 # Config
 
 The configuration can be modified to match other project topologies.
 
-Edit the `.env` file and config files in the `./config` directory with your specific settings.
+Edit the demo `.env` files and config files in the `./config` directory with your specific settings.
 
 ### Connections
 
@@ -45,8 +45,6 @@ The `key-generator` project demonstrates generating RSA key pairs for token sign
 [Sync Rules](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./config/sync_rules.yaml`.
 
 # Cleanup
-
-The `setup.sql` script only runs on the first initialization of the container.
 
 If you want to start from a fresh start:
 

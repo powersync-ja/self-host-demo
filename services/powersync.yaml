@@ -1,21 +1,6 @@
-# Include syntax requires Docker compose > 2.20.3
-# https://docs.docker.com/compose/release-notes/#2203
-include:
-  # Creates a standard Postgress instance
-  - path: ps-postgres.yaml
-
-  # Creates the internal MongoDB replica set
-  - path: ps-mongo.yaml
-
-  # Demo backend server and front-end web client
-  - path: ps-demo.yaml
-
 services:
-  # Main PowerSync service
   powersync:
-    depends_on:
-      - mongo
-      - pg-db
+    restart: unless-stopped
     image: journeyapps/powersync-service:latest
     # The unified service runs an API server and replication worker in the same container.
     # These services can be executed in different containers by using individual entry commands e.g.
@@ -36,7 +21,7 @@ services:
     volumes:
       # Mounts the specified config folder to the container
       # This folder should contain `powersync.yaml and sync_rules.yaml
-      - ./config:/config
+      - ../config:/config
     environment:
       # This is the path (inside the container) to the YAML config file
       # Alternatively the config path can be specified in the command
@@ -62,7 +47,7 @@ services:
       PS_MONGO_URI: mongodb://mongo:27017/powersync_demo
 
       # Note that powersync.yaml->client_auth->allow_local_jwks must be true for local URLs to work
-      PS_JWKS_URL: http://demo-backend:${DEMO_BACKEND_PORT}/api/auth/keys
+      PS_JWKS_URL: ${PS_JWKS_URL}
 
       # The port which the PowerSync API server should run on
       PS_PORT: ${PS_PORT}

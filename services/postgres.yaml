@@ -1,0 +1,23 @@
+services:
+  pg-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=${PG_DATABASE_USER}
+      - POSTGRES_DB=${PG_DATABASE_NAME}
+      - POSTGRES_PASSWORD=${PG_DATABASE_PASSWORD}
+      - PGPORT=${PG_DATABASE_PORT}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "${PG_DATABASE_PORT}:${PG_DATABASE_PORT}"
+    command: ["postgres", "-c", "wal_level=logical"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_DATABASE_USER} -d ${PG_DATABASE_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  # Postgres data
+  pg_data:

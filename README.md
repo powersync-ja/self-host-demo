@@ -10,8 +10,13 @@ Learn more about self-hosting PowerSync [here](https://docs.powersync.com/self-h
 
 This repository contains basic demonstrations in the `demos` folder.
 
-- [Django](./demos/django/README.md)
 - [NodeJS](./demos/nodejs/README.md)
+
+  - This can be stared from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
+
+- [Django](./demos/django/README.md)
+
+  - This can be stared from the repo root with `docker compose -f demos/django/docker-compose.yaml up`
 
 # Config
 

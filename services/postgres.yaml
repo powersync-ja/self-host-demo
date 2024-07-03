@@ -12,3 +12,7 @@ services:
     ports:
       - "${PG_DATABASE_PORT}:${PG_DATABASE_PORT}"
     command: ["postgres", "-c", "wal_level=logical"]
+
+volumes:
+  # Postgres data
+  pg_data:

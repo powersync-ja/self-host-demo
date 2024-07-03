@@ -12,8 +12,3 @@ include:
 
   # Demo NodeJS backend server and front-end web client
   - path: ../../demos/django/ps-django-backend.yaml
-
-volumes:
-  # Postgres data
-  # This ensures each demo has it's own Postgres data volume
-  pg_data:

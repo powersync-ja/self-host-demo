@@ -4,13 +4,21 @@ include:
   # Creates the internal MongoDB replica set
   - path: ../../services/mongo.yaml
 
-  # Main PowerSync backend
-  - path: ../../services/powersync.yaml
-
   # Demo NodeJS backend server and front-end web client
-  - path: ../../demos/nodejs/ps-nodejs-demo.yaml
+  - path: ./ps-nodejs-demo.yaml
 
 services:
+  # Extend PowerSync with Mongo and Postgres healthchecks
+  powersync:
+    extends:
+      file: ../../services/powersync.yaml
+      service: powersync
+    depends_on:
+      mongo-rs-init:
+        condition: service_completed_successfully
+      pg-db:
+        condition: service_healthy
+
   # Extend pg-db to include init scripts
   # The NodeJS demo creates tables and publications in `setup.sql`
   pg-db:

@@ -12,6 +12,11 @@ services:
     ports:
       - "${PG_DATABASE_PORT}:${PG_DATABASE_PORT}"
     command: ["postgres", "-c", "wal_level=logical"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_DATABASE_USER} -d ${PG_DATABASE_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   # Postgres data

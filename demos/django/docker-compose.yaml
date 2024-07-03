@@ -7,8 +7,17 @@ include:
   # Creates the internal MongoDB replica set
   - path: ../../services/mongo.yaml
 
-  # Main PowerSync backend
-  - path: ../../services/powersync.yaml
+  # Demo Django backend server and front-end web client
+  - path: ./ps-django-backend.yaml
 
-  # Demo NodeJS backend server and front-end web client
-  - path: ../../demos/django/ps-django-backend.yaml
+services:
+  # Extend PowerSync with Mongo and Postgres healthchecks
+  powersync:
+    extends:
+      file: ../../services/powersync.yaml
+      service: powersync
+    depends_on:
+      mongo-rs-init:
+        condition: service_completed_successfully
+      pg-db:
+        condition: service_healthy

@@ -14,11 +14,11 @@ services:
     image: mongo:7.0
     depends_on:
       - mongo
-    restart: "no"
+    restart: on-failure
     entrypoint:
       - bash
       - -c
-      - 'sleep 10 && mongosh --host mongo:27017 --eval ''try{rs.status().ok && quit(0)} catch {} rs.initiate({_id: "rs0", version: 1, members: [{ _id: 0, host : "mongo:27017" }]})'''
+      - 'mongosh --host mongo:27017 --eval ''try{rs.status().ok && quit(0)} catch {} rs.initiate({_id: "rs0", version: 1, members: [{ _id: 0, host : "mongo:27017" }]})'''
 
 volumes:
   mongo_storage:

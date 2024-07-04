@@ -1,6 +1,6 @@
 # Supabase Local Development
 
-This is demonstration of running Supabase locally in tandem with our React Supabase Todolist demo.
+This is demonstration of running Supabase locally in tandem with our [React Supabase Todolist demo](https://github.com/powersync-ja/powersync-js/tree/main/demos/react-supabase-todolist).
 
 ## Getting Started
 

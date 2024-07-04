@@ -1,9 +1,9 @@
 # Use Node.js 20 Docker image as base
 FROM node:20
 
-ENV VITE_SUPABASE_URL=
-ENV VITE_SUPABASE_ANON_KEY=
-ENV VITE_POWERSYNC_URL=
+ARG VITE_SUPABASE_URL=
+ARG VITE_SUPABASE_ANON_KEY=
+ARG VITE_POWERSYNC_URL=
 
 # Set the working directory inside the container
 

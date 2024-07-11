@@ -20,6 +20,8 @@ supabase start
 
 Once started the console will contain details for the Supabase Anon key and Postgres connection. Apply these values to the `.env` file.
 
+Note: Default Supabase projects expose the Postgres DB on a high port number. We currently only support ports in the range of `port >= 1024 && port <= 49151`. This demo configures Postgres on port `5433`.
+
 Start the demonstration with `docker compose up`
 
 The frontend should be available at `http://localhost:4170`

@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## v0.4.0
+
+- Added Supabase local development demo.
+
 ## v0.3.0
 
 - Added a Django demo. Split code to make demos more modular

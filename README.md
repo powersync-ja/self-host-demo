@@ -18,6 +18,10 @@ This repository contains basic demonstrations in the `demos` folder.
 
   - This can be stared from the repo root with `docker compose -f demos/django/docker-compose.yaml up`
 
+- [Supabase](./demos/supabase/README.md)
+
+  - See the README for instructions.
+
 # Config
 
 The configuration can be modified to match other project topologies.

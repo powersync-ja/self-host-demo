@@ -6,6 +6,8 @@ Backend code can be found [here](https://github.com/powersync-ja/powersync-nodej
 
 ## Running
 
+The `.env` file contains default configuration for the services. Reference this to connect to any services locally.
+
 This demo can be started by running the following in this demo directory
 
 ```bash

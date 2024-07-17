@@ -25,6 +25,10 @@
 telemetry:
   # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
   disable_telemetry_sharing: false
+  additional_endpoints:
+    - url: http://telemetry-collector:4318/v1/metrics
+      # Optionally configure the export interval - defaults to 5 minutes
+      export_interval_ms: 10000 # 10 seconds
 
 # Settings for source database replication
 replication:

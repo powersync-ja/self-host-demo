@@ -1,3 +1,9 @@
+# Include syntax requires Docker compose > 2.20.3
+# https://docs.docker.com/compose/release-notes/#2203
+include:
+  # Custom local telemetry service
+  - path: ../../services/telemetry.yaml
+
 services:
   # A backend which provides basic authentication and CRUD access to the Postgres DB from the client
   demo-backend:

@@ -22,7 +22,7 @@ docker compose -f demos/nodejs/docker-compose.yaml up
 
 The frontend can be accessed at `http://localhost:3030` in a browser.
 
-## Telemetry
+### Telemetry
 
 The enterprise edition of the PowerSync self hosting Docker image supports custom telemetry integration.
 

@@ -12,7 +12,7 @@ This repository contains basic demonstrations in the `demos` folder.
 
 - [NodeJS](./demos/nodejs/README.md)
 
-  - This can be stared from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
+  - This can be stared from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`. See the readme for additional instructions including telemetry configuration.
 
 - [Django](./demos/django/README.md)
 

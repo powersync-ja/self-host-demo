@@ -1,7 +1,7 @@
 services:
   # Collector
   telemetry-collector:
-    image: otel/opentelemetry-collector-contrib:latest
+    image: otel/opentelemetry-collector-contrib:0.92.0
     command: ["--config=/conf/collector-config.yaml"]
     depends_on:
       - prometheus

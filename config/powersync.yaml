@@ -25,6 +25,8 @@
 telemetry:
   # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
   disable_telemetry_sharing: false
+
+  # This is only available when using the Enterprise edition of the PowerSync self hosted Docker image
   additional_endpoints:
     - url: http://telemetry-collector:4318/v1/metrics
       # Optionally configure the export interval - defaults to 5 minutes

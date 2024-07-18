@@ -7,9 +7,6 @@ include:
   # Demo NodeJS backend server and front-end web client
   - path: ./ps-nodejs-demo.yaml
 
-  # Custom local telemetry service
-  - path: ../../services/telemetry.yaml
-
 services:
   # Extend PowerSync with Mongo and Postgres healthchecks
   powersync:

@@ -4,9 +4,6 @@ include:
   # Creates the internal MongoDB replica set
   - path: ../../services/mongo.yaml
 
-  # Custom local telemetry service
-  - path: ../../services/telemetry.yaml
-
 services:
   # Extend PowerSync with Mongo healthchecks
   powersync:

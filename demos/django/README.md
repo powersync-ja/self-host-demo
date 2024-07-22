@@ -25,6 +25,6 @@ docker compose -f demos/django/docker-compose.yaml up
 
 The backend will by default be available at `http://localhost:6061`.
 
-The PowerSync backend will by default be available at `http:localhost:8080`.
+The PowerSync backend will by default be available at `http://localhost:8080`.
 
 See the client demos above for starting a client.

@@ -1,0 +1,34 @@
+services:
+  # Collector
+  telemetry-collector:
+    image: otel/opentelemetry-collector-contrib:0.92.0
+    command: ["--config=/conf/collector-config.yaml"]
+    depends_on:
+      - prometheus
+    volumes:
+      - ./telemetry-config/collector-config.yaml:/conf/collector-config.yaml
+    ports:
+      - "4318:4318"
+      - "4317:4317"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./telemetry-config/prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3121:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./telemetry-config/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./telemetry-config/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./telemetry-config/grafana/dashboards:/var/lib/grafana/dashboards
+
+volumes:
+  grafana-storage:

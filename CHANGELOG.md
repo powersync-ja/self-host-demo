@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## v0.5.0
+
+- Added custom telemetry integration (Enterprise only feature) to NodeJS demo
+
 ## v0.4.0
 
 - Added Supabase local development demo.

@@ -22,6 +22,24 @@ docker compose -f demos/nodejs/docker-compose.yaml up
 
 The frontend can be accessed at `http://localhost:3030` in a browser.
 
+### Telemetry
+
+The enterprise edition of the PowerSync self hosting Docker image supports custom telemetry integration.
+
+This demo can be started with custom telemetry by running
+
+```bash
+docker compose -f docker-compose.yaml -f docker-compose-telemetry.yaml up
+```
+
+This will additionally start an OpenTelemetry OTLP collector, Prometheus exporter and Grafana service.
+
+The telemetry can be viewed by accessing `http://localhost:3121` in a browser.
+
+Login with `admin` for both the username and password.
+
+The `Telemetry` dashboard contains panels with various metrics.
+
 ## Cleanup
 
 The `setup.sql` script only runs on the first initialization of the container. Delete the container and volumes if making changes.

@@ -1,0 +1,14 @@
+# Include syntax requires Docker compose > 2.20.3
+# https://docs.docker.com/compose/release-notes/#2203
+include:
+  # Creates the internal MongoDB replica set
+  - path: ../../services/telemetry/telemetry.yaml
+
+services:
+  # Include all services from the other file
+  powersync:
+    extends:
+      file: ./docker-compose.yaml
+      service: powersync
+    # This image needs to be used for custom telemetry integration
+    image: container-registry.staging.journeyapps.com/powersync-service:latest

@@ -8,11 +8,9 @@ telemetry:
 # Settings for source database replication
 replication:
   connections:
-    - type: postgresql
-      uri: !env PS_PG_URI
-
-      # SSL settings
-      sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
+    - type: mysql
+      debug_enabled: true
+      uri: mysql://myuser:mypassword@localhost:3306/mydatabase
 
 # Connection settings for sync bucket storage
 storage:
@@ -32,3 +30,7 @@ client_auth:
 
   # JWKS audience
   audience: ["powersync-dev", "powersync"]
+
+api:
+  tokens:
+    - abc

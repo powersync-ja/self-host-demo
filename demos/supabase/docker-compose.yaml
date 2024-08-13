@@ -3,6 +3,7 @@
 include:
   # Creates the internal MongoDB replica set
   - path: ../../services/mongo.yaml
+  - path: ../../services/mysql.yaml
 
 services:
   # Extend PowerSync with Mongo healthchecks

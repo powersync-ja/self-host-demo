@@ -12,11 +12,11 @@ This repository contains basic demonstrations in the `demos` folder.
 
 - [NodeJS](./demos/nodejs/README.md)
 
-  - This can be stared from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
+  - This can be started from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
 
 - [Django](./demos/django/README.md)
 
-  - This can be stared from the repo root with `docker compose -f demos/django/docker-compose.yaml up`
+  - This can be started from the repo root with `docker compose -f demos/django/docker-compose.yaml up`
 
 - [Supabase](./demos/supabase/README.md)
 

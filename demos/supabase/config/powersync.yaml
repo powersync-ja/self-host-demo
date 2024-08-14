@@ -10,7 +10,7 @@ replication:
   connections:
     - type: mysql
       debug_enabled: true
-      uri: mysql://myuser:mypassword@localhost:3306/mydatabase
+      uri: mysql://repl_user:good_password@localhost:3306/mydatabase
 
 # Connection settings for sync bucket storage
 storage:

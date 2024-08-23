@@ -11,22 +11,27 @@ GRANT ALL PRIVILEGES ON mydatabase.* TO 'repl_user'@'%';
 FLUSH PRIVILEGES;
 
 CREATE TABLE lists (
-    id BINARY(16) NOT NULL DEFAULT (UNHEX(REPLACE(UUID(), '-', ''))),
+    id CHAR(36) NOT NULL DEFAULT (UUID()), -- String UUID (36 characters)
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     name TEXT NOT NULL,
-    owner_id BINARY(16) NOT NULL,
+    owner_id  CHAR(36) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE todos (
-    id BINARY(16) NOT NULL DEFAULT (UNHEX(REPLACE(UUID(), '-', ''))),
+    id CHAR(36) NOT NULL DEFAULT (UUID()), -- String UUID (36 characters)
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     completed_at TIMESTAMP NULL,
     description TEXT NOT NULL,
     completed BOOLEAN NOT NULL DEFAULT FALSE,
-    created_by BINARY(16) NULL,
-    completed_by BINARY(16) NULL,
-    list_id BINARY(16) NOT NULL,
+    created_by  CHAR(36) NULL,
+    completed_by  CHAR(36) NULL,
+    list_id  CHAR(36) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (list_id) REFERENCES lists (id) ON DELETE CASCADE
 );
+
+-- TODO fix case where no data is present
+INSERT INTO lists (id, name, owner_id)
+VALUES 
+    (UUID(), 'Do a demo', UUID());

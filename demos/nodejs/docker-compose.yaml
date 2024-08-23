@@ -7,6 +7,8 @@ include:
   # Demo NodeJS backend server and front-end web client
   - path: ./ps-nodejs-demo.yaml
 
+  - path: ../../services/mysql.yaml
+
 services:
   # Extend PowerSync with Mongo and Postgres healthchecks
   powersync:

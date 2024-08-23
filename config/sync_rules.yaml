@@ -5,5 +5,5 @@
 bucket_definitions:
   global:
     data:
-      - SELECT * FROM lists
-      - SELECT * FROM todos
+      - SELECT * FROM mydatabase.lists
+      - SELECT * FROM mydatabase.todos

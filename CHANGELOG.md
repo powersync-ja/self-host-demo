@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## v0.4.1
+
+- Cleaned `powersync.yaml` config file placeholder values
+
 ## v0.4.0
 
 - Added Supabase local development demo.

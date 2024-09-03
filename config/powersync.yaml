@@ -60,7 +60,7 @@ replication:
       # This should be the certificate content in PEM format
       # client_certificate: !env PS_PG_CLIENT_CERT
       # This should be the key content in PEM format
-      # client_private_key: ${PS_PG_CLIENT_PRIVATE_KEY}
+      # client_private_key: !env PS_PG_CLIENT_PRIVATE_KEY
 
 # This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 
@@ -91,10 +91,10 @@ client_auth:
   # jwks:
   #   keys:
   #     - kty: 'RSA'
-  #       n: '${PS_JWK_N}'
-  #       e: '${PS_JWK_E}'
+  #       n: !env PS_JWK_N
+  #       e: !env PS_JWK_E
   #       alg: 'RS256'
-  #       kid: '${PS_JWK_KID}'
+  #       kid: !env PS_JWK_KID
 
   # JWKS audience
   audience: ["powersync-dev", "powersync"]

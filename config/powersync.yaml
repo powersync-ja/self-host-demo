@@ -53,11 +53,14 @@ replication:
       # 'disable' is OK for local/private networks, not for public networks
 
       # Required for verify-ca, optional for verify-full
-      # cacert: ${PS_PG_CA_CERT}
+      # This should be the certificate(s) content in PEM format
+      # cacert: !env PS_PG_CA_CERT
 
       # Include a certificate here for HTTPs
-      # client_certificate: ${PS_PG_CLIENT_CERT}
-      # client_private_key: ${PS_PG_CLIENT_PRIVATE_KEY}
+      # This should be the certificate content in PEM format
+      # client_certificate: !env PS_PG_CLIENT_CERT
+      # This should be the key content in PEM format
+      # client_private_key: !env PS_PG_CLIENT_PRIVATE_KEY
 
 # This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 
@@ -88,10 +91,10 @@ client_auth:
   # jwks:
   #   keys:
   #     - kty: 'RSA'
-  #       n: '${PS_JWK_N}'
-  #       e: '${PS_JWK_E}'
+  #       n: !env PS_JWK_N
+  #       e: !env PS_JWK_E
   #       alg: 'RS256'
-  #       kid: '${PS_JWK_KID}'
+  #       kid: !env PS_JWK_KID
 
   # JWKS audience
   audience: ["powersync-dev", "powersync"]

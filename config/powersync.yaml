@@ -53,10 +53,13 @@ replication:
       # 'disable' is OK for local/private networks, not for public networks
 
       # Required for verify-ca, optional for verify-full
-      # cacert: ${PS_PG_CA_CERT}
+      # This should be the certificate(s) content in PEM format
+      # cacert: !env PS_PG_CA_CERT
 
       # Include a certificate here for HTTPs
-      # client_certificate: ${PS_PG_CLIENT_CERT}
+      # This should be the certificate content in PEM format
+      # client_certificate: !env PS_PG_CLIENT_CERT
+      # This should be the key content in PEM format
       # client_private_key: ${PS_PG_CLIENT_PRIVATE_KEY}
 
 # This is valid if using the `mongo` service defined in `ps-mongo.yaml`

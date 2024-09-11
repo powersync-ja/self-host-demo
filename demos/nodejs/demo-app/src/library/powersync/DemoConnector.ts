@@ -106,7 +106,7 @@ export class DemoConnector implements PowerSyncBackendConnector {
         }
       }
 
-      await transaction.complete();
+      await transaction.complete(await this.getCheckpoint());
     } catch (ex: any) {
       console.debug(ex);
       if (typeof ex.code == 'string' && FATAL_RESPONSE_CODES.some((regex) => regex.test(ex.code))) {
@@ -119,12 +119,19 @@ export class DemoConnector implements PowerSyncBackendConnector {
          * elsewhere instead of discarding, and/or notify the user.
          */
         console.error(`Data upload error - discarding ${lastOp}`, ex);
-        await transaction.complete();
+        await transaction.complete(await this.getCheckpoint());
       } else {
         // Error may be retryable - e.g. network error or temporary server error.
         // Throwing an error here causes this call to be retried after a delay.
         throw ex;
       }
     }
+  }
+
+  async getCheckpoint() {
+    const r = await fetch(`${this.config.backendUrl}/api/data/checkpoint`, { method: 'PUT' });
+    const j = await r.json();
+    console.log('checkpoint', j);
+    return j.checkpoint as string;
   }
 }

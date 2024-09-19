@@ -1,16 +1,22 @@
-import { NavigationPanelContextProvider } from '@/components/navigation/NavigationPanelContext';
-import { AppSchema } from '@/library/powersync/AppSchema';
-import { DemoConnector } from '@/library/powersync/DemoConnector';
-import { PowerSyncContext } from '@powersync/react';
-import { WASQLitePowerSyncDatabaseOpenFactory } from '@powersync/web';
-import { CircularProgress } from '@mui/material';
-import Logger from 'js-logger';
-import React, { Suspense } from 'react';
+import { NavigationPanelContextProvider } from "@/components/navigation/NavigationPanelContext";
+import { AppSchema } from "@/library/powersync/AppSchema";
+import { DemoConnector } from "@/library/powersync/DemoConnector";
+import { CircularProgress } from "@mui/material";
+import { PowerSyncContext } from "@powersync/react";
+import { PowerSyncDatabase } from "@powersync/web";
+import Logger from "js-logger";
+import React, { Suspense } from "react";
 
-export const db = new WASQLitePowerSyncDatabaseOpenFactory({
-  dbFilename: 'example.db',
-  schema: AppSchema
-}).getInstance();
+export const db = new PowerSyncDatabase({
+  database: {
+    dbFilename: "example.db",
+  },
+  schema: AppSchema,
+  logger: Logger,
+});
+
+// Make db accessible on the console for debugging
+(window as any).db = db;
 
 const ConnectorContext = React.createContext<DemoConnector | null>(null);
 export const useConnector = () => React.useContext(ConnectorContext);
@@ -35,7 +41,9 @@ export const SystemProvider = ({ children }: { children: React.ReactNode }) => {
     <Suspense fallback={<CircularProgress />}>
       <PowerSyncContext.Provider value={powerSync}>
         <ConnectorContext.Provider value={connector}>
-          <NavigationPanelContextProvider>{children}</NavigationPanelContextProvider>
+          <NavigationPanelContextProvider>
+            {children}
+          </NavigationPanelContextProvider>
         </ConnectorContext.Provider>
       </PowerSyncContext.Provider>
     </Suspense>

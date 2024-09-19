@@ -1,18 +1,18 @@
-import { NavigationPanelContextProvider } from "@/components/navigation/NavigationPanelContext";
-import { AppSchema } from "@/library/powersync/AppSchema";
-import { DemoConnector } from "@/library/powersync/DemoConnector";
-import { CircularProgress } from "@mui/material";
-import { PowerSyncContext } from "@powersync/react";
-import { PowerSyncDatabase } from "@powersync/web";
-import Logger from "js-logger";
-import React, { Suspense } from "react";
+import { NavigationPanelContextProvider } from '@/components/navigation/NavigationPanelContext';
+import { AppSchema } from '@/library/powersync/AppSchema';
+import { DemoConnector } from '@/library/powersync/DemoConnector';
+import { CircularProgress } from '@mui/material';
+import { PowerSyncContext } from '@powersync/react';
+import { PowerSyncDatabase } from '@powersync/web';
+import Logger from 'js-logger';
+import React, { Suspense } from 'react';
 
 export const db = new PowerSyncDatabase({
   database: {
-    dbFilename: "example.db",
+    dbFilename: 'example.db'
   },
   schema: AppSchema,
-  logger: Logger,
+  logger: Logger
 });
 
 // Make db accessible on the console for debugging
@@ -41,9 +41,7 @@ export const SystemProvider = ({ children }: { children: React.ReactNode }) => {
     <Suspense fallback={<CircularProgress />}>
       <PowerSyncContext.Provider value={powerSync}>
         <ConnectorContext.Provider value={connector}>
-          <NavigationPanelContextProvider>
-            {children}
-          </NavigationPanelContextProvider>
+          <NavigationPanelContextProvider>{children}</NavigationPanelContextProvider>
         </ConnectorContext.Provider>
       </PowerSyncContext.Provider>
     </Suspense>

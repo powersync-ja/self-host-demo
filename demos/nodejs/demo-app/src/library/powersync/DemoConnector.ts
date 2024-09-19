@@ -1,17 +1,13 @@
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
 
-import {
-  AbstractPowerSyncDatabase,
-  CrudEntry,
-  PowerSyncBackendConnector,
-} from "@powersync/web";
+import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector } from '@powersync/web';
 
 export type DemoConfig = {
   backendUrl: string;
   powersyncUrl: string;
 };
 
-const USER_ID_STORAGE_KEY = "ps_user_id";
+const USER_ID_STORAGE_KEY = 'ps_user_id';
 
 export class DemoConnector implements PowerSyncBackendConnector {
   readonly config: DemoConfig;
@@ -27,25 +23,23 @@ export class DemoConnector implements PowerSyncBackendConnector {
 
     this.config = {
       backendUrl: import.meta.env.VITE_BACKEND_URL,
-      powersyncUrl: import.meta.env.VITE_POWERSYNC_URL,
+      powersyncUrl: import.meta.env.VITE_POWERSYNC_URL
     };
   }
 
   async fetchCredentials() {
-    const tokenEndpoint = "api/auth/token";
+    const tokenEndpoint = 'api/auth/token';
     const res = await fetch(`${this.config.backendUrl}/${tokenEndpoint}`);
 
     if (!res.ok) {
-      throw new Error(
-        `Received ${res.status} from ${tokenEndpoint}: ${await res.text()}`
-      );
+      throw new Error(`Received ${res.status} from ${tokenEndpoint}: ${await res.text()}`);
     }
 
     const body = await res.json();
 
     return {
       endpoint: this.config.powersyncUrl,
-      token: body.token,
+      token: body.token
     };
   }
 
@@ -63,29 +57,23 @@ export class DemoConnector implements PowerSyncBackendConnector {
           op: operation.op,
           table: operation.table,
           id: operation.id,
-          data: operation.opData,
+          data: operation.opData
         };
         batch.push(payload);
       }
 
       const response = await fetch(`${this.config.backendUrl}/api/data`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ batch }),
+        body: JSON.stringify({ batch })
       });
 
       if (!response.ok) {
-        throw new Error(
-          `Received ${response.status} from /api/data: ${await response.text()}`
-        );
+        throw new Error(`Received ${response.status} from /api/data: ${await response.text()}`);
       }
 
-      console.log(
-        "complete transaction",
-        batch.map((o) => o.id)
-      );
       await transaction.complete();
     } catch (ex: any) {
       console.debug(ex);

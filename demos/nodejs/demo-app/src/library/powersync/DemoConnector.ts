@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
+import { db } from '@/components/providers/SystemProvider';
 import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector, UpdateType } from '@powersync/web';
 
 export type DemoConfig = {
@@ -25,6 +26,8 @@ export class DemoConnector implements PowerSyncBackendConnector {
   readonly config: DemoConfig;
   readonly userId: string;
 
+  private _clientId: string | null;
+
   constructor() {
     let userId = localStorage.getItem(USER_ID_STORAGE_KEY);
     if (!userId) {
@@ -32,6 +35,7 @@ export class DemoConnector implements PowerSyncBackendConnector {
       localStorage.setItem(USER_ID_STORAGE_KEY, userId);
     }
     this.userId = userId;
+    this._clientId = null;
 
     this.config = {
       backendUrl: import.meta.env.VITE_BACKEND_URL,
@@ -41,7 +45,7 @@ export class DemoConnector implements PowerSyncBackendConnector {
 
   async fetchCredentials() {
     const tokenEndpoint = 'api/auth/token';
-    const res = await fetch(`${this.config.backendUrl}/${tokenEndpoint}`);
+    const res = await fetch(`${this.config.backendUrl}/${tokenEndpoint}?user_id=${this.userId}`);
 
     if (!res.ok) {
       throw new Error(`Received ${res.status} from ${tokenEndpoint}: ${await res.text()}`);
@@ -60,6 +64,10 @@ export class DemoConnector implements PowerSyncBackendConnector {
 
     if (!transaction) {
       return;
+    }
+
+    if (!this._clientId) {
+      this._clientId = await db.getClientId();
     }
 
     let lastOp: CrudEntry | null = null;
@@ -106,7 +114,7 @@ export class DemoConnector implements PowerSyncBackendConnector {
         }
       }
 
-      await transaction.complete(await this.getCheckpoint());
+      await transaction.complete(await this.getCheckpoint(this._clientId));
     } catch (ex: any) {
       console.debug(ex);
       if (typeof ex.code == 'string' && FATAL_RESPONSE_CODES.some((regex) => regex.test(ex.code))) {
@@ -119,7 +127,7 @@ export class DemoConnector implements PowerSyncBackendConnector {
          * elsewhere instead of discarding, and/or notify the user.
          */
         console.error(`Data upload error - discarding ${lastOp}`, ex);
-        await transaction.complete(await this.getCheckpoint());
+        await transaction.complete(await this.getCheckpoint(this._clientId));
       } else {
         // Error may be retryable - e.g. network error or temporary server error.
         // Throwing an error here causes this call to be retried after a delay.
@@ -128,10 +136,18 @@ export class DemoConnector implements PowerSyncBackendConnector {
     }
   }
 
-  async getCheckpoint() {
-    const r = await fetch(`${this.config.backendUrl}/api/data/checkpoint`, { method: 'PUT' });
+  async getCheckpoint(client_id: string) {
+    const r = await fetch(`${this.config.backendUrl}/api/data/checkpoint`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: this.userId,
+        client_id: client_id
+      })
+    });
     const j = await r.json();
-    console.log('checkpoint', j);
     return j.checkpoint as string;
   }
 }

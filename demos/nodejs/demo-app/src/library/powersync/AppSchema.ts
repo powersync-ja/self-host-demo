@@ -24,7 +24,11 @@ const lists = new TableV2({
 
 export const AppSchema = new Schema({
   todos,
-  lists
+  lists,
+  checkpoints: new TableV2({
+    checkpoint: column.text,
+    user_id: column.text
+  })
 });
 
 export type Database = (typeof AppSchema)['types'];

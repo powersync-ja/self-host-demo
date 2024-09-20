@@ -15,18 +15,11 @@ services:
   # A backend which provides basic authentication and CRUD access to the Postgress DB from the client
   demo-backend:
     build:
-      context: ./demo-backend
-      dockerfile: Dockerfile
+      # TODO update branch after merging
+      context: https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git#configurable-mongo-postgres
     environment:
-      # From the Postgress service name in linked Docker Compose file
-      DATABASE_HOST: pg-db
-
-      # Shared environment variables for Postgres connection
-      DATABASE_PORT: ${PG_DATABASE_PORT}
-      DATABASE_NAME: ${PG_DATABASE_NAME}
-      DATABASE_USER: ${PG_DATABASE_USER}
-      DATABASE_PASSWORD: ${PG_DATABASE_PASSWORD}
-
+      DATABASE_TYPE: ${DEMO_BACKEND_DATABASE_TYPE}
+      DATABASE_URI: ${DEMO_BACKEND_DATABASE_URI}
       # From the PowerSync service name
       # This is just used to populate the JWT audience
       POWERSYNC_URL: powersync-dev

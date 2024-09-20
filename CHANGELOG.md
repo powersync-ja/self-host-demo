@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## v0.5.0
+
+- Added alpha demo for MongoDB replication
+
 ## v0.4.1
 
 - Cleaned `powersync.yaml` config file placeholder values

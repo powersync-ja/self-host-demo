@@ -38,7 +38,7 @@ replication:
 
       # The connection URI or individual parameters can be specified.
       # Individual params take precedence over URI params
-      uri: !env PS_PG_URI
+      uri: !env PS_DATA_SOURCE_URI
 
       # Or use individual params
 

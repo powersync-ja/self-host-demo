@@ -43,7 +43,7 @@ services:
 
       # The following will be inserted into the powersync.yaml file via templating
       # Templates are used for filesystem and base64 configuration files
-      PS_PG_URI: postgres://${PG_DATABASE_USER}:${PG_DATABASE_PASSWORD}@pg-db:${PG_DATABASE_PORT}/${PG_DATABASE_NAME}
+      PS_DATA_SOURCE_URI: ${PS_DATA_SOURCE_URI}
       PS_MONGO_URI: mongodb://mongo:27017/powersync_demo
 
       # Note that powersync.yaml->client_auth->allow_local_jwks must be true for local URLs to work

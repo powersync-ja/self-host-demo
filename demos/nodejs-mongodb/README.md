@@ -20,4 +20,4 @@ or in the root directory run
 docker compose -f demos/nodejs-mongodb/docker-compose.yaml up
 ```
 
-The frontend can be accessed at `http://localhost:3030` in a browser.
+The frontend can be accessed at `http://localhost:3033` in a browser.

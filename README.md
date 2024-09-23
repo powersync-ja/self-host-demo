@@ -34,9 +34,11 @@ Edit the demo `.env` files and config files in the `./config` directory with you
 
 ### Connections
 
-Populate the `replication->connections` entry with your Postgres database connection details.
+Populate the `replication->connections` entry with your database connection details.
 
 A simple Postgres server is provided in the `ps-postgres.yaml` Docker compose file. Be sure to keep the credentials in `powersync.yaml` in sync with the config in `ps-postgres.yaml` if using this server.
+
+See the `nodejs-mongodb` demo for MongoDB connection configuration. 
 
 ### Storage
 

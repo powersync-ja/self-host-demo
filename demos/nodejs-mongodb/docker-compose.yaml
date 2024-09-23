@@ -17,6 +17,6 @@ services:
       mongo-rs-init:
         condition: service_completed_successfully
         # MongoDB support is available via this image version
-    image: journeyapps/powersync-service:0.0.0-dev-20240919151547
+    image: journeyapps/powersync-service:0.0.0-dev-20240923131824
     volumes:
       - ./config:/config

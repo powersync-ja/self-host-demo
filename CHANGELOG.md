@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## v0.5.1
+
+- Use Next (development) PowerSync service image for testing.
+
 ## v0.5.0
 
 - Added alpha demo for MongoDB replication

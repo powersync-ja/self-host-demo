@@ -10,11 +10,11 @@ Learn more about self-hosting PowerSync [here](https://docs.powersync.com/self-h
 
 This repository contains basic demonstrations in the `demos` folder.
 
-- [NodeJS (Postgres)](./demos/nodejs/README.md)
+- [Node.js (Postgres)](./demos/nodejs/README.md)
 
   - This can be started from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
 
-- [NodeJS (MongoDB)](./demos/nodejs-mongodb/README.md)
+- [Node.js (MongoDB)](./demos/nodejs-mongodb/README.md)
 
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb/docker-compose.yaml up`
 
@@ -36,13 +36,15 @@ Edit the demo `.env` files and config files in the `./config` directory with you
 
 Populate the `replication->connections` entry with your database connection details.
 
-A simple Postgres server is provided in the `ps-postgres.yaml` Docker compose file. Be sure to keep the credentials in `powersync.yaml` in sync with the config in `ps-postgres.yaml` if using this server.
+- **Postgres:** A simple Postgres server is provided in the `ps-postgres.yaml` Docker Compose file. Be sure to keep the credentials in `powersync.yaml` in sync with the config in `ps-postgres.yaml` if using this server.
 
-See the `nodejs-mongodb` demo for MongoDB connection configuration. 
+- **MongoDB:** See the [`nodejs-mongodb` demo](./demos/nodejs-mongodb/) for MongoDB connection configuration. 
 
 ### Storage
 
-The PowerSync Service uses MongoDB under the hood. A basic MongoDB replica-set service is available in `ps-mongo.yaml`. The `powersync.yaml` config is configured to use this service by default. Different MongoDB servers can be configured by removing the `include` statement from `docker-compose.yaml` and updating `powersync.yaml`.
+The [PowerSync Service](https://github.com/powersync-ja/powersync-service) uses MongoDB under the hood to store sync bucket state and operation history, regardless of whether you are syncing with a Postgres or MongoDB backend source database.
+
+A basic MongoDB replica-set service is available in `ps-mongo.yaml`. The `powersync.yaml` config is configured to use this service by default. Different MongoDB servers can be configured by removing the `include` statement from `docker-compose.yaml` and updating `powersync.yaml`.
 
 ### Authentication
 

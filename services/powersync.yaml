@@ -42,6 +42,9 @@ services:
       #    command: ['start', '-r', 'unified', '-c64', '[base64 encoded content]']
       POWERSYNC_CONFIG_PATH: /config/powersync.yaml
 
+      # Service memory limits should be adjusted to roughly 80 percent of the system memory capacity
+      NODE_OPTIONS: --max-old-space-size=1000
+
       # Sync rules can be specified as base 64 encoded YAML
       # e.g: Via an environment variable
       # POWERSYNC_SYNC_RULES_B64: "[base64 encoded sync rules]"

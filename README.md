@@ -38,7 +38,7 @@ Populate the `replication->connections` entry with your database connection deta
 
 - **Postgres:** A simple Postgres server is provided in the `ps-postgres.yaml` Docker Compose file. Be sure to keep the credentials in `powersync.yaml` in sync with the config in `ps-postgres.yaml` if using this server.
 
-- **MongoDB:** See the [`nodejs-mongodb` demo](./demos/nodejs-mongodb/) for MongoDB connection configuration. 
+- **MongoDB:** See the [`nodejs-mongodb` demo](./demos/nodejs-mongodb/) for MongoDB connection configuration.
 
 ### Storage
 
@@ -55,6 +55,12 @@ The `key-generator` project demonstrates generating RSA key pairs for token sign
 ### Sync Rules
 
 [Sync Rules](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./config/sync_rules.yaml`.
+
+### Memory Limits
+
+It's recommended to set the `NODE_OPTIONS="--max-old-space-size=<size>"` environment variable to increase the default Node.js memory limit.
+
+Service memory limits should be adjusted to roughly 80 percent of the system memory capacity.
 
 # Cleanup
 

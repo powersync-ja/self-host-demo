@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## v0.5.2
+
+- Added note for PowerSync service memory limits using the `NODE_OPTIONS` environment variable.
+
 ## v0.5.1
 
 - Use Next (development) PowerSync service image for testing.

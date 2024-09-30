@@ -1,3 +1,1 @@
-This folder contains a JSON schema for `powersync.yaml`.
-
-This is not yet published or publicly available. This should be public in future releases.
+This folder contains a JSON schema describing the config used in `powersync.yaml`. This is used in IDE's (e.g. VSCode) to enable autocompletion.

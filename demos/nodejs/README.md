@@ -1,6 +1,6 @@
-# JavaScript Self Hosted Demo
+# JavaScript PowerSync + Postgres Self Hosted Demo
 
-This demo contains a NodeJS backend and React frontend which are linked to a self hosted PowerSync instance.
+This demo contains a NodeJS + Postgres backend and React frontend which are linked to a self hosted PowerSync instance.
 
 Backend code can be found [here](https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo)
 

@@ -1,6 +1,4 @@
-# yaml-language-server: $schema=../../../schema/schema.json
-
-# See https://docs.powersync.com/self-hosting/telemetry
+# yaml-language-server: $schema=../schema/schema.json
 telemetry:
   # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
   disable_telemetry_sharing: false
@@ -8,11 +6,8 @@ telemetry:
 # Settings for source database replication
 replication:
   connections:
-    - type: postgresql
+    - type: mongodb
       uri: !env PS_DATA_SOURCE_URI
-
-      # SSL settings
-      sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
 
 # Connection settings for sync bucket storage
 storage:
@@ -28,7 +23,7 @@ sync_rules:
 
 # Client (application end user) authentication settings
 client_auth:
-  supabase: true
+  # JWKS URIs can be specified here
+  jwks_uri: !env PS_JWKS_URL
 
-  # JWKS audience
   audience: ["powersync-dev", "powersync"]

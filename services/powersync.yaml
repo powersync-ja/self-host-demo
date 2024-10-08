@@ -1,7 +1,14 @@
 services:
   powersync:
     restart: unless-stopped
-    image: journeyapps/powersync-service:latest
+    # This currently uses a development image for the Next version of the PowerSync
+    # service. This Next version contains a new module system which will enable plugable
+    # functionality in the future. Functionality in this version should be the same as the
+    # latest stable version.
+    # Please report any issues experienced. Thank you for testing.
+    # Feel free to revert to the stable version by using
+    #   image: journeyapps/powersync-service:latest
+    image: journeyapps/powersync-service:0.0.0-dev-20240920084840
     # The unified service runs an API server and replication worker in the same container.
     # These services can be executed in different containers by using individual entry commands e.g.
     # Start only the API server with
@@ -35,6 +42,9 @@ services:
       #    command: ['start', '-r', 'unified', '-c64', '[base64 encoded content]']
       POWERSYNC_CONFIG_PATH: /config/powersync.yaml
 
+      # Service memory limits should be adjusted to roughly 80 percent of the system memory capacity
+      NODE_OPTIONS: --max-old-space-size=1000
+
       # Sync rules can be specified as base 64 encoded YAML
       # e.g: Via an environment variable
       # POWERSYNC_SYNC_RULES_B64: "[base64 encoded sync rules]"
@@ -43,7 +53,7 @@ services:
 
       # The following will be inserted into the powersync.yaml file via templating
       # Templates are used for filesystem and base64 configuration files
-      PS_PG_URI: postgres://${PG_DATABASE_USER}:${PG_DATABASE_PASSWORD}@pg-db:${PG_DATABASE_PORT}/${PG_DATABASE_NAME}
+      PS_DATA_SOURCE_URI: ${PS_DATA_SOURCE_URI}
       PS_MONGO_URI: mongodb://mongo:27017/powersync_demo
 
       # Note that powersync.yaml->client_auth->allow_local_jwks must be true for local URLs to work

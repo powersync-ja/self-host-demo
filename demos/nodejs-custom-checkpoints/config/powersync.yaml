@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=../../../schema/schema.json
+telemetry:
+  # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
+  disable_telemetry_sharing: false
+
+# Settings for source database replication
+replication:
+  connections:
+    - type: postgresql
+      # The PowerSync server container can access the Postgres DB via the DB's service name.
+      # In this case the hostname is pg-db
+
+      # The connection URI or individual parameters can be specified.
+      # Individual params take precedence over URI params
+      uri: !env PS_DATA_SOURCE_URI
+      sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
+
+# Connection settings for sync bucket storage
+storage:
+  type: mongodb
+  uri: !env PS_MONGO_URI
+
+# The port which the PowerSync API server will listen on
+port: !env PS_PORT
+
+# Specify sync rules
+sync_rules:
+  path: sync_rules.yaml
+
+# Client (application end user) authentication settings
+client_auth:
+  # JWKS URIs can be specified here
+  jwks_uri: !env PS_JWKS_URL
+
+  audience: ["powersync-dev", "powersync"]

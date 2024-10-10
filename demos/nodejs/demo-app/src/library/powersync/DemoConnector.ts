@@ -1,11 +1,16 @@
 import { v4 as uuid } from 'uuid';
 
-import { AbstractPowerSyncDatabase, CrudEntry, PowerSyncBackendConnector } from '@powersync/web';
+import { AbstractPowerSyncDatabase, PowerSyncBackendConnector } from '@powersync/web';
 
 export type DemoConfig = {
   backendUrl: string;
   powersyncUrl: string;
 };
+
+enum CheckpointMode {
+  CUSTOM = 'custom',
+  MANAGED = 'managed'
+}
 
 const USER_ID_STORAGE_KEY = 'ps_user_id';
 
@@ -57,7 +62,6 @@ export class DemoConnector implements PowerSyncBackendConnector {
       this._clientId = await database.getClientId();
     }
 
-    let lastOp: CrudEntry | null = null;
     try {
       let batch: any[] = [];
       for (let operation of transaction.crud) {
@@ -82,13 +86,21 @@ export class DemoConnector implements PowerSyncBackendConnector {
         throw new Error(`Received ${response.status} from /api/data: ${await response.text()}`);
       }
 
-      await transaction.complete(await this.getCheckpoint(this._clientId));
+      await transaction.complete(
+        import.meta.env.VITE_CHECKPOINT_MODE == CheckpointMode.CUSTOM
+          ? await this.getCheckpoint(this._clientId)
+          : undefined
+      );
     } catch (ex: any) {
       console.debug(ex);
       throw ex;
     }
   }
 
+  /**
+   * Gets a custom Write Checkpoint from the backend. This is only used
+   * when custom Write Checkpoints are enabled during build.
+   */
   async getCheckpoint(client_id: string) {
     const r = await fetch(`${this.config.backendUrl}/api/data/checkpoint`, {
       method: 'PUT',

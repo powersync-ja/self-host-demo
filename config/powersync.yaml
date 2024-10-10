@@ -98,3 +98,8 @@ client_auth:
 
   # JWKS audience
   audience: ["powersync-dev", "powersync"]
+
+api:
+  tokens:
+    # These tokens are used for local admin API route authentication
+    - dont_use_this_token_in_production

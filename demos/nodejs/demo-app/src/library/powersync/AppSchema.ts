@@ -1,9 +1,9 @@
-import { column, Schema, TableV2 } from '@powersync/web';
+import { column, Schema, Table } from '@powersync/web';
 
 export const LISTS_TABLE = 'lists';
 export const TODOS_TABLE = 'todos';
 
-const todos = new TableV2(
+const todos = new Table(
   {
     list_id: column.text,
     created_at: column.text,
@@ -16,7 +16,7 @@ const todos = new TableV2(
   { indexes: { list: ['list_id'] } }
 );
 
-const lists = new TableV2({
+const lists = new Table({
   created_at: column.text,
   name: column.text,
   owner_id: column.text
@@ -24,11 +24,7 @@ const lists = new TableV2({
 
 export const AppSchema = new Schema({
   todos,
-  lists,
-  checkpoints: new TableV2({
-    checkpoint: column.text,
-    user_id: column.text
-  })
+  lists
 });
 
 export type Database = (typeof AppSchema)['types'];

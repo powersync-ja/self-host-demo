@@ -102,4 +102,4 @@ client_auth:
 api:
   tokens:
     # These tokens are used for local admin API route authentication
-    - dont_use_this_token_in_production
+    - use_a_better_token_in_production

@@ -14,7 +14,7 @@ services:
       mongo-rs-init:
         condition: service_completed_successfully
     # Custom Write Checkpoints are only available on Enterprise plan Docker Images
-    image: container-registry.journeyapps.com/powersync:latest
+    image: container-registry.staging.journeyapps.com/powersync-service:0.23.1-checkpoints.staging.1
     volumes:
       - ./config:/config
 

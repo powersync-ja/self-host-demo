@@ -33,3 +33,7 @@ client_auth:
   jwks_uri: !env PS_JWKS_URL
 
   audience: ["powersync-dev", "powersync"]
+
+parameters:
+  # This enables support for custom write checkpoints
+  custom-write-checkpoints: true

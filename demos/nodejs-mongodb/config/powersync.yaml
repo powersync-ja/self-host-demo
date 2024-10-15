@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../schema/schema.json
+# yaml-language-server: $schema=../../../schema/schema.json
 telemetry:
   # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
   disable_telemetry_sharing: false
@@ -27,3 +27,7 @@ client_auth:
   jwks_uri: !env PS_JWKS_URL
 
   audience: ["powersync-dev", "powersync"]
+
+api:
+  tokens:
+    - abc

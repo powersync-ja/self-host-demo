@@ -17,6 +17,8 @@ services:
       file: ../../services/powersync.yaml
       service: powersync
     depends_on:
+      mysql:
+        condition: service_healthy
       mongo-rs-init:
         condition: service_completed_successfully
         # MySQL support is available via this image version

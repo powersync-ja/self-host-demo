@@ -12,6 +12,12 @@ services:
       - ./init-scripts/my.cnf:/etc/mysql/my.cnf
       - ./init-scripts/mysql.sql:/docker-entrypoint-initdb.d/init_user.sql
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
 volumes:
   mysql_data:

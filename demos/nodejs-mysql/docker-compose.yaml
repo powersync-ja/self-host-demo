@@ -19,7 +19,7 @@ services:
     depends_on:
       mongo-rs-init:
         condition: service_completed_successfully
-        # MongoDB support is available via this image version
-    image: journeyapps/powersync-service:0.0.0-dev-20240923154849
+        # MySQL support is available via this image version
+    image: journeyapps/powersync-service:0.0.0-dev-20241018075501
     volumes:
       - ./config:/config

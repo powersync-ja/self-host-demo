@@ -32,7 +32,3 @@ client_auth:
 
   # JWKS audience
   audience: ["powersync-dev", "powersync"]
-
-api:
-  tokens:
-    - abc

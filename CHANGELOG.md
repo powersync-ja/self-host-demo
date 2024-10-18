@@ -1,5 +1,21 @@
 # PowerSync Self Hosted Example
 
+## v0.5.2
+
+- Added note for PowerSync service memory limits using the `NODE_OPTIONS` environment variable.
+
+## v0.5.1
+
+- Use Next (development) PowerSync service image for testing.
+
+## v0.5.0
+
+- Added alpha demo for MongoDB replication
+
+## v0.4.1
+
+- Cleaned `powersync.yaml` config file placeholder values
+
 ## v0.4.0
 
 - Added Supabase local development demo.

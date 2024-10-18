@@ -12,7 +12,7 @@ FLUSH PRIVILEGES;
 
 CREATE TABLE lists (
     id CHAR(36) NOT NULL DEFAULT (UUID()), -- String UUID (36 characters)
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at VARCHAR(50) NULL,
     name TEXT NOT NULL,
     owner_id  CHAR(36) NOT NULL,
     PRIMARY KEY (id)
@@ -20,8 +20,8 @@ CREATE TABLE lists (
 
 CREATE TABLE todos (
     id CHAR(36) NOT NULL DEFAULT (UUID()), -- String UUID (36 characters)
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    completed_at TIMESTAMP NULL,
+    created_at VARCHAR(50) NULL,
+    completed_at VARCHAR(50) NULL,
     description TEXT NOT NULL,
     completed BOOLEAN NOT NULL DEFAULT FALSE,
     created_by  CHAR(36) NULL,

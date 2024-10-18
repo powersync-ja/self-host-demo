@@ -31,7 +31,6 @@ CREATE TABLE todos (
     FOREIGN KEY (list_id) REFERENCES lists (id) ON DELETE CASCADE
 );
 
--- TODO fix case where no data is present
 INSERT INTO lists (id, name, owner_id)
 VALUES 
     (UUID(), 'Do a demo', UUID());

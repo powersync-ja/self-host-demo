@@ -27,7 +27,7 @@ CREATE TABLE checkpoints (
     user_id VARCHAR(255),
     client_id VARCHAR(255),
     checkpoint INTEGER,
-    CONSTRAINT unique_user_client UNIQUE (user_id, client_id)
+    PRIMARY KEY (user_id, client_id)
 );
 
 -- Creates some initial data to be synced

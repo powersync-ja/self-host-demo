@@ -1,0 +1,17 @@
+# See Documentation for more information:
+# https://docs.powersync.com/usage/sync-rules
+
+# Note that changes to this file are not watched.
+
+event_definitions:
+  # Note this event is only supported on Enterprise Plan Docker Images
+  write_checkpoints:
+    payloads:
+      #  This defines where the replicated custom Write Checkpoints should be extracted from
+      - SELECT user_id, checkpoint, client_id FROM checkpoints
+
+bucket_definitions:
+  global:
+    data:
+      - select * from lists
+      - select * from todos

@@ -9,13 +9,15 @@ services:
         VITE_POWERSYNC_URL: http://localhost:${PS_PORT}
         # From the demo-backend defined below
         VITE_BACKEND_URL: http://localhost:${DEMO_BACKEND_PORT}
+        VITE_CHECKPOINT_MODE: managed
     ports:
       - ${DEMO_CLIENT_PORT}:4173
 
   # A backend which provides basic authentication and CRUD access to the Postgress DB from the client
   demo-backend:
     build:
-      context: https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git
+      # TODO update when feature is merged
+      context: https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git#checkpoints
     environment:
       DATABASE_TYPE: ${DEMO_BACKEND_DATABASE_TYPE}
       DATABASE_URI: ${DEMO_BACKEND_DATABASE_URI}

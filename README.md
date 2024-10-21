@@ -14,6 +14,10 @@ This repository contains basic demonstrations in the `demos` folder.
 
   - This can be started from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
 
+- [Node.js (Postgres + Custom Write Checkpoints)](./demos/nodejs-custom-checkpoints/README.md)
+
+  - This can be started from the repo root with `docker compose -f demos/nodejs-custom-checkpoints/docker-compose.yaml up`
+
 - [Node.js (MongoDB)](./demos/nodejs-mongodb/README.md)
 
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb/docker-compose.yaml up`

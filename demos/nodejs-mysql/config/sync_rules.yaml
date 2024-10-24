@@ -7,4 +7,4 @@ bucket_definitions:
   global:
     data:
       - select * from lists
-      - select* from todos
+      - select * from todos

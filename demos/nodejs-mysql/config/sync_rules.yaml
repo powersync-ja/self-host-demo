@@ -6,6 +6,5 @@
 bucket_definitions:
   global:
     data:
-      # mongodb uses _id as the primary key. * excludes _ fields.
-      - select _id as id, * from lists
-      - select _id as id, * from todos
+      - select * from lists
+      - select* from todos

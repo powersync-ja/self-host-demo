@@ -3,7 +3,7 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: mydatabase
+      MYSQL_DATABASE: powersync
       MYSQL_USER: myuser
       MYSQL_PASSWORD: mypassword
     ports:

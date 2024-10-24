@@ -5,7 +5,7 @@ CREATE USER 'repl_user'@'%' IDENTIFIED BY 'good_password';
 GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'repl_user'@'%';
 
 -- Grant access to the specific database
-GRANT ALL PRIVILEGES ON mydatabase.* TO 'repl_user'@'%';
+GRANT ALL PRIVILEGES ON powersync.* TO 'repl_user'@'%';
 
 -- Apply changes
 FLUSH PRIVILEGES;

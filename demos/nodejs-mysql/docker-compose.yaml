@@ -22,6 +22,6 @@ services:
       mongo-rs-init:
         condition: service_completed_successfully
         # MySQL support is available via this image version
-    image: journeyapps/powersync-service:0.0.0-dev-20241018075501
+    image: journeyapps/powersync-service:0.0.0-dev-20241024055608
     volumes:
       - ./config:/config

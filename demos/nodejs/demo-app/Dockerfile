@@ -3,6 +3,7 @@ FROM node:20
 
 ARG VITE_POWERSYNC_URL
 ARG VITE_BACKEND_URL
+ARG VITE_CHECKPOINT_MODE
 
 
 # Set the working directory inside the container

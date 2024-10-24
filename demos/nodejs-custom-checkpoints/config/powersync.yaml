@@ -6,8 +6,14 @@ telemetry:
 # Settings for source database replication
 replication:
   connections:
-    - type: mongodb
+    - type: postgresql
+      # The PowerSync server container can access the Postgres DB via the DB's service name.
+      # In this case the hostname is pg-db
+
+      # The connection URI or individual parameters can be specified.
+      # Individual params take precedence over URI params
       uri: !env PS_DATA_SOURCE_URI
+      sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
 
 # Connection settings for sync bucket storage
 storage:
@@ -28,6 +34,6 @@ client_auth:
 
   audience: ["powersync-dev", "powersync"]
 
-api:
-  tokens:
-    - abc
+parameters:
+  # This enables support for custom write checkpoints
+  custom-write-checkpoints: true

@@ -22,6 +22,10 @@ This repository contains basic demonstrations in the `demos` folder.
 
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb/docker-compose.yaml up`
 
+- [Node.js (MySQL)](./demos/nodejs-mysql/README.md)
+
+  - This can be started from the repo root with `docker compose -f demos/nodejs-mysql/docker-compose.yaml up`
+
 - [Django](./demos/django/README.md)
 
   - This can be started from the repo root with `docker compose -f demos/django/docker-compose.yaml up`

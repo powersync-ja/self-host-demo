@@ -1,0 +1,27 @@
+# Include syntax requires Docker compose > 2.20.3
+# https://docs.docker.com/compose/release-notes/#2203
+include:
+  # Creates a MongoDB replica set. This is used for internal and data storage
+  - path: ../../services/mongo.yaml
+
+  # Demo NodeJS backend server and front-end web client
+  - path: ../nodejs/ps-nodejs-demo.yaml
+
+  # MySQL Data source configuration
+  - path: ../../services/mysql/mysql.yaml
+
+services:
+  # Extend PowerSync with Mongo and Postgres healthchecks
+  powersync:
+    extends:
+      file: ../../services/powersync.yaml
+      service: powersync
+    depends_on:
+      mysql:
+        condition: service_healthy
+      mongo-rs-init:
+        condition: service_completed_successfully
+        # MySQL support is available via this image version
+    image: journeyapps/powersync-service:0.0.0-dev-20241024055608
+    volumes:
+      - ./config:/config

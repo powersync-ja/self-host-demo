@@ -7,7 +7,7 @@
 # The service needs to be restarted for changes to take effect.
 
 event_definitions:
-  # Note this event is only supported on Enterprise Plan Docker Images
+  # Note this event is only supported for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
   write_checkpoints:
     payloads:
       #  This defines where the replicated custom Write Checkpoints should be extracted from

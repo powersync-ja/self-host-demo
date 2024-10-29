@@ -16,8 +16,7 @@ services:
   # A backend which provides basic authentication and CRUD access to the Postgress DB from the client
   demo-backend:
     build:
-      # TODO update when feature is merged
-      context: https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git#checkpoints
+      context: https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git
     environment:
       DATABASE_TYPE: ${DEMO_BACKEND_DATABASE_TYPE}
       DATABASE_URI: ${DEMO_BACKEND_DATABASE_URI}

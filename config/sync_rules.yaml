@@ -4,6 +4,7 @@
 # https://docs.powersync.com/usage/sync-rules
 #
 # Note that changes to this file are not watched.
+# The service needs to be restarted for changes to take effect.
 
 bucket_definitions:
   global:

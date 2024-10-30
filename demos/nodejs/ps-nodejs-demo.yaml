@@ -9,6 +9,7 @@ services:
         VITE_POWERSYNC_URL: http://localhost:${PS_PORT}
         # From the demo-backend defined below
         VITE_BACKEND_URL: http://localhost:${DEMO_BACKEND_PORT}
+        VITE_CHECKPOINT_MODE: managed
     ports:
       - ${DEMO_CLIENT_PORT}:4173
 

@@ -1,0 +1,43 @@
+# Include syntax requires Docker compose > 2.20.3
+# https://docs.docker.com/compose/release-notes/#2203
+include:
+  # Creates a MongoDB replica set. This is used for internal and data storage
+  - path: ../../services/mongo.yaml
+
+services:
+  # Extend PowerSync with Mongo and Postgres healthchecks
+  powersync:
+    extends:
+      file: ../../services/powersync.yaml
+      service: powersync
+    depends_on:
+      mongo-rs-init:
+        condition: service_completed_successfully
+    # Custom Write Checkpoints are only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
+    image: container-registry.journeyapps.com/powersync-service:next
+    volumes:
+      - ./config:/config
+
+  pg-db:
+    extends:
+      file: ../../services/postgres.yaml
+      service: pg-db
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+
+  demo-client:
+    extends:
+      file: ../nodejs/ps-nodejs-demo.yaml
+      service: demo-client
+    build:
+      args:
+        VITE_CHECKPOINT_MODE: custom
+
+  demo-backend:
+    extends:
+      file: ../nodejs/ps-nodejs-demo.yaml
+      service: demo-backend
+
+volumes:
+  # Postgres data
+  pg_data:

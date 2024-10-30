@@ -1,11 +1,11 @@
-import wasm from 'vite-plugin-wasm';
-import topLevelAwait from 'vite-plugin-top-level-await';
 import { fileURLToPath, URL } from 'url';
+import topLevelAwait from 'vite-plugin-top-level-await';
+import wasm from 'vite-plugin-wasm';
 
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { VitePWA } from 'vite-plugin-pwa';
 import { createRequire } from 'node:module';
+import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 const require = createRequire(import.meta.url); // Needed since the config file is also an ES module
 
 // https://vitejs.dev/config/

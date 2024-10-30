@@ -2,6 +2,8 @@
 
 This is a demo for using custom Write Checkpoints with PowerSync. Custom Write Checkpoints eliminate flicker when uploads do not directly reflect in the backend source database. This feature is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
 
+Docs are available [here](https://docs.powersync.com/usage/use-case-examples/custom-write-checkpoints).
+
 ## Running
 
 The `.env` file contains default configuration for the services. Reference this to connect to any services locally.

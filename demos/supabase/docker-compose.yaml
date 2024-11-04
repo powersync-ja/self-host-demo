@@ -15,8 +15,9 @@ services:
         condition: service_completed_successfully
     volumes:
       - ./config:/config
-    environment:
-      PS_PG_URI: postgres://${PG_DATABASE_USER}:${PG_DATABASE_PASSWORD}@${PG_DATABASE_HOSTNAME}:${PG_DATABASE_PORT}/${PG_DATABASE_NAME}
+    networks:
+      - default
+      - supabase_network_powersync_demo
 
   demo-client:
     build:
@@ -27,3 +28,10 @@ services:
         VITE_POWERSYNC_URL: http://localhost:${PS_PORT}
     ports:
       - 4170:4173
+
+# Supabase exposes their services on this network
+networks:
+  # This is derived from `supabase_network_${project_id}`
+  # Where project_id is defined in the `config.toml` file.
+  supabase_network_powersync_demo:
+    external: true

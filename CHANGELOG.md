@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## v0.6.0
+
+- Use Supabase Docker networks. This removes the use of `host.docker.internal` which is not always available on all Systems.
+
 ## v0.5.2
 
 - Added note for PowerSync service memory limits using the `NODE_OPTIONS` environment variable.

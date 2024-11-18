@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## v0.6.1
+
+- Updated `powersync/web` to version `1.11.0` in NodeJS demo app.
+
 ## v0.6.0
 
 - Use Supabase Docker networks. This removes the use of `host.docker.internal` which is not always available on all Systems.

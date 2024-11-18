@@ -21,8 +21,8 @@ importers:
         specifier: ^0.2.3
         version: 0.2.3(esbuild@0.21.5)
       '@journeyapps/wa-sqlite':
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^1.0.0
+        version: 1.0.0
       '@mui/icons-material':
         specifier: ^5.15.15
         version: 5.16.7(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.7)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.7)(react@18.3.1))(@types/react@18.3.7)(react@18.3.1))(@types/react@18.3.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.7)(react@18.3.1)
@@ -33,14 +33,14 @@ importers:
         specifier: ^6.19.6
         version: 6.20.4(@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.7)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.7)(react@18.3.1))(@types/react@18.3.7)(react@18.3.1))(@types/react@18.3.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mui/system@5.16.7(@emotion/react@11.13.3(@types/react@18.3.7)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.7)(react@18.3.1))(@types/react@18.3.7)(react@18.3.1))(@types/react@18.3.7)(react@18.3.1))(@types/react@18.3.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@powersync/common':
-        specifier: ^1.18.0
-        version: 1.18.0
+        specifier: ^1.21.0
+        version: 1.21.0
       '@powersync/react':
         specifier: ^1.4.2
-        version: 1.4.2(@powersync/common@1.18.0)(react@18.3.1)
+        version: 1.4.2(@powersync/common@1.21.0)(react@18.3.1)
       '@powersync/web':
-        specifier: ^1.8.0
-        version: 1.8.0(@journeyapps/wa-sqlite@0.3.0)(@powersync/common@1.18.0)
+        specifier: ^1.11.0
+        version: 1.11.0(@journeyapps/wa-sqlite@1.0.0)(@powersync/common@1.21.0)
       '@supabase/supabase-js':
         specifier: ^2.39.7
         version: 2.45.4
@@ -896,8 +896,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@journeyapps/wa-sqlite@0.3.0':
-    resolution: {integrity: sha512-LQMjcMh92myqzq9kpKFJJ+t1zY7owHTq8TvVYG83luCKzaZepNk86jNB/56fb/vCEy1PQBRc/cI7BTt10SfItA==}
+  '@journeyapps/wa-sqlite@1.0.0':
+    resolution: {integrity: sha512-Quz3LhWHqTXK061RBx7Txq0JzIm0+jgtRV+94qoddw/mLbZDZQmi1dZvPu7IqO+1mpBqce3LbDrytWhp1GhGcA==}
 
   '@jridgewell/gen-mapping@0.3.5':
     resolution: {integrity: sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==}
@@ -1032,8 +1032,8 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@powersync/common@1.18.0':
-    resolution: {integrity: sha512-/145loSK7L/mUX+0zrmXzGufN7EaAE+SqUxROBF+k1LQ3qpTzOJJaS0wBm8gUS9yK+rFH5iiiFJQB9NWLhMy5w==}
+  '@powersync/common@1.21.0':
+    resolution: {integrity: sha512-G77WGytQb3JwqE9vlxcQZwf8w/tBYGJfU99RqJMrD5Tyb4VrCeOrEcmulmL/M7Q+ZYOjpIhpVwQZB+pNocY0jg==}
 
   '@powersync/react@1.4.2':
     resolution: {integrity: sha512-DJcPZuSG8tKGSZgWSLPMf7HF2qgec7b71wH8EL3JhXS5ZWnnuonm76wS6idQ3Yz12rePWel+UZAR30AEV1ZM0g==}
@@ -1041,11 +1041,11 @@ packages:
       '@powersync/common': ^1.18.0
       react: '*'
 
-  '@powersync/web@1.8.0':
-    resolution: {integrity: sha512-aJO+N/0M5/8bJ7xdlxCbvpc+fH/dPXRDUx+nYRi8hNmlmY7Z11cMFiRQs9v6y7A9pN3ZTelU5s3LDVXvGUgvWA==}
+  '@powersync/web@1.11.0':
+    resolution: {integrity: sha512-CviFRNKmW1ym58AO7JnIdJXSmVf4iznydRwJRGwNSAMapAeMNYQ+5oB1884S0XoRCQEFVY+9704Fp4GXCL6PQA==}
     peerDependencies:
-      '@journeyapps/wa-sqlite': ^0.3.0
-      '@powersync/common': ^1.18.0
+      '@journeyapps/wa-sqlite': ^1.0.0
+      '@powersync/common': ^1.21.0
 
   '@remix-run/router@1.19.2':
     resolution: {integrity: sha512-baiMx18+IMuD1yyvOGaHM9QrVUPGGG0jC+z+IPHnRJWUAUvaKuWKyE8gjDj2rzv3sz9zOGoRSPgeBVHRhZnBlA==}
@@ -3629,7 +3629,7 @@ snapshots:
   '@esbuild/win32-x64@0.21.5':
     optional: true
 
-  '@journeyapps/wa-sqlite@0.3.0': {}
+  '@journeyapps/wa-sqlite@1.0.0': {}
 
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:
@@ -3764,19 +3764,19 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@powersync/common@1.18.0':
+  '@powersync/common@1.21.0':
     dependencies:
       js-logger: 1.6.1
 
-  '@powersync/react@1.4.2(@powersync/common@1.18.0)(react@18.3.1)':
+  '@powersync/react@1.4.2(@powersync/common@1.21.0)(react@18.3.1)':
     dependencies:
-      '@powersync/common': 1.18.0
+      '@powersync/common': 1.21.0
       react: 18.3.1
 
-  '@powersync/web@1.8.0(@journeyapps/wa-sqlite@0.3.0)(@powersync/common@1.18.0)':
+  '@powersync/web@1.11.0(@journeyapps/wa-sqlite@1.0.0)(@powersync/common@1.21.0)':
     dependencies:
-      '@journeyapps/wa-sqlite': 0.3.0
-      '@powersync/common': 1.18.0
+      '@journeyapps/wa-sqlite': 1.0.0
+      '@powersync/common': 1.21.0
       async-mutex: 0.4.1
       bson: 6.8.0
       comlink: 4.4.1

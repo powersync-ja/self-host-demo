@@ -1,8 +1,11 @@
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-sync-rules@latest/schema/sync_rules.json
+# 
 # See Documentation for more information:
 # https://docs.powersync.com/usage/sync-rules
+# 
 # Note that changes to this file are not watched.
 # The service needs to be restarted for changes to take effect.
-# yaml-language-server: $schema=https://unpkg.com/@powersync/service-sync-rules@0.0.0-dev-20241018075839/schema/sync_rules.json
+
 bucket_definitions:
   global:
     data:

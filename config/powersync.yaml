@@ -66,8 +66,10 @@ replication:
 
 # Connection settings for sync bucket storage
 storage:
-  type: mongodb
-  uri: !env PS_MONGO_URI
+  type: postgresql
+  uri: !env PS_STORAGE_SOURCE_URI
+  sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
+
   # Use these if authentication is required. The user should have `readWrite` and `dbAdmin` roles
   # username: my-mongo-user
   # password: my-password

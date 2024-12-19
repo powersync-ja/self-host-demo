@@ -19,6 +19,8 @@ services:
     image: container-registry.journeyapps.com/powersync-service:next
     volumes:
       - ./config:/config
+    environment:
+      PS_STORAGE_SOURCE_URI: ${PS_STORAGE_SOURCE_URI}
 
   pg-db:
     extends:

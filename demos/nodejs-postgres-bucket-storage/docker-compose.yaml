@@ -16,7 +16,8 @@ services:
       pg-storage:
         condition: service_healthy
     # Postgres bucket storage is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
-    image: container-registry.journeyapps.com/powersync-service:next
+    # TODO deploy on production registry
+    image: container-registry.staging.journeyapps.com/powersync-service:1.3.3-postgres-bucket-storage.staging.1
     volumes:
       - ./config:/config
     environment:

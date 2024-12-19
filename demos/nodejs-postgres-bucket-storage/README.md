@@ -11,7 +11,8 @@ The `.env` file contains default configuration for the services. Reference this 
 Ensure you have authenticated with our Docker Image repository. Please reach out to support for an access token.
 
 ```bash
-docker login container-registry@journeyapps.com -u user
+# the value for user doesn't matter
+docker login container-registry.journeyapps.com -u user
 ```
 
 This demo can be started by running the following in this demo directory

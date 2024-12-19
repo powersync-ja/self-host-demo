@@ -1,14 +1,7 @@
 services:
   powersync:
     restart: unless-stopped
-    # This currently uses a development image for the Next version of the PowerSync
-    # service. This Next version contains a new module system which will enable plugable
-    # functionality in the future. Functionality in this version should be the same as the
-    # latest stable version.
-    # Please report any issues experienced. Thank you for testing.
-    # Feel free to revert to the stable version by using
-    #   image: journeyapps/powersync-service:latest
-    image: journeyapps/powersync-service:0.0.0-dev-20240920084840
+    image: journeyapps/powersync-service:latest
     # The unified service runs an API server and replication worker in the same container.
     # These services can be executed in different containers by using individual entry commands e.g.
     # Start only the API server with
@@ -76,10 +69,16 @@ services:
       # PS_JWK_E:
       # PS_JWK_KID:
     # This requires image: journeyapps/powersync-service:0.5.8 or later
-    # healthcheck:
-    #   test: ["CMD", "node", "-e", "fetch('http://localhost:${PS_PORT}/probes/liveness').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"]
-    #   interval: 5s
-    #   timeout: 1s
-    #   retries: 15
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:${PS_PORT}/probes/liveness').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"
+        ]
+      interval: 5s
+      timeout: 1s
+      retries: 15
     ports:
       - ${PS_PORT}:${PS_PORT}

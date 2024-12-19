@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## 2024-11-27
+
+- Updated `journeyapps/powersync-service:latest` image specifier which will target `>v.1.0.0` of the Docker image. This version of the Docker image contains support for MongoDB (alpha), MySQL (alpha) and the new modular architecture.
+
 ## v0.6.1
 
 - Updated `powersync/web` to version `1.11.0` in NodeJS demo app.

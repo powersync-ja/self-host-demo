@@ -36,42 +36,16 @@ replication:
       # The PowerSync server container can access the Postgres DB via the DB's service name.
       # In this case the hostname is pg-db
 
-      # The connection URI or individual parameters can be specified.
-      # Individual params take precedence over URI params
       uri: !env PS_DATA_SOURCE_URI
-
-      # Or use individual params
-
-      # hostname: pg-db # From the Docker Compose service name
-      # port: 5432
-      # database: postgres
-      # username: postgres
-      # password: mypassword
-
       # SSL settings
       sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
-      # 'disable' is OK for local/private networks, not for public networks
-
-      # Required for verify-ca, optional for verify-full
-      # This should be the certificate(s) content in PEM format
-      # cacert: !env PS_PG_CA_CERT
-
-      # Include a certificate here for HTTPs
-      # This should be the certificate content in PEM format
-      # client_certificate: !env PS_PG_CLIENT_CERT
-      # This should be the key content in PEM format
-      # client_private_key: !env PS_PG_CLIENT_PRIVATE_KEY
-
-# This is valid if using the `mongo` service defined in `ps-mongo.yaml`
 
 # Connection settings for sync bucket storage
 storage:
-  type: mongodb
-  uri: !env PS_MONGO_URI
-
-  # Use these if authentication is required. The user should have `readWrite` and `dbAdmin` roles
-  # username: my-mongo-user
-  # password: my-password
+  type: postgresql
+  # This accepts the same parameters as a postgres data source connection
+  uri: !env PS_STORAGE_SOURCE_URI
+  sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
 
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT
@@ -82,20 +56,8 @@ sync_rules:
 
 # Client (application end user) authentication settings
 client_auth:
-  # Enable this if using Supabase Auth
-  # supabase: true
-
   # JWKS URIs can be specified here
   jwks_uri: !env PS_JWKS_URL
-
-  # Optional static collection of public keys for JWT verification
-  # jwks:
-  #   keys:
-  #     - kty: 'RSA'
-  #       n: !env PS_JWK_N
-  #       e: !env PS_JWK_E
-  #       alg: 'RS256'
-  #       kid: !env PS_JWK_KID
 
   # JWKS audience
   audience: ["powersync-dev", "powersync"]

@@ -16,8 +16,9 @@ replication:
 
 # Connection settings for sync bucket storage
 storage:
-  type: mongodb
-  uri: !env PS_MONGO_URI
+  type: postgresql
+  uri: !env PS_STORAGE_SOURCE_URI
+  sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
 
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT

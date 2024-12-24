@@ -8,6 +8,7 @@ replication:
   connections:
     - type: mongodb
       uri: !env PS_DATA_SOURCE_URI
+      post_images: auto_configure
 
 # Connection settings for sync bucket storage
 storage:

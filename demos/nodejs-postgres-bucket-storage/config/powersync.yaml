@@ -46,17 +46,6 @@ storage:
   # This accepts the same parameters as a postgres data source connection
   uri: !env PS_STORAGE_SOURCE_URI
   sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
-  batch_limits:
-    # Maximum estimated size of operations in a single batch.
-    # Defaults to 5 megabytes.
-    max_estimated_size: 50000000
-    # Maximum number of records present in a single batch.
-    # Defaults to 2000 records.
-    # Increasing this limit can improve replication times for large volumes of data.
-    max_record_count: 200000
-    # Maximum size of size of current_data documents we lookup at a time.
-    # Defaults to 50 megabytes.
-    max_current_data_batch_size: 50000000
 
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT

@@ -15,8 +15,6 @@ services:
         condition: service_healthy
       pg-storage:
         condition: service_healthy
-    # Postgres bucket storage is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
-    image: container-registry.journeyapps.com/powersync-service:postgres-bucket-storage
     volumes:
       - ./config:/config
     environment:
@@ -41,7 +39,6 @@ services:
       - pg_storage_data:/var/lib/postgresql/data
     ports:
       - "${PG_STORAGE_DATABASE_PORT}:${PG_STORAGE_DATABASE_PORT}"
-    command: ["postgres", "-c", "wal_level=logical"]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${PG_STORAGE_DATABASE_USER} -d ${PG_STORAGE_DATABASE_NAME}"]
       interval: 5s

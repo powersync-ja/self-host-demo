@@ -28,3 +28,10 @@ docker compose -f demos/nodejs-postgres-bucket-storage/docker-compose.yaml up
 ```
 
 The frontend can be accessed at `http://localhost:3039` in a browser.
+
+The Postgres databases can be accessed at the following URIs
+
+Application data: `postgres://postgres:postgres@localhost:5432/postgres`
+
+bucket storage: `postgres://postgres:postgres@localhost:5431/postgres`
+Bucket storage tables are located in the `powersync` schema.

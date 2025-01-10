@@ -1,6 +1,6 @@
 # PowerSync Self Hosted Example
 
-## 2024-12-19
+## 2025-01-10
 
 - Added demo for using Postgres as the bucket storage.
 

@@ -19,9 +19,6 @@ services:
       - ./config:/config
     environment:
       PS_STORAGE_SOURCE_URI: ${PS_STORAGE_SOURCE_URI}
-    image:
-      # This is not yet available in the latest release
-      journeyapps/powersync-service:0.0.0-dev-20250110144411
   pg-db:
     extends:
       file: ../../services/postgres.yaml

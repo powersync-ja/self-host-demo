@@ -2,7 +2,7 @@ services:
   powersync:
     restart: unless-stopped
     image:
-      # Postgres bucker storage is not yet available in the latest release
+      # Postgres bucket storage is not yet available in the latest release
       journeyapps/powersync-service:0.0.0-dev-20250114143744
     # The unified service runs an API server and replication worker in the same container.
     # These services can be executed in different containers by using individual entry commands e.g.

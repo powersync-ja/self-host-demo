@@ -34,6 +34,10 @@ This repository contains basic demonstrations in the `demos` folder.
 
   - See the README for instructions.
 
+- [Node.js (Postgres + Postgres Sync Bucket Storage)](./demos/nodejs-postgres-bucket-storage/README.md)
+
+  - This can be started from the repo root with `docker compose -f demos/nodejs-postgres-bucket-storage/docker-compose.yaml up`
+
 # Config
 
 The configuration can be modified to match other project topologies.

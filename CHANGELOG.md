@@ -1,5 +1,10 @@
 # PowerSync Self Hosted Example
 
+## 2025-01-16
+
+- Updated PowerSync SDK packages in demo application.
+- Updated Supabase demo to use JWT secret
+
 ## 2025-01-10
 
 - Added demo for using Postgres as the bucket storage.

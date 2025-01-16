@@ -16,9 +16,8 @@ replication:
 
 # Connection settings for sync bucket storage
 storage:
-  type: postgresql
-  uri: !env PS_STORAGE_SOURCE_URI
-  sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
+  type: mongodb
+  uri: !env PS_MONGO_URI
 
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT
@@ -30,6 +29,7 @@ sync_rules:
 # Client (application end user) authentication settings
 client_auth:
   supabase: true
+  supabase_jwt_secret: !env PS_SUPABASE_JWT_SECRET
 
   # JWKS audience
   audience: ["powersync-dev", "powersync"]

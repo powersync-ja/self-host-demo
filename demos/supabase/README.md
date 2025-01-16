@@ -18,7 +18,7 @@ Start the Supabase project
 supabase start
 ```
 
-Once started the console will contain details for the Supabase services. Apply the `anon key` to the `.env` file.
+Once started the console will contain details for the Supabase services. Apply the `anon key` and `JWT secret` to the `.env` file.
 
 Note: Default Supabase projects expose the Postgres DB on a high port number. We currently only support ports in the range of `port >= 1024 && port <= 49151`. This demo configures Postgres on port `5433`.
 

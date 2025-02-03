@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## 2025-02-03
+
+- Updated Postgres sync bucket storage readme.
+
 ## 2025-01-16
 
 - Updated PowerSync SDK packages in demo application.

@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## 2025-05-13
+
+- Updated YAML config files to use published schema
+
 ## 2025-02-03
 
 - Updated Postgres sync bucket storage readme.

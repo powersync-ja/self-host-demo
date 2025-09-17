@@ -2,7 +2,7 @@
 
 This is a demo for using Postgres as the sync bucket storage driver with PowerSync.
 
-See the Postgres sync bucket storage [docs](https://docs.powersync.com/self-hosting/installation/powersync-service-setup#postgres-storage-beta) for more information.
+See the Postgres sync bucket storage [docs](https://docs.powersync.com/self-hosting/installation/powersync-service-setup#postgres-storage) for more information.
 
 ## Running
 

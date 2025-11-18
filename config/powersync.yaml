@@ -86,7 +86,7 @@ client_auth:
   # supabase: true
 
   # JWKS URIs can be specified here
-  jwks_uri: !env PS_JWKS_URL
+  jwks_uri: !env PS_JWKS_URL # Not applicable for Supabase
 
   # Optional static collection of public keys for JWT verification
   # jwks:

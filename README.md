@@ -36,7 +36,10 @@ This repository contains basic demonstrations in the `demos` folder.
 
 - [Node.js (Postgres + Postgres Sync Bucket Storage)](./demos/nodejs-postgres-bucket-storage/README.md)
 
-  - This can be started from the repo root with `docker compose -f demos/nodejs-postgres-bucket-storage/docker-compose.yaml up`
+  [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/powersync-starter-postgres?referralCode=kChzwj&utm_medium=github&utm_source=selfhostdemo)
+
+  - This stack can be deployed on Railway using a template
+  - Allternatively, start this from the repo root with `docker compose -f demos/nodejs-postgres-bucket-storage/docker-compose.yaml up`
 
 # Config
 

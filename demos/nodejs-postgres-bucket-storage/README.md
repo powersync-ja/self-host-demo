@@ -4,7 +4,11 @@ This is a demo for using Postgres as the sync bucket storage driver with PowerSy
 
 See the Postgres sync bucket storage [docs](https://docs.powersync.com/self-hosting/installation/powersync-service-setup#postgres-storage) for more information.
 
-## Running
+## Deploy on Railway
+
+  [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/powersync-starter-postgres?referralCode=kChzwj&utm_medium=github&utm_source=selfhostdemo)
+
+## Running locally
 
 The `.env` file contains default configuration for the services. Reference this to connect to any services locally.
 

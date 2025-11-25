@@ -1,6 +1,6 @@
 services:
   pg-db:
-    image: postgres:latest
+    image: postgres:18
     restart: always
     environment:
       - POSTGRES_USER=${PG_DATABASE_USER}

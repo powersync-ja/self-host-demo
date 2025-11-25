@@ -27,7 +27,7 @@ services:
       - ../nodejs/init-scripts:/docker-entrypoint-initdb.d
 
   pg-storage:
-    image: postgres:latest
+    image: postgres:18
     restart: always
     environment:
       - POSTGRES_USER=${PG_STORAGE_DATABASE_USER}
@@ -39,7 +39,11 @@ services:
     ports:
       - "${PG_STORAGE_DATABASE_PORT}:${PG_STORAGE_DATABASE_PORT}"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${PG_STORAGE_DATABASE_USER} -d ${PG_STORAGE_DATABASE_NAME}"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${PG_STORAGE_DATABASE_USER} -d ${PG_STORAGE_DATABASE_NAME}",
+        ]
       interval: 5s
       timeout: 5s
       retries: 5

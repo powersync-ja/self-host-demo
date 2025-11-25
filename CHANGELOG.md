@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## 2025-11-25
+
+- Created the MSSQL Self host demo and configuration.
+
 ## 2025-05-13
 
 - Updated YAML config files to use published schema

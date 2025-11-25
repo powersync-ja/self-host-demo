@@ -35,7 +35,7 @@ services:
       - POSTGRES_PASSWORD=${PG_STORAGE_DATABASE_PASSWORD}
       - PGPORT=${PG_STORAGE_DATABASE_PORT}
     volumes:
-      - pg_storage_data:/var/lib/postgresql/data
+      - pg_storage_data:/var/lib/postgresql
     ports:
       - "${PG_STORAGE_DATABASE_PORT}:${PG_STORAGE_DATABASE_PORT}"
     healthcheck:

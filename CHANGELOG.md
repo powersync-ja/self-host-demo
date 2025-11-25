@@ -1,5 +1,29 @@
 # PowerSync Self Hosted Example
 
+## 2025-11-25
+
+### Postgres 18 Upgrade
+
+Updated Postgres demos for Postgres 18 compatibility. Postgres 18 contains breaking changes for Docker volume mount points. First time demo runners should be able to start the demo using the standard `docker compose up` commands.
+
+Users with existing configurations should either:
+
+#### Start from a clean slate
+
+With the relevant demo directory as the current working directory, run:
+
+```bash
+# Clear previous data (this deletes Docker volumes)
+docker compose down --volumes
+
+# Run the demo
+docker compose up
+```
+
+#### Migrate existing data
+
+See https://github.com/docker-library/postgres/issues/37 for options.
+
 ## 2025-05-13
 
 - Updated YAML config files to use published schema

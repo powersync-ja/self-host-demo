@@ -1,6 +1,6 @@
 services:
   pg-db:
-    image: postgres:latest
+    image: postgres:18
     restart: always
     environment:
       - POSTGRES_USER=${PG_DATABASE_USER}
@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=${PG_DATABASE_PASSWORD}
       - PGPORT=${PG_DATABASE_PORT}
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql
     ports:
       - "${PG_DATABASE_PORT}:${PG_DATABASE_PORT}"
     command: ["postgres", "-c", "wal_level=logical"]

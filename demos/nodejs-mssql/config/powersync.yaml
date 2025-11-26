@@ -8,6 +8,8 @@ replication:
   connections:
     - type: mssql
       uri: !env PS_DATA_SOURCE_URI
+      schema: dbo
+      trustServerCertificate: true
 
 # Connection settings for sync bucket storage
 storage:

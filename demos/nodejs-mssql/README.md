@@ -20,7 +20,7 @@ or in the root directory run
 docker compose -f demos/nodejs-mssql/docker-compose.yaml up
 ```
 
-The frontend can be accessed at `http://localhost:3035` in a browser.
+The frontend can be accessed at `http://localhost:3036` in a browser.
 
 ## Configuration
 

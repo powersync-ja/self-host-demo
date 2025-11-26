@@ -8,11 +8,11 @@ services:
       - "1433:1433"
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "${SA_PASSWORD}"
+      MSSQL_SA_PASSWORD: "${ROOT_PASSWORD}"
       MSSQL_PID: "Developer"
       MSSQL_AGENT_ENABLED: "true"   # required for CDC capture/cleanup jobs
     volumes:
-      - mssql-selfhosted-data:/var/opt/mssql
+      - data:/var/opt/mssql
     healthcheck:
       test: [ "CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$${MSSQL_SA_PASSWORD}\" -Q \"SELECT 1;\" || exit 1" ]
       interval: 5s
@@ -27,13 +27,13 @@ services:
       mssql-selfhosted:
         condition: service_healthy
     environment:
-      SA_PASSWORD: "${SA_PASSWORD}"
-      APP_DB: "${APP_DB}"
-      APP_LOGIN: "${APP_LOGIN}"
-      APP_PASSWORD: "${APP_PASSWORD}"
+      MSSQL_SA_PASSWORD: "${ROOT_PASSWORD}"
+      DATABASE: "${DATABASE}"
+      DB_USER: "${DB_USER}"
+      DB_USER_PASSWORD: "${DB_USER_PASSWORD}"
     volumes:
       - ./init.sql:/scripts/init.sql:ro
-    entrypoint: ["/bin/bash", "-lc", "/opt/mssql-tools18/bin/sqlcmd -C -S mssql-selfhosted,1433 -U sa -P \"$SA_PASSWORD\" -i /scripts/init.sql && echo '✅ MSSQL init done'"]
+    entrypoint: ["/bin/bash", "-lc", "/opt/mssql-tools18/bin/sqlcmd -C -S mssql-selfhosted,1433 -U sa -P \"$${MSSQL_SA_PASSWORD}\" -i /scripts/init.sql && echo '✅ MSSQL init done'"]
 
 volumes:
-  mssql-selfhosted-data:
+  data:

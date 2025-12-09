@@ -4,6 +4,7 @@ BEGIN
     CREATE DATABASE [$(DATABASE)];
 END
 GO
+PRINT 'Successfully created $(DATABASE) database.';
 
 -- Enable CDC at the database level (idempotent)
 USE [$(DATABASE)];
@@ -12,6 +13,7 @@ BEGIN
     EXEC sys.sp_cdc_enable_db;
 END
 GO
+PRINT 'Enabled CDC on $(DATABASE) database.';
 
 -- Create a SQL login (server) if missing
 USE [master];
@@ -20,6 +22,7 @@ BEGIN
     CREATE LOGIN [$(DB_USER)] WITH PASSWORD = '$(DB_USER_PASSWORD)', CHECK_POLICY = ON;
 END
 GO
+PRINT 'Created SQL Login for [$(DB_USER)].';
 
 -- Create DB user for the app DB if missing
 USE [$(DATABASE)];
@@ -28,16 +31,19 @@ BEGIN
     CREATE USER [$(DB_USER)] FOR LOGIN [$(DB_USER)];
 END
 GO
+PRINT 'Created DB user [$(DB_USER)].';
 
 -- Required for PowerSync to access the sys.dm_db_log_stats DMV
 USE [master];
 GRANT VIEW SERVER PERFORMANCE STATE TO [$(DB_USER)];
 GO
+PRINT 'Granted VIEW SERVER PERFORMANCE STATE to [$(DB_USER)].';
 
 -- Required for PowerSync to access the sys.dm_db_log_stats DMV and the sys.dm_db_partition_stats DMV
 USE [$(DATABASE)];
 GRANT VIEW DATABASE PERFORMANCE STATE TO [$(DB_USER)];
 GO
+PRINT 'Granted VIEW DATABASE PERFORMANCE STATE to [$(DB_USER)].';
 
 -- Create PowerSync checkpoints table
 -- Powersync requires this table to ensure regular checkpoints appear in CDC
@@ -49,8 +55,9 @@ CREATE TABLE dbo._powersync_checkpoints (
 );
 END
 
-GRANT INSERT, UPDATE ON dbo._powersync_checkpoints TO [$(DB_USER)];
+GRANT SELECT, INSERT, UPDATE ON dbo._powersync_checkpoints TO [$(DB_USER)];
 GO
+PRINT 'Created _powersync_checkpoints table.';
 
 -- Enable CDC for the powersync checkpoints table
 IF NOT EXISTS (SELECT 1 FROM cdc.change_tables WHERE source_object_id = OBJECT_ID(N'dbo._powersync_checkpoints'))
@@ -62,6 +69,7 @@ EXEC sys.sp_cdc_enable_table
         @supports_net_changes = 0;
 END
 GO
+PRINT 'Enabled CDC on _powersync_checkpoints table.';
 
 -- Wait until capture job exists - usually takes a few seconds after enabling CDC on a table for the first time
 DECLARE @tries int = 10;
@@ -74,6 +82,21 @@ END;
 -- Set the CDC capture job polling interval to 1 second (default is 5 seconds)
 EXEC sys.sp_cdc_change_job @job_type = N'capture', @pollinginterval = 1;
 GO
+PRINT 'Set CDC capture job polling interval to 1 second.';
+
+-- Grant minimal rights to read CDC data
+USE [$(DATABASE)];
+IF IS_ROLEMEMBER('cdc_reader', '$(DB_USER)') = 0
+BEGIN
+    ALTER ROLE cdc_reader ADD MEMBER [$(DB_USER)];
+END
+GO
+PRINT 'Added [$(DB_USER)] to cdc_reader role.';
+
+-- Grant select on the CDC schema
+GRANT SELECT ON SCHEMA :: cdc TO [$(DB_USER)];
+GO
+PRINT 'Granted SELECT on cdc schema to [$(DB_USER)].';
 
 /* -----------------------------------------------------------
    Create demo lists and todos tables and enables CDC on them.
@@ -92,6 +115,19 @@ END
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.lists TO [$(DB_USER)];
 GO
+PRINT 'Created demo lists table.';
+
+-- Enable CDC for dbo.lists (idempotent guard)
+IF NOT EXISTS (SELECT 1 FROM cdc.change_tables WHERE source_object_id = OBJECT_ID(N'dbo.lists'))
+BEGIN
+EXEC sys.sp_cdc_enable_table
+        @source_schema = N'dbo',
+        @source_name   = N'lists',
+        @role_name     = N'cdc_reader',
+        @supports_net_changes = 0;
+END
+GO
+PRINT 'Enabled CDC on demo lists table.';
 
 IF OBJECT_ID('dbo.todos', 'U') IS NULL
 BEGIN
@@ -106,22 +142,12 @@ CREATE TABLE dbo.todos (
     list_id UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT PK_todos PRIMARY KEY (id),
     CONSTRAINT FK_todos_lists FOREIGN KEY (list_id) REFERENCES dbo.lists(id) ON DELETE CASCADE
-
+);
 END
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.todos TO [$(DB_USER)];
 GO
-
--- Enable CDC for dbo.lists (idempotent guard)
-IF NOT EXISTS (SELECT 1 FROM cdc.change_tables WHERE source_object_id = OBJECT_ID(N'dbo.lists'))
-BEGIN
-EXEC sys.sp_cdc_enable_table
-        @source_schema = N'dbo',
-        @source_name   = N'lists',
-        @role_name     = N'cdc_reader',
-        @supports_net_changes = 0;
-END
-GO
+PRINT 'Created demo todos table.';
 
 -- Enable CDC for dbo.todos (idempotent guard)
 IF NOT EXISTS (SELECT 1 FROM cdc.change_tables WHERE source_object_id = OBJECT_ID(N'dbo.todos'))
@@ -133,16 +159,7 @@ EXEC sys.sp_cdc_enable_table
         @supports_net_changes = 0;
 END
 GO
-
--- Grant minimal rights to read CDC data
-IF IS_ROLEMEMBER('cdc_reader', '$(DB_USER)') = 0
-BEGIN
-    ALTER ROLE cdc_reader ADD MEMBER [$(DB_USER)];
-END
-GO
-
--- Grant select on the CDC schema
-GRANT SELECT ON SCHEMA::cdc TO [$(DB_USER)];
+PRINT 'Enabled CDC on demo todos table.';
 
 -- Add demo data
 IF NOT EXISTS (SELECT 1 FROM dbo.lists)
@@ -151,3 +168,5 @@ INSERT INTO dbo.lists (id, name, owner_id)
 VALUES (NEWID(), 'Do a demo', NEWID());
 END
 GO
+
+PRINT 'Successfully set up MSSQL database for PowerSync demo.';

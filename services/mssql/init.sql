@@ -9,7 +9,7 @@ GO
 USE [$(DATABASE)];
 IF (SELECT is_cdc_enabled FROM sys.databases WHERE name = '$(DATABASE)') = 0
 BEGIN
-EXEC sys.sp_cdc_enable_db;
+    EXEC sys.sp_cdc_enable_db;
 END
 GO
 
@@ -44,8 +44,8 @@ GO
 IF OBJECT_ID('dbo._powersync_checkpoints', 'U') IS NULL
 BEGIN
 CREATE TABLE dbo._powersync_checkpoints (
-                                            id INT IDENTITY PRIMARY KEY,
-                                            last_updated DATETIME NOT NULL DEFAULT (GETDATE())
+    id INT IDENTITY PRIMARY KEY,
+    last_updated DATETIME NOT NULL DEFAULT GETUTCDATE()
 );
 END
 
@@ -82,34 +82,34 @@ GO
 IF OBJECT_ID('dbo.lists', 'U') IS NULL
 BEGIN
 CREATE TABLE dbo.lists (
-                           id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-                           created_at DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
-                           name NVARCHAR(MAX) NOT NULL,
-                           owner_id UNIQUEIDENTIFIER NOT NULL,
-                           CONSTRAINT PK_lists PRIMARY KEY (id)
+    id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    created_at DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    name NVARCHAR(MAX) NOT NULL,
+    owner_id UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT PK_lists PRIMARY KEY (id)
 );
 END
 
-GRANT INSERT, UPDATE, DELETE ON dbo.lists TO [$(DB_USER)];
+GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.lists TO [$(DB_USER)];
 GO
 
 IF OBJECT_ID('dbo.todos', 'U') IS NULL
 BEGIN
 CREATE TABLE dbo.todos (
-                           id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-                           created_at DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
-                           completed_at DATETIME2 NULL,
-                           description NVARCHAR(MAX) NOT NULL,
-                           completed BIT NOT NULL DEFAULT 0,
-                           created_by UNIQUEIDENTIFIER NULL,
-                           completed_by UNIQUEIDENTIFIER NULL,
-                           list_id UNIQUEIDENTIFIER NOT NULL,
-                           CONSTRAINT PK_todos PRIMARY KEY (id),
-                           CONSTRAINT FK_todos_lists FOREIGN KEY (list_id) REFERENCES dbo.lists(id) ON DELETE CASCADE
-);
+    id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    created_at DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    completed_at DATETIME2 NULL,
+    description NVARCHAR(MAX) NOT NULL,
+    completed BIT NOT NULL DEFAULT 0,
+    created_by UNIQUEIDENTIFIER NULL,
+    completed_by UNIQUEIDENTIFIER NULL,
+    list_id UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT PK_todos PRIMARY KEY (id),
+    CONSTRAINT FK_todos_lists FOREIGN KEY (list_id) REFERENCES dbo.lists(id) ON DELETE CASCADE
+
 END
 
-GRANT INSERT, UPDATE, DELETE ON dbo.todos TO [$(DB_USER)];
+GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.todos TO [$(DB_USER)];
 GO
 
 -- Enable CDC for dbo.lists (idempotent guard)
@@ -135,16 +135,14 @@ END
 GO
 
 -- Grant minimal rights to read CDC data
-IF IS_ROLEMEMBER('db_datareader', '$(DB_USER)') = 0
-BEGIN
-    ALTER ROLE db_datareader ADD MEMBER [$(DB_USER)];
-END
-
 IF IS_ROLEMEMBER('cdc_reader', '$(DB_USER)') = 0
 BEGIN
     ALTER ROLE cdc_reader ADD MEMBER [$(DB_USER)];
 END
 GO
+
+-- Grant select on the CDC schema
+GRANT SELECT ON SCHEMA::cdc TO [$(DB_USER)];
 
 -- Add demo data
 IF NOT EXISTS (SELECT 1 FROM dbo.lists)

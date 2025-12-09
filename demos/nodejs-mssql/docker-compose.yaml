@@ -1,0 +1,65 @@
+# Include syntax requires Docker compose > 2.20.3
+# https://docs.docker.com/compose/release-notes/#2203
+include:
+  # Creates a MongoDB replica set. This is used for internal and data storage
+  - path: ../../services/mongo.yaml
+
+  # MSSQL Data source configuration
+  - path: ../../services/mssql/mssql.yaml
+
+services:
+  # Extend PowerSync with Mongo and MSSQL healthchecks
+  powersync:
+    extends:
+      file: ../../services/powersync.yaml
+      service: powersync
+    depends_on:
+      mssql-selfhosted:
+        condition: service_healthy
+      mssql-selfhosted-setup:
+        condition: service_completed_successfully
+      mongo-rs-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./config:/config
+
+  # Demo NodeJS backend server and front-end web client copied from ps-nodejs-demo.yaml
+  # so that the demo backend depend_on could be overriden to wait for MSSQL to be ready
+  # An example demo app which is linked to the PowerSync instance above
+  demo-client:
+    build:
+      context: ../nodejs/demo-app
+      dockerfile: Dockerfile
+      args:
+        # This is from the perspective of the client running in a local machine's browser
+        VITE_POWERSYNC_URL: http://localhost:${PS_PORT}
+        # From the demo-backend defined below
+        VITE_BACKEND_URL: http://localhost:${DEMO_BACKEND_PORT}
+        VITE_CHECKPOINT_MODE: managed
+    ports:
+      - ${DEMO_CLIENT_PORT}:4173
+
+  # A backend which provides basic authentication and CRUD access to the Postgress DB from the client
+  demo-backend:
+    build:
+      context: https://github.com/powersync-ja/powersync-nodejs-backend-todolist-demo.git
+    depends_on:
+      mssql-selfhosted:
+        condition: service_healthy
+      mssql-selfhosted-setup:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_TYPE: ${DEMO_BACKEND_DATABASE_TYPE}
+      DATABASE_URI: ${DEMO_BACKEND_DATABASE_URI}
+      # From the PowerSync service name
+      # This is just used to populate the JWT audience
+      POWERSYNC_URL: powersync-dev
+
+      # Keys here for demonstration
+      POWERSYNC_PUBLIC_KEY: ${DEMO_JWKS_PUBLIC_KEY}
+      POWERSYNC_PRIVATE_KEY: ${DEMO_JWKS_PRIVATE_KEY}
+      JWT_ISSUER: powersync-dev
+
+      PORT: ${DEMO_BACKEND_PORT}
+    ports:
+      - ${DEMO_BACKEND_PORT}:${DEMO_BACKEND_PORT}

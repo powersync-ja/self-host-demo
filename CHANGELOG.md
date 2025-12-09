@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## 2025-11-26
+
+- Created the MSSQL Self host demo and configuration.
+
 ## 2025-11-25
 
 ### Postgres 18 Upgrade

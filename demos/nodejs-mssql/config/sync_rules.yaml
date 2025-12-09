@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-sync-rules@latest/schema/sync_rules.json
+# 
+# See Documentation for more information:
+# https://docs.powersync.com/usage/sync-rules
+# 
+# Note that changes to this file are not watched.
+# The service needs to be restarted for changes to take effect.
+
+bucket_definitions:
+  global:
+    data:
+      - select * from lists
+      - select * from todos

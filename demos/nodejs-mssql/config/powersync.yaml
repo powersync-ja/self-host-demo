@@ -11,6 +11,9 @@ replication:
       schema: dbo
       additionalConfig:
         trustServerCertificate: true
+        pollingIntervalMs: 1000
+        # Transactions processed per polling cycle
+        pollingBatchSize: 20
 
 # Connection settings for sync bucket storage
 storage:

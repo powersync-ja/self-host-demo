@@ -4,7 +4,7 @@ This is demonstration of running Supabase locally in tandem with our [React Supa
 
 ## Getting Started
 
-If you don't have the Supabase CLI installed, follow the [instructions](https://supabase.com/docs/guides/local-development/cli/getting-started#installing-the-supabase-cli).
+Make sure you are using the latest version of the Supabase CLI. If you don't have the Supabase CLI installed, follow the [instructions](https://supabase.com/docs/guides/local-development/cli/getting-started#installing-the-supabase-cli). 
 
 Then, copy the environment variables template file
 

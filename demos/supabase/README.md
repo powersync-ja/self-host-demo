@@ -6,12 +6,6 @@ This is demonstration of running Supabase locally in tandem with our [React Supa
 
 Make sure you are using the latest version of the Supabase CLI. If you don't have the Supabase CLI installed, follow the [instructions](https://supabase.com/docs/guides/local-development/cli/getting-started#installing-the-supabase-cli). 
 
-Then, copy the environment variables template file
-
-```bash
-cp .env.template .env
-```
-
 Start the Supabase project using the setup script (this automatically generates asymmetric signing keys):
 
 ```bash

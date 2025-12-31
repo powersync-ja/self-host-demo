@@ -21,10 +21,8 @@ supabase gen signing-key --algorithm ES256 --append
 supabase start
 ```
 
-Once started the console will contain details for the Supabase services. Apply the `Publishable authentication key` to the `.env` file in the `SUPABASE_PUBLISHABLE_KEY` variable.
-
-> **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint. 
-
 Start the demonstration with `docker compose up`
 
 The frontend should be available at `http://localhost:4170`
+
+> **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint. 

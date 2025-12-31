@@ -24,7 +24,7 @@ services:
       dockerfile: demo-client.dockerfile
       args:
         VITE_SUPABASE_URL: ${SUPABASE_URL}
-        VITE_SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+        SUPABASE_PUBLISHABLE_KEY: ${SUPABASE_PUBLISHABLE_KEY}
         VITE_POWERSYNC_URL: http://localhost:${PS_PORT}
     ports:
       - 4170:4173

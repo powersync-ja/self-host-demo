@@ -31,8 +31,6 @@ Once started the console will contain details for the Supabase services. Apply t
 
 > **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint. 
 
-**Note:** Default Supabase projects expose the Postgres DB on a high port number. We currently only support ports in the range of `port >= 1024 && port <= 49151`. This demo configures Postgres on port `5433`.
-
 Start the demonstration with `docker compose up`
 
 The frontend should be available at `http://localhost:4170`

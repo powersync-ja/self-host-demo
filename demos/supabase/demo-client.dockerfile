@@ -2,26 +2,21 @@
 FROM node:20
 
 ARG VITE_SUPABASE_URL=
-ARG VITE_SUPABASE_ANON_KEY=
+ARG SUPABASE_PUBLISHABLE_KEY=
 ARG VITE_POWERSYNC_URL=
+
+ENV VITE_SUPABASE_ANON_KEY=${SUPABASE_PUBLISHABLE_KEY}
 
 # Set the working directory inside the container
 
 RUN git clone https://github.com/powersync-ja/powersync-js.git
-WORKDIR /powersync-js
 
 RUN npm install -g pnpm
-
-# Install dependencies
-RUN pnpm install
-
-# Build packages
-RUN pnpm build:packages
 
 WORKDIR  /powersync-js/demos/react-supabase-todolist
 
 # Build project in production mode
-RUN pnpm build
+RUN pnpm install && pnpm build
 
 # Start hosting
 CMD ["pnpm", "preview", "--host"]

@@ -28,8 +28,10 @@ sync_rules:
 
 # Client (application end user) authentication settings
 client_auth:
+  # Enable Supabase Auth - PowerSync will fetch public keys from Supabase's JWKS endpoint
   supabase: true
-  supabase_jwt_secret: !env PS_SUPABASE_JWT_SECRET
+  # Note: With asymmetric signing keys (ES256), the JWT secret is not needed. "kong" is Supabase's networking container
+  jwks_uri: http://kong:8000/auth/v1/.well-known/jwks.json
 
   # JWKS audience
-  audience: ["powersync-dev", "powersync"]
+  audience: ["authenticated"]

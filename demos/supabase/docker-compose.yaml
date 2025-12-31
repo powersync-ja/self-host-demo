@@ -18,8 +18,6 @@ services:
     networks:
       - default
       - supabase_network_powersync_demo
-    environment:
-      PS_SUPABASE_JWT_SECRET: ${PS_SUPABASE_JWT_SECRET}
 
   demo-client:
     build:

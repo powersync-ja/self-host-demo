@@ -29,7 +29,7 @@ supabase start
 
 Once started the console will contain details for the Supabase services. Apply the `Publishable authentication key` to the `.env` file in the `SUPABASE_PUBLISHABLE_KEY` variable.
 
-> **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint. You no longer need to configure `PS_SUPABASE_JWT_SECRET`.
+> **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint. 
 
 **Note:** Default Supabase projects expose the Postgres DB on a high port number. We currently only support ports in the range of `port >= 1024 && port <= 49151`. This demo configures Postgres on port `5433`.
 

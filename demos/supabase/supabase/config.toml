@@ -67,6 +67,8 @@ file_size_limit = "50MiB"
 
 [auth]
 enabled = true
+# Use asymmetric JWT signing keys (ES256) instead of legacy JWT secret
+signing_keys_path = "./signing_key.json"
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
 site_url = "http://127.0.0.1:3000"

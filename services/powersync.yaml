@@ -55,6 +55,10 @@ services:
       # The port which the PowerSync API server should run on
       PS_PORT: ${PS_PORT}
 
+      # The order of precedence for logging config is: environment variables > config file > default (info/text)
+      # PS_LOG_LEVEL: info
+      # PS_LOG_FORMAT: text
+
       #  CA certificate for Postgres connection
       # PS_PG_CA_CERT:
 

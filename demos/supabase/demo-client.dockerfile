@@ -12,13 +12,9 @@ WORKDIR /powersync-js
 
 RUN npm install -g pnpm
 
-# Install dependencies
-RUN pnpm install
-
-# Build packages
-RUN pnpm build:packages
-
 WORKDIR  /powersync-js/demos/react-supabase-todolist
+
+RUN pnpm install
 
 # Build project in production mode
 RUN pnpm build

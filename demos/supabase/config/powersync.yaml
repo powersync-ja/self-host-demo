@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../../../schema/schema.json
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-schema@latest/json-schema/powersync-config.json
 
 # See https://docs.powersync.com/self-hosting/telemetry
 telemetry:

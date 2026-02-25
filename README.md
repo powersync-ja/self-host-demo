@@ -63,9 +63,9 @@ This example uses JWKS which provides the public key directly to the PowerSync i
 
 The `key-generator` project demonstrates generating RSA key pairs for token signing.
 
-### Sync Rules
+### Sync Config
 
-[Sync Rules](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./config/sync_config.yaml`.
+[Sync Config](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./config/sync_config.yaml`.
 
 ### Memory Limits
 

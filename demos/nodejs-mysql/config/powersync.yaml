@@ -17,7 +17,7 @@ storage:
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT
 
-# Specify sync rules
+# Specify sync config
 sync_rules:
   path: sync_config.yaml
 

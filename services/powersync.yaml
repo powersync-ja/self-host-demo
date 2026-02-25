@@ -21,7 +21,7 @@ services:
     command: ["start", "-r", "unified"]
     volumes:
       # Mounts the specified config folder to the container
-      # This folder should contain `powersync.yaml and sync_config.yaml
+      # This folder should contain `powersync.yaml` and `sync_config.yaml`
       - ../config:/config
     environment:
       # This is the path (inside the container) to the YAML config file

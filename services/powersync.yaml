@@ -1,7 +1,8 @@
 services:
   powersync:
     restart: unless-stopped
-    image: journeyapps/powersync-service:latest
+    # image: journeyapps/powersync-service:latest
+    image: psconfig
     # The unified service runs an API server and replication worker in the same container.
     # These services can be executed in different containers by using individual entry commands e.g.
     # Start only the API server with
@@ -20,7 +21,7 @@ services:
     command: ["start", "-r", "unified"]
     volumes:
       # Mounts the specified config folder to the container
-      # This folder should contain `powersync.yaml and sync_rules.yaml
+      # This folder should contain `powersync.yaml and sync_config.yaml
       - ../config:/config
     environment:
       # This is the path (inside the container) to the YAML config file

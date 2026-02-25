@@ -6,9 +6,13 @@
 # Note that changes to this file are not watched.
 # The service needs to be restarted for changes to take effect.
 
-bucket_definitions:
+config:
+  edition: 3
+
+streams:
   global:
-    data:
+    auto_subscribe: true
+    queries:
       # mongodb uses _id as the primary key. * excludes _ fields.
       - select _id as id, * from lists
       - select _id as id, * from todos

@@ -19,7 +19,7 @@ port: !env PS_PORT
 
 # Specify sync rules
 sync_rules:
-  path: sync_rules.yaml
+  path: sync_config.yaml
 
 # Client (application end user) authentication settings
 client_auth:

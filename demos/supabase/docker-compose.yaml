@@ -14,7 +14,7 @@ services:
       mongo-rs-init:
         condition: service_completed_successfully
     volumes:
-      - ./config:/config
+      - ./powersync:/config
     networks:
       - default
       - supabase_network_powersync_demo

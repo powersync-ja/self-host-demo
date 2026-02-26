@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## 2026-02-25
+
+- Updated sync config to use sync streams.
+
 ## 2025-11-26
 
 - Created the MSSQL Self host demo and configuration.

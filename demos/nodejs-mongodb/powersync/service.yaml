@@ -6,14 +6,9 @@ telemetry:
 # Settings for source database replication
 replication:
   connections:
-    - type: postgresql
-      # The PowerSync server container can access the Postgres DB via the DB's service name.
-      # In this case the hostname is pg-db
-
-      # The connection URI or individual parameters can be specified.
-      # Individual params take precedence over URI params
+    - type: mongodb
       uri: !env PS_DATA_SOURCE_URI
-      sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
+      post_images: auto_configure
 
 # Connection settings for sync bucket storage
 storage:
@@ -23,9 +18,9 @@ storage:
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT
 
-# Specify sync rules
-sync_rules:
-  path: sync_rules.yaml
+# Specify sync config
+sync_config:
+  path: sync-config.yaml
 
 # Client (application end user) authentication settings
 client_auth:
@@ -33,3 +28,8 @@ client_auth:
   jwks_uri: !env PS_JWKS_URL
 
   audience: ["powersync-dev", "powersync"]
+
+api:
+  tokens:
+    # These tokens are used for local admin API route authentication
+    - use_a_better_token_in_production

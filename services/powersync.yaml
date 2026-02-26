@@ -27,14 +27,14 @@ services:
       # This is the path (inside the container) to the YAML config file
       # Alternatively the config path can be specified in the command
       # e.g:
-      #   command: ['start', '-r', 'unified', '-c', '/config/powersync.yaml']
+      #   command: ['start', '-r', 'unified', '-c', '/config/service.yaml']
       #
       # The config file can also be specified in Base 64 encoding
       # e.g.: Via an environment variable
       #   POWERSYNC_CONFIG_B64: [base64 encoded content]
       # or e.g.: Via a command line parameter
       #    command: ['start', '-r', 'unified', '-c64', '[base64 encoded content]']
-      POWERSYNC_CONFIG_PATH: /config/powersync.yaml
+      POWERSYNC_CONFIG_PATH: /config/service.yaml
 
       # Service memory limits should be adjusted to roughly 80 percent of the system memory capacity
       NODE_OPTIONS: --max-old-space-size=1000

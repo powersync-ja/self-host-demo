@@ -52,7 +52,7 @@ port: !env PS_PORT
 
 # Specify sync config
 sync_config:
-  path: sync_config.yaml
+  path: sync-config.yaml
 
 # Client (application end user) authentication settings
 client_auth:

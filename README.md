@@ -65,7 +65,7 @@ The `key-generator` project demonstrates generating RSA key pairs for token sign
 
 ### Sync Config
 
-[Sync Configs](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./config/sync_config.yaml`.
+[Sync Configs](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./config/sync-config.yaml`.
 
 ### Memory Limits
 

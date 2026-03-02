@@ -6,8 +6,12 @@
 # Note that changes to this file are not watched.
 # The service needs to be restarted for changes to take effect.
 
-bucket_definitions:
+config:
+  edition: 3
+
+streams:
   global:
-    data:
+    auto_subscribe: true
+    queries:
       - SELECT * FROM lists
       - SELECT * FROM todos

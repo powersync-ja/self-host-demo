@@ -6,8 +6,14 @@ telemetry:
 # Settings for source database replication
 replication:
   connections:
-    - type: mysql
+    - type: mssql
       uri: !env PS_DATA_SOURCE_URI
+      schema: dbo
+      additionalConfig:
+        trustServerCertificate: true
+        pollingIntervalMs: 1000
+        # Transactions processed per polling cycle
+        pollingBatchSize: 20
 
 # Connection settings for sync bucket storage
 storage:
@@ -17,9 +23,9 @@ storage:
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT
 
-# Specify sync rules
-sync_rules:
-  path: sync_rules.yaml
+# Specify sync config
+sync_config:
+  path: sync-config.yaml
 
 # Client (application end user) authentication settings
 client_auth:

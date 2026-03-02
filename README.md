@@ -11,37 +11,29 @@ Learn more about self-hosting PowerSync [here](https://docs.powersync.com/self-h
 This repository contains basic demonstrations in the `demos` folder.
 
 - [Node.js (Postgres)](./demos/nodejs/README.md)
-
   - This can be started from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
 
 - [Node.js (Postgres + Custom Write Checkpoints)](./demos/nodejs-custom-checkpoints/README.md)
-
   - This can be started from the repo root with `docker compose -f demos/nodejs-custom-checkpoints/docker-compose.yaml up`
 
 - [Node.js (MongoDB)](./demos/nodejs-mongodb/README.md)
-
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb/docker-compose.yaml up`
 
 - [Node.js (MySQL)](./demos/nodejs-mysql/README.md)
-
   - This can be started from the repo root with `docker compose -f demos/nodejs-mysql/docker-compose.yaml up`
 
 - [Node.js (SQL Server)](./demos/nodejs-mssql/README.md)
-
   - This can be started from the repo root with `docker compose -f demos/nodejs-mssql/docker-compose.yaml up`
 
 - [Django](./demos/django/README.md)
-
   - This can be started from the repo root with `docker compose -f demos/django/docker-compose.yaml up`
 
 - [Supabase](./demos/supabase/README.md)
-
   - See the README for instructions.
 
 - [Node.js (Postgres + Postgres Sync Bucket Storage)](./demos/nodejs-postgres-bucket-storage/README.md)
 
   [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/powersync-starter-postgres?referralCode=kChzwj&utm_medium=github&utm_source=selfhostdemo)
-
   - This stack can be deployed on Railway using a template
   - Allternatively, start this from the repo root with `docker compose -f demos/nodejs-postgres-bucket-storage/docker-compose.yaml up`
 
@@ -49,7 +41,7 @@ This repository contains basic demonstrations in the `demos` folder.
 
 The configuration can be modified to match other project topologies.
 
-Edit the demo `.env` files and config files in the `./config` directory with your specific settings.
+Edit the demo `.env` files and config files in the `./powersync` directory with your specific settings.
 
 ### Connections
 
@@ -71,9 +63,9 @@ This example uses JWKS which provides the public key directly to the PowerSync i
 
 The `key-generator` project demonstrates generating RSA key pairs for token signing.
 
-### Sync Rules
+### Sync Config
 
-[Sync Rules](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./config/sync_rules.yaml`.
+[Sync Configs](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./powersync/sync-config.yaml`.
 
 ### Memory Limits
 

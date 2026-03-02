@@ -21,7 +21,7 @@ services:
       mongo-rs-init:
         condition: service_completed_successfully
     volumes:
-      - ./config:/config
+      - ./powersync:/config
 
   # Demo NodeJS backend server and front-end web client copied from ps-nodejs-demo.yaml
   # so that the demo backend depend_on could be overriden to wait for MSSQL to be ready

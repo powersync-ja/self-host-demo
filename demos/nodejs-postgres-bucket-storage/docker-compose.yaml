@@ -16,7 +16,7 @@ services:
       pg-storage:
         condition: service_healthy
     volumes:
-      - ./config:/config
+      - ./powersync:/config
     environment:
       PS_STORAGE_SOURCE_URI: ${PS_STORAGE_SOURCE_URI}
   pg-db:

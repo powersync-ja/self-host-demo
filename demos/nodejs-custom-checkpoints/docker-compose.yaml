@@ -16,7 +16,7 @@ services:
     # Custom Write Checkpoints are only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
     image: container-registry.journeyapps.com/powersync-service:next
     volumes:
-      - ./config:/config
+      - ./powersync:/config
 
   pg-db:
     extends:

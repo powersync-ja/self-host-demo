@@ -5,6 +5,8 @@
 #
 # Note that changes to this file are not watched.
 # The service needs to be restarted for changes to take effect.
+config:
+  edition: 3
 
 event_definitions:
   # Note this event is only supported for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
@@ -13,8 +15,9 @@ event_definitions:
       #  This defines where the replicated custom Write Checkpoints should be extracted from
       - SELECT user_id, checkpoint, client_id FROM checkpoints
 
-bucket_definitions:
+streams:
   global:
-    data:
-      - select * from lists
-      - select * from todos
+    auto_subscribe: true
+    queries:
+      - SELECT * FROM lists
+      - SELECT * FROM todos

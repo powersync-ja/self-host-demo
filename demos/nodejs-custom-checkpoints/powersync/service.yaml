@@ -1,6 +1,4 @@
-# yaml-language-server: $schema=../../../schema/schema.json
-
-# See https://docs.powersync.com/self-hosting/telemetry
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-schema@latest/json-schema/powersync-config.json
 telemetry:
   # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
   disable_telemetry_sharing: false
@@ -9,9 +7,12 @@ telemetry:
 replication:
   connections:
     - type: postgresql
-      uri: !env PS_DATA_SOURCE_URI
+      # The PowerSync server container can access the Postgres DB via the DB's service name.
+      # In this case the hostname is pg-db
 
-      # SSL settings
+      # The connection URI or individual parameters can be specified.
+      # Individual params take precedence over URI params
+      uri: !env PS_DATA_SOURCE_URI
       sslmode: disable # 'verify-full' (default) or 'verify-ca' or 'disable'
 
 # Connection settings for sync bucket storage
@@ -22,16 +23,13 @@ storage:
 # The port which the PowerSync API server will listen on
 port: !env PS_PORT
 
-# Specify sync rules
-sync_rules:
-  path: sync_rules.yaml
+# Specify sync config
+sync_config:
+  path: sync-config.yaml
 
 # Client (application end user) authentication settings
 client_auth:
-  # Enable Supabase Auth - PowerSync will fetch public keys from Supabase's JWKS endpoint
-  supabase: true
-  # Note: With asymmetric signing keys (ES256), the JWT secret is not needed. "kong" is Supabase's networking container
-  jwks_uri: http://kong:8000/auth/v1/.well-known/jwks.json
+  # JWKS URIs can be specified here
+  jwks_uri: !env PS_JWKS_URL
 
-  # JWKS audience
-  audience: ["authenticated"]
+  audience: ["powersync-dev", "powersync"]

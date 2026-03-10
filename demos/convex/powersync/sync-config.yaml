@@ -1,0 +1,11 @@
+config:
+  edition: 3
+streams:
+  # AUTO-SUBSCRIBE: always synced for the logged-in user
+  user_lists:
+    auto_subscribe: true
+    query: SELECT _id as id, * FROM lists WHERE owner_id = auth.user_id()
+
+  user_todos:
+    auto_subscribe: true
+    query: SELECT _id as id, * FROM todos WHERE list_id IN (SELECT _id FROM lists WHERE owner_id = auth.user_id())

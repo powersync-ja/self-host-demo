@@ -28,6 +28,9 @@ This repository contains basic demonstrations in the `demos` folder.
 - [Django](./demos/django/README.md)
   - This can be started from the repo root with `docker compose -f demos/django/docker-compose.yaml up`
 
+- [Convex](./demos/convex/README.md)
+  - This can be started from the repo root with `docker compose -f demos/convex/docker-compose.yaml up`
+
 - [Supabase](./demos/supabase/README.md)
   - See the README for instructions.
 

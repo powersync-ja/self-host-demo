@@ -52,6 +52,12 @@ This single command will:
 | PowerSync | http://localhost:8080 | Sync service (Convex connector) |
 | Demo App | http://localhost:3030 | React todo-list |
 
+If the Convex dashboard prompts for an admin secret, use the generated deploy key from the shared setup volume:
+
+```bash
+docker compose -f demos/convex/docker-compose.yaml run --rm --no-deps --entrypoint cat convex-keygen /setup/deploy_key
+```
+
 ## PowerSync Configuration
 
 PowerSync is included in this Docker Compose file with the Convex connector module:
@@ -66,6 +72,12 @@ The service config lives in `powersync/service.yaml`, and sync rules live in `po
 ## Authentication
 
 Convex Auth handles user authentication (email/password). The Convex Auth session JWT is reused directly for PowerSync authentication. PowerSync verifies tokens via Convex Auth's JWKS endpoint.
+
+## Data Flow
+
+The React app reads synced data from the local PowerSync SQLite database. Local writes are queued by PowerSync and uploaded by the demo app's connector to Convex mutations, then PowerSync streams the resulting Convex changes back to subscribed clients.
+
+Convex generates its own `_id` values, while PowerSync needs stable local row IDs before writes reach Convex. The todo-list demo uses a local-first `uuid` for lists and todos, and the sync rules select `uuid AS id` so synced rows line up with the local SQLite records.
 
 ## Seeding Data
 

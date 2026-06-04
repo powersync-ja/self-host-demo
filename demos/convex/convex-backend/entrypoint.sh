@@ -3,25 +3,25 @@ set -eu
 
 echo "=== Convex Setup ==="
 
-ADMIN_KEY_FILE="/setup/admin_key"
-echo "Checking for admin key at ${ADMIN_KEY_FILE}..."
+DEPLOY_KEY_FILE="/setup/deploy_key"
+echo "Checking for deploy key at ${DEPLOY_KEY_FILE}..."
 
-if [ ! -s "$ADMIN_KEY_FILE" ]; then
-  echo "ERROR: Admin key file not found or empty"
+if [ ! -s "$DEPLOY_KEY_FILE" ]; then
+  echo "ERROR: Deploy key file not found or empty"
   exit 1
 fi
 
-ADMIN_KEY=$(grep -v '^[[:space:]]*$' "$ADMIN_KEY_FILE" | tail -1 | tr -d '\r\n')
+DEPLOY_KEY=$(tr -d '\r\n' < "$DEPLOY_KEY_FILE")
 
-if [ -z "$ADMIN_KEY" ]; then
-  echo "ERROR: Could not parse admin key"
+if [ -z "$DEPLOY_KEY" ]; then
+  echo "ERROR: Deploy key is empty"
   exit 1
 fi
 
-echo "Admin key obtained"
+echo "Deploy key obtained"
 
 echo "Pushing Convex functions..."
-export CONVEX_SELF_HOSTED_ADMIN_KEY="$ADMIN_KEY"
+export CONVEX_SELF_HOSTED_ADMIN_KEY="$DEPLOY_KEY"
 npx convex deploy
 echo "Functions pushed"
 

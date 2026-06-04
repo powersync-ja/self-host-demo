@@ -66,9 +66,8 @@ services:
   # Reads the admin key, pushes Convex functions, and sets JWT_PRIVATE_KEY + JWKS.
   convex-setup:
     build:
-      # TODO: Replace with the public Git repository URL when it is ready.
       # The Convex backend source is fetched from the demo
-      context: https://github.com:powersync-community/powersync-convex-todolist-demo.git#demo-dockerfile
+      context: https://github.com/powersync-community/powersync-convex-todolist-demo.git
     entrypoint: ["/bin/sh", "/convex-backend/entrypoint.sh"]
     depends_on:
       convex-keygen:
@@ -103,7 +102,7 @@ services:
 
   # ── PowerSync Service ───────────────────────────────────────────────────────
   powersync:
-    image: journeyapps/powersync-service:0.0.0-dev-20260514153539
+    image: journeyapps/powersync-service:latest
     restart: unless-stopped
     entrypoint: ["/bin/sh", "-c"]
     command:
@@ -140,8 +139,7 @@ services:
   # ── React Demo Client ───────────────────────────────────────────────────────
   demo-client:
     build:
-      # TODO: Update branch once merged
-      context: https://github.com:powersync-community/powersync-convex-todolist-demo.git#demo-dockerfile
+      context: https://github.com/powersync-community/powersync-convex-todolist-demo.git
       dockerfile: Dockerfile
       args:
         VITE_CONVEX_URL: http://127.0.0.1:${CONVEX_PORT:-3210}

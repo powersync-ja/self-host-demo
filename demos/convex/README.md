@@ -58,6 +58,18 @@ If the Convex dashboard prompts for an admin secret, use the generated deploy ke
 docker compose -f demos/convex/docker-compose.yaml run --rm --no-deps --entrypoint cat convex-keygen /setup/deploy_key
 ```
 
+## Compose Services
+
+The Compose project starts a small local stack with one-time setup services and long-running application services:
+
+- `backend`: the self-hosted Convex backend. It stores application data, serves Convex functions, exposes HTTP actions/JWKS, and is the source database PowerSync replicates from.
+- `dashboard`: the Convex dashboard UI for inspecting the local backend.
+- `convex-keygen`: a one-time helper that uses the Convex backend data volume to generate an admin/deploy key and writes it into the shared setup volume.
+- `convex-setup`: a one-time setup container that reads the generated key, deploys the Convex functions from the todo-list demo project to `backend`, and configures Convex Auth JWT/JWKS settings.
+- `mongo` and `mongo-rs-init`: MongoDB bucket storage for the PowerSync Service, plus a one-time replica-set initializer.
+- `powersync`: the PowerSync Service. It waits for Convex setup and MongoDB initialization, then connects to the Convex backend with the generated deploy key and replicates rows selected by `powersync/sync-config.yaml`.
+- `demo-client`: the React todo-list app. It connects to PowerSync for local SQLite reads and sync status, and connects to the Convex backend for authentication and writes through Convex mutations.
+
 ## PowerSync Configuration
 
 PowerSync is included in this Docker Compose file with the Convex connector module:

@@ -19,6 +19,8 @@ Browser (React + PowerSync SDK)
 
 The `.env` file contains default port configuration. Reference it to connect to services locally.
 
+The compose file builds the React frontend and Convex functions from [`powersync-community/powersync-convex-todolist-demo`](https://github.com/powersync-community/powersync-convex-todolist-demo). Update the Git repository or branch in `docker-compose.yaml` when changing the demo source.
+
 From the repo root:
 
 ```bash
@@ -37,9 +39,8 @@ This single command will:
 2. Generate an admin key
 3. Push Convex functions (schema, auth, mutations)
 4. Configure JWT keys for authentication
-5. Generate PowerSync configuration (using the admin key as deploy key)
-6. Start the PowerSync service with the Convex connector
-7. Build and start the React demo app
+5. Start the PowerSync service with the Convex connector
+6. Build and start the React demo app
 
 ## Services
 
@@ -53,14 +54,14 @@ This single command will:
 
 ## PowerSync Configuration
 
-PowerSync is included in this Docker Compose file with the Convex connector module. The configuration is generated automatically during setup:
+PowerSync is included in this Docker Compose file with the Convex connector module:
 
 - **Deploy key**: The Convex admin key is used as the deploy key for replication
 - **JWKS**: PowerSync verifies client tokens via the Convex Auth JWKS endpoint (`http://backend:3211/.well-known/jwks.json`)
 - **Storage**: MongoDB replica set for PowerSync bucket storage
 - **Sync rules**: The logged in user's rows from `lists` and `todos` tables are synced
 
-The generated config files are written to the shared Docker volume at `/setup/powersync.yaml` and `/setup/sync-config.yaml`.
+The service config lives in `powersync/service.yaml`, and sync rules live in `powersync/sync-config.yaml`.
 
 ## Authentication
 
@@ -68,10 +69,11 @@ Convex Auth handles user authentication (email/password). The Convex Auth sessio
 
 ## Seeding Data
 
-After the demo is running, you can seed sample data via the Convex dashboard at http://localhost:6791 or by running:
+After the demo is running, seed sample data from the Convex dashboard at http://localhost:6791.
+
+If you are working directly in the todo-list demo repository, you can also seed from that checkout with the Convex CLI after setting `CONVEX_SELF_HOSTED_URL` and `CONVEX_SELF_HOSTED_ADMIN_KEY` for this local deployment:
 
 ```bash
-# From a machine with Node.js and the Convex CLI
 pnpx convex run seed:seedLists '{"count": 10}'
 ```
 

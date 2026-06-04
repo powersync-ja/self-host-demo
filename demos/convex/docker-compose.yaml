@@ -45,7 +45,7 @@ services:
 
   # ── Admin Key Generator ─────────────────────────────────────────────────────
   # Runs generate_admin_key.sh from the backend image using the shared data
-  # volume, then writes the key to a shared setup volume for convex-setup.
+  # volume, then writes the deploy key to a shared setup volume.
   convex-keygen:
     image: ghcr.io/get-convex/convex-backend:latest
     depends_on:
@@ -59,14 +59,17 @@ services:
       - |
         echo "Generating admin key..."
         ./generate_admin_key.sh > /setup/admin_key 2>&1
-        cat /setup/admin_key
-        echo "Admin key written to /setup/admin_key"
+        grep -v '^[[:space:]]*$' /setup/admin_key | tail -1 | tr -d '\r\n' > /setup/deploy_key
+        echo "Admin key generated"
 
   # ── Convex Setup (push functions + configure JWT) ───────────────────────────
   # Reads the admin key, pushes Convex functions, and sets JWT_PRIVATE_KEY + JWKS.
   convex-setup:
     build:
-      context: ./convex-backend
+      # TODO: Replace with the public Git repository URL when it is ready.
+      # The Convex backend source is fetched from the demo
+      context: https://github.com:powersync-community/powersync-convex-todolist-demo.git#demo-dockerfile
+    entrypoint: ["/bin/sh", "/convex-backend/entrypoint.sh"]
     depends_on:
       convex-keygen:
         condition: service_completed_successfully
@@ -74,35 +77,39 @@ services:
         condition: service_healthy
     volumes:
       - setup_data:/setup
+      - ./convex-backend/:/convex-backend
     environment:
       CONVEX_SELF_HOSTED_URL: http://backend:3210
 
-  # ── MongoDB (PowerSync bucket storage) ────────────────────────────────
+  # ── MongoDB (PowerSync bucket storage) ──────────────────────────────────────
   mongo:
     image: mongo:7.0
     command: --replSet rs0 --bind_ip_all --quiet
     restart: unless-stopped
     volumes:
       - mongo_storage:/data/db
+    ports:
+      - 27017:27017
 
   mongo-rs-init:
     image: mongo:7.0
     depends_on:
       - mongo
     restart: on-failure
-    entrypoint:
-      - bash
-      - -c
-      - 'mongosh --host mongo:27017 --eval ''try{rs.status().ok && quit(0)} catch {} rs.initiate({_id: "rs0", version: 1, members: [{ _id: 0, host : "mongo:27017" }]})'''
+    entrypoint: ["bash", "-c"]
+    command:
+      - |
+        mongosh --host mongo:27017 --eval 'try{rs.status().ok&&quit(0)}catch{} rs.initiate({_id:"rs0",members:[{_id:0,host:"mongo:27017"}]})'
 
-  # ── PowerSync Service ─────────────────────────────────────────────────
+  # ── PowerSync Service ───────────────────────────────────────────────────────
   powersync:
-    image: journeyapps/powersync-service:0.0.0-dev-20260310205233
+    image: journeyapps/powersync-service:0.0.0-dev-20260514153539
     restart: unless-stopped
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
-        export PS_CONVEX_DEPLOY_KEY=$$(cat /setup/deploy_key)
+        set -eu
+        export PS_CONVEX_DEPLOY_KEY="$$(cat /setup/deploy_key)"
         exec node service/lib/entry.js start -r unified
     depends_on:
       convex-setup:
@@ -120,22 +127,22 @@ services:
       PS_JWKS_URL: http://backend:3211/.well-known/jwks.json
     healthcheck:
       test:
-        [
-          "CMD",
-          "node",
-          "-e",
-          "fetch('http://localhost:8080/probes/liveness').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"
-        ]
+        - CMD
+        - node
+        - -e
+        - "fetch('http://localhost:8080/probes/liveness').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"
       interval: 5s
       timeout: 1s
       retries: 15
     ports:
-      - ${PS_PORT:-8080}:8080
+      - "${PS_PORT:-8080}:8080"
 
-  # ── React Demo Client ──────────────────────────────────────────────────
+  # ── React Demo Client ───────────────────────────────────────────────────────
   demo-client:
     build:
-      dockerfile: demo-client.dockerfile
+      # TODO: Update branch once merged
+      context: https://github.com:powersync-community/powersync-convex-todolist-demo.git#demo-dockerfile
+      dockerfile: Dockerfile
       args:
         VITE_CONVEX_URL: http://127.0.0.1:${CONVEX_PORT:-3210}
         VITE_POWERSYNC_URL: http://localhost:${PS_PORT:-8080}

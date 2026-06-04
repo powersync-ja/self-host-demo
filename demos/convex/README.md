@@ -69,13 +69,7 @@ Convex Auth handles user authentication (email/password). The Convex Auth sessio
 
 ## Seeding Data
 
-After the demo is running, seed sample data from the Convex dashboard at http://localhost:6791.
-
-If you are working directly in the todo-list demo repository, you can also seed from that checkout with the Convex CLI after setting `CONVEX_SELF_HOSTED_URL` and `CONVEX_SELF_HOSTED_ADMIN_KEY` for this local deployment:
-
-```bash
-pnpx convex run seed:seedLists '{"count": 10}'
-```
+After the demo is running, create sample lists and todos from the demo app at http://localhost:3030. You can inspect the generated Convex data from the dashboard at http://localhost:6791.
 
 ## Cleanup
 

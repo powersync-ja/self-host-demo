@@ -50,7 +50,7 @@ This single command will:
 | Convex HTTP Actions | http://127.0.0.1:3211 | HTTP endpoints, JWKS |
 | Convex Dashboard | http://localhost:6791 | Admin UI |
 | PowerSync | http://localhost:8080 | Sync service (Convex connector) |
-| Demo App | http://localhost:3030 | React todo-list |
+| Demo App | http://localhost:3037 | React todo-list |
 
 If the Convex dashboard prompts for an admin secret, use the generated deploy key from the shared setup volume:
 
@@ -93,7 +93,7 @@ Convex generates its own `_id` values, while PowerSync needs stable local row ID
 
 ## Seeding Data
 
-After the demo is running, create sample lists and todos from the demo app at http://localhost:3030. You can inspect the generated Convex data from the dashboard at http://localhost:6791.
+After the demo is running, create sample lists and todos from the demo app at http://localhost:3037. You can inspect the generated Convex data from the dashboard at http://localhost:6791.
 
 ## Cleanup
 

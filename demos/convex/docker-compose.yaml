@@ -145,7 +145,7 @@ services:
         VITE_CONVEX_URL: http://127.0.0.1:${CONVEX_PORT:-3210}
         VITE_POWERSYNC_URL: http://localhost:${PS_PORT:-8080}
     ports:
-      - "${DEMO_CLIENT_PORT:-3030}:4173"
+      - "${DEMO_CLIENT_PORT:-3037}:4173"
     depends_on:
       powersync:
         condition: service_healthy

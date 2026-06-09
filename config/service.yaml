@@ -14,6 +14,8 @@
 #
 # If using VS Code see the `.vscode/settings.json` definitions which define custom tags.
 
+_type: self-hosted
+
 # migrations:
 #   # Migrations run automatically by default.
 #   # Setting this to true will skip automatic migrations.

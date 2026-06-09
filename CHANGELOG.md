@@ -1,5 +1,9 @@
 # PowerSync Self Hosted Example
 
+## 2026-06-04
+
+- Added Convex demo.
+
 ## 2026-02-25
 
 - Updated sync config to use sync streams. This requires journeyapps/powersync-service v1.20.0 or later. Be sure to pull the latest image with `docker pull journeyapps/powersync-service:latest`.

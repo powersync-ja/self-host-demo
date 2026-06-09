@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-schema@latest/json-schema/powersync-config.json
+_type: self-hosted
+
+telemetry:
+  # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
+  disable_telemetry_sharing: false
+
+# Settings for source database replication
+replication:
+  connections:
+    - type: convex
+      deployment_url: http://backend:3210
+      deploy_key: !env PS_CONVEX_DEPLOY_KEY
+      polling_interval_ms: 200
+      request_timeout_ms: 30000
+
+# Connection settings for sync bucket storage
+storage:
+  type: mongodb
+  uri: !env PS_MONGO_URI
+
+# The port which the PowerSync API server will listen on
+port: !env PS_PORT
+
+api:
+  tokens:
+    - use-a-better-token-in-production
+
+# Specify sync config
+sync_config:
+  path: sync-config.yaml
+
+# Client (application end user) authentication settings
+client_auth:
+  # JWKS URIs can be specified here
+  jwks_uri: !env PS_JWKS_URL
+
+  # JWKS audience
+  audience: ["convex"]

@@ -64,7 +64,7 @@ replication:
       # This should be the key content in PEM format
       # client_private_key: !env PS_PG_CLIENT_PRIVATE_KEY
 
-# This is valid if using the `mongo` service defined in `ps-mongo.yaml`
+# This is valid if using the `mongo` service defined in `services/mongo.yaml` at the repo root.
 
 # Connection settings for sync bucket storage
 storage:

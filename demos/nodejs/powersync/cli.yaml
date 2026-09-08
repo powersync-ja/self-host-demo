@@ -1,0 +1,3 @@
+type: self-hosted
+api_url: http://localhost:8080
+api_key: use_a_better_token_in_production

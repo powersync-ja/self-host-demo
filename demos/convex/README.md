@@ -79,7 +79,7 @@ PowerSync is included in this Docker Compose file with the Convex connector modu
 - **Storage**: MongoDB replica set for PowerSync bucket storage
 - **Sync rules**: The logged in user's rows from `lists` and `todos` tables are synced
 
-The service config lives in `powersync/service.yaml`, and sync rules live in `powersync/sync-config.yaml`.
+The service config lives in [`powersync/service.yaml`](./powersync/service.yaml), and sync rules live in [`powersync/sync-config.yaml`](./powersync/sync-config.yaml). This demo mounts its own `powersync/` directory into the PowerSync container.
 
 ## Authentication
 

@@ -91,7 +91,7 @@ The [`key-generator`](./key-generator/) project demonstrates generating RSA key 
 
 ### Sync Config
 
-[Sync Configs](https://docs.powersync.com/usage/sync-rules) are defined in each demo's `powersync/sync-config.yaml`, referenced by the adjacent `service.yaml`. For example, the Node.js/Postgres demo uses [`demos/nodejs/powersync/sync-config.yaml`](./demos/nodejs/powersync/sync-config.yaml).
+[Sync Streams](https://docs.powersync.com/sync/streams/overview) are defined in each demo's `powersync/sync-config.yaml`, referenced by the adjacent `service.yaml`. For example, the Node.js/Postgres demo uses [`demos/nodejs/powersync/sync-config.yaml`](./demos/nodejs/powersync/sync-config.yaml).
 
 Restart the demo's PowerSync service after editing its sync config. From the demo directory, run `docker compose restart powersync`.
 

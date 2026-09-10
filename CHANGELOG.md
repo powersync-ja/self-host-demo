@@ -1,5 +1,10 @@
 # PowerSync Self Hosted Example
 
+## 2026-09-08
+
+- Moved the shared root `config/` files into the Node.js/Postgres and Django demos. Every demo now explicitly mounts its own `powersync/` directory containing `service.yaml` and `sync-config.yaml`.
+- Clarified the repository structure and updated configuration paths in the documentation and key generator.
+
 ## 2026-06-04
 
 - Added Convex demo.

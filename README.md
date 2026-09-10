@@ -38,37 +38,62 @@ This repository contains basic demonstrations in the `demos` folder.
 
   [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/powersync-starter-postgres?referralCode=kChzwj&utm_medium=github&utm_source=selfhostdemo)
   - This stack can be deployed on Railway using a template
-  - Allternatively, start this from the repo root with `docker compose -f demos/nodejs-postgres-bucket-storage/docker-compose.yaml up`
+  - Alternatively, start this from the repo root with `docker compose -f demos/nodejs-postgres-bucket-storage/docker-compose.yaml up`
+
+# Repository Structure
+
+Each demo owns its PowerSync configuration:
+
+```text
+demos/<demo>/
+  README.md                 Setup and run instructions
+  .env                      Environment variables for this demo
+  docker-compose.yaml       Services and config mounts for this demo
+  powersync/
+    service.yaml            Replication, bucket storage, and authentication
+    sync-config.yaml        Data to sync for this demo
+    cli.yaml                Local CLI connection settings, where provided
+services/                   Shared Docker Compose service definitions
+key-generator/              JWT signing key helper
+```
+
+Every demo's `docker-compose.yaml` explicitly mounts its own `./powersync` folder at `/config` inside the PowerSync container. Similar sync configs are kept in each demo so they can be understood and changed independently; some demos need different queries, such as MongoDB's `_id AS id` selection.
+
+The files in [`services/`](./services/) define reusable Docker containers. For example, [`services/powersync.yaml`](./services/powersync.yaml) supplies common container settings, while `demos/<demo>/powersync/service.yaml` configures the PowerSync Service itself. Demo Compose files use `include` or `extends` to reuse these definitions. Several Node.js demos also reuse the client, backend definitions, and database initialization scripts in [`demos/nodejs/`](./demos/nodejs/).
+
+If you previously edited the root `config/` directory for the Node.js/Postgres or Django demo, use that demo's `powersync/` directory instead. The former `service.yaml`, `sync-config.yaml`, and `cli.yaml` now live in both demos.
 
 # Config
 
 The configuration can be modified to match other project topologies.
 
-Edit the demo `.env` files and config files in the `./powersync` directory with your specific settings.
+Edit `demos/<demo>/.env` and the files in `demos/<demo>/powersync/` with your specific settings. Paths such as `powersync/service.yaml` below are relative to the selected demo directory.
 
 ### Connections
 
-Populate the `replication->connections` entry with your database connection details.
+Populate the `replication->connections` entry in `powersync/service.yaml` with your database connection details.
 
-- **Postgres:** A simple Postgres server is provided in the `ps-postgres.yaml` Docker Compose file. Be sure to keep the credentials in `powersync.yaml` in sync with the config in `ps-postgres.yaml` if using this server.
+- **Postgres:** A simple Postgres server is provided in [`services/postgres.yaml`](./services/postgres.yaml). Keep the connection settings in the demo's `powersync/service.yaml` and `.env` consistent with this server's settings.
 
 - **MongoDB:** See the [`nodejs-mongodb` demo](./demos/nodejs-mongodb/) for MongoDB connection configuration.
 
 ### Storage
 
-The [PowerSync Service](https://github.com/powersync-ja/powersync-service) uses MongoDB under the hood to store sync bucket state and operation history, regardless of whether you are syncing with a Postgres or MongoDB backend source database.
+Most demos use MongoDB to store PowerSync sync bucket state and operation history. The [Postgres bucket storage demo](./demos/nodejs-postgres-bucket-storage/) uses Postgres for this instead. Each demo configures bucket storage in the `storage` section of its `powersync/service.yaml`.
 
-A basic MongoDB replica-set service is available in `ps-mongo.yaml`. The `powersync.yaml` config is configured to use this service by default. Different MongoDB servers can be configured by removing the `include` statement from `docker-compose.yaml` and updating `powersync.yaml`.
+A basic MongoDB replica-set service is available in [`services/mongo.yaml`](./services/mongo.yaml). To use a different storage server, update the demo's `powersync/service.yaml`, `.env`, and corresponding services in `docker-compose.yaml`.
 
 ### Authentication
 
-This example uses JWKS which provides the public key directly to the PowerSync instance in `powersync.yaml`'s `jwks` section.
+Each demo configures JWT verification in the `client_auth` section of its `powersync/service.yaml`. The demos fetch public keys from their backend's JWKS endpoint; static keys can also be configured under `client_auth->jwks->keys`.
 
-The `key-generator` project demonstrates generating RSA key pairs for token signing.
+The [`key-generator`](./key-generator/) project demonstrates generating RSA key pairs for token signing.
 
 ### Sync Config
 
-[Sync Configs](https://docs.powersync.com/usage/sync-rules) are currently defined by placing them in `./powersync/sync-config.yaml`.
+[Sync Streams](https://docs.powersync.com/sync/streams/overview) are defined in each demo's `powersync/sync-config.yaml`, referenced by the adjacent `service.yaml`. For example, the Node.js/Postgres demo uses [`demos/nodejs/powersync/sync-config.yaml`](./demos/nodejs/powersync/sync-config.yaml).
+
+Restart the demo's PowerSync service after editing its sync config. From the demo directory, run `docker compose restart powersync`.
 
 ### Memory Limits
 

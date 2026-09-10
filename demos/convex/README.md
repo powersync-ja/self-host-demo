@@ -77,9 +77,9 @@ PowerSync is included in this Docker Compose file with the Convex connector modu
 - **Deploy key**: The Convex admin key is used as the deploy key for replication
 - **JWKS**: PowerSync verifies client tokens via the Convex Auth JWKS endpoint (`http://backend:3211/.well-known/jwks.json`)
 - **Storage**: MongoDB replica set for PowerSync bucket storage
-- **Sync rules**: The logged in user's rows from `lists` and `todos` tables are synced
+- **Sync Streams**: The logged in user's rows from `lists` and `todos` tables are synced
 
-The service config lives in `powersync/service.yaml`, and sync rules live in `powersync/sync-config.yaml`.
+The service config lives in [`powersync/service.yaml`](./powersync/service.yaml), and Sync Streams live in [`powersync/sync-config.yaml`](./powersync/sync-config.yaml). This demo mounts its own `powersync/` directory into the PowerSync container.
 
 ## Authentication
 
@@ -89,7 +89,7 @@ Convex Auth handles user authentication (email/password). The Convex Auth sessio
 
 The React app reads synced data from the local PowerSync SQLite database. Local writes are queued by PowerSync and uploaded by the demo app's connector to Convex mutations, then PowerSync streams the resulting Convex changes back to subscribed clients.
 
-Convex generates its own `_id` values, while PowerSync needs stable local row IDs before writes reach Convex. The todo-list demo uses a local-first `uuid` for lists and todos, and the sync rules select `uuid AS id` so synced rows line up with the local SQLite records.
+Convex generates its own `_id` values, while PowerSync needs stable local row IDs before writes reach Convex. The todo-list demo uses a local-first `uuid` for lists and todos, and the Sync Streams select `uuid AS id` so synced rows line up with the local SQLite records.
 
 ## Seeding Data
 

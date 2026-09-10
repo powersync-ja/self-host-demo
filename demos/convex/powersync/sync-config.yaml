@@ -1,5 +1,5 @@
 # Adds YAML Schema support for VS Code users with the YAML extension installed.
-# This enables validation and autocompletion based on the PowerSync sync rules schema.
+# This enables validation and autocompletion based on the PowerSync Sync Streams schema.
 # yaml-language-server: $schema=https://unpkg.com/@powersync/service-sync-rules@latest/schema/sync_rules.json
 
 # See https://docs.powersync.com/sync/advanced/compatibility
@@ -11,7 +11,7 @@ streams:
     # AUTO-SUBSCRIBE: always synced for the logged-in user.
     auto_subscribe: true
     # Convex Auth JWT subjects contain `[32 character user ID]|[user session ID]`.
-    # `auth.user_id()` returns the full subject, so the sync rule extracts the
+    # `auth.user_id()` returns the full subject, so the Sync Stream extracts the
     # Convex user ID prefix before comparing it to list ownership.
     #
     # PowerSync uses the selected `id` column as the local row ID. The demo app

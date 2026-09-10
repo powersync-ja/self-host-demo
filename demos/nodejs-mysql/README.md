@@ -6,7 +6,9 @@ Backend code can be found [here](https://github.com/powersync-ja/powersync-nodej
 
 ## Running
 
-The `.env` file contains default configuration for the services. Reference this to connect to any services locally.
+The [`.env`](./.env) file contains default configuration for the services. Reference this to connect to any services locally.
+
+PowerSync service settings are in [`powersync/service.yaml`](./powersync/service.yaml), and the data to sync is defined in [`powersync/sync-config.yaml`](./powersync/sync-config.yaml). This demo mounts its own `powersync/` directory into the PowerSync container.
 
 This demo can be started by running the following in this demo directory
 

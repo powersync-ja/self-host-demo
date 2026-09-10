@@ -6,7 +6,9 @@ Docs are available [here](https://docs.powersync.com/usage/use-case-examples/cus
 
 ## Running
 
-The `.env` file contains default configuration for the services. Reference this to connect to any services locally.
+The [`.env`](./.env) file contains default configuration for the services. Reference this to connect to any services locally.
+
+PowerSync service settings are in [`powersync/service.yaml`](./powersync/service.yaml), and the data to sync is defined in [`powersync/sync-config.yaml`](./powersync/sync-config.yaml). This demo mounts its own `powersync/` directory into the PowerSync container.
 
 Ensure you have authenticated with our Docker Image repository. Please reach out to support for an access token.
 

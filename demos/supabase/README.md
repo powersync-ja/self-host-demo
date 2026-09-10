@@ -25,4 +25,8 @@ Start the demonstration with `docker compose up`
 
 The frontend should be available at `http://localhost:4170`
 
-> **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint. 
+> **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint.
+
+## PowerSync Configuration
+
+PowerSync service settings are in [`powersync/service.yaml`](./powersync/service.yaml), and the data to sync is defined in [`powersync/sync-config.yaml`](./powersync/sync-config.yaml). This demo mounts its own `powersync/` directory into the PowerSync container.

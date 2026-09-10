@@ -16,6 +16,8 @@ services:
     extends:
       file: ../../services/powersync.yaml
       service: powersync
+    volumes:
+      - ./powersync:/config
     depends_on:
       mongo-rs-init:
         condition: service_completed_successfully

@@ -1,3 +1,6 @@
+# Shared PowerSync container settings. Each demo must mount its own
+# ./powersync directory at /config in its docker-compose.yaml.
+# That directory contains service.yaml and sync-config.yaml.
 services:
   powersync:
     restart: unless-stopped
@@ -9,7 +12,7 @@ services:
     # Start only the replication worker with
     #   command: ['start', '-r', 'sync']
 
-    # Migations occur automatically by default. Default migrations can be disabled in `powersync.yaml`:
+    # Migrations occur automatically by default. Default migrations can be disabled in `service.yaml`:
     #  migrations:
     #   disable_auto_migration: true
     #
@@ -18,10 +21,6 @@ services:
     #     command: ['migrate', 'up']
     # Note that this container must finish executing before starting the sync or unified container.
     command: ["start", "-r", "unified"]
-    volumes:
-      # Mounts the specified config folder to the container
-      # This folder should contain `powersync.yaml` and `sync-config.yaml`
-      - ../config:/config
     environment:
       # This is the path (inside the container) to the YAML config file
       # Alternatively the config path can be specified in the command
@@ -44,12 +43,12 @@ services:
       # or e.g.: Via a command line parameter
       #     command: ['start', '-r', 'unified', '-sync64', '[base64 encoded content]']
 
-      # The following will be inserted into the powersync.yaml file via templating
+      # The following will be inserted into the demo's service.yaml file via templating
       # Templates are used for filesystem and base64 configuration files
       PS_DATA_SOURCE_URI: ${PS_DATA_SOURCE_URI}
       PS_MONGO_URI: mongodb://mongo:27017/powersync_demo
 
-      # Note that powersync.yaml->client_auth->allow_local_jwks must be true for local URLs to work
+      # The demo's service.yaml reads this URL in client_auth.jwks_uri
       PS_JWKS_URL: ${PS_JWKS_URL}
 
       # The port which the PowerSync API server should run on

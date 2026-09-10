@@ -31,7 +31,7 @@ async function generateKeyPair() {
 
   console.log(`
 Public Key:
-Add this to the 'client_auth->jwks->keys' section of './config/powersync.yaml'
+To configure static keys, add this to the 'client_auth->jwks->keys' section of the selected demo's 'powersync/service.yaml'
 
 YAML:
   
@@ -44,7 +44,7 @@ ${JSON.stringify(publicJwk, null, 2)}
       
 ----------------------------
 
-Add these to the .env file in the root of this repository
+For the Node.js and Django demos, add these to the selected demo's .env file (for example, demos/nodejs/.env)
     
 DEMO_JWKS_PUBLIC_KEY=${publicBase64}
     

@@ -19,6 +19,9 @@ This repository contains basic demonstrations in the `demos` folder.
 - [Node.js (MongoDB)](./demos/nodejs-mongodb/README.md)
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb/docker-compose.yaml up`
 
+- [Node.js (MongoDB Replication Pre-filtering)](./demos/nodejs-mongodb-prefiltering/README.md)
+  - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb-prefiltering/docker-compose.yaml up`
+
 - [Node.js (MySQL)](./demos/nodejs-mysql/README.md)
   - This can be started from the repo root with `docker compose -f demos/nodejs-mysql/docker-compose.yaml up`
 

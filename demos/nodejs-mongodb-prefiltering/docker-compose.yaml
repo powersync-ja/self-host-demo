@@ -1,0 +1,78 @@
+# MongoDB Replication Pre-filtering is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
+# This demo keeps active documents and excludes archived documents during snapshots and live replication.
+# Include syntax requires Docker compose > 2.20.3
+# https://docs.docker.com/compose/release-notes/#2203
+include:
+  # Shared MongoDB partial: starts `mongo` and initializes its replica set with `mongo-rs-init`.
+  # Separate databases on this replica set hold the source documents and PowerSync bucket storage.
+  - path: ../../services/mongo.yaml
+
+  # Shared Node.js demo partial: provides the todo web client and a backend for authentication and source writes.
+  - path: ../nodejs/ps-nodejs-demo.yaml
+
+# Shared settings for the seed, stream-writer, and stats services.
+# Each runs a JavaScript entry script in mongosh, with ./scripts mounted read-only at /scripts.
+x-mongosh: &mongosh
+  image: mongo:7.0
+  restart: "no"
+  volumes:
+    - ./scripts:/scripts:ro
+
+services:
+  # Seeds archived and active documents and creates snapshot indexes before PowerSync starts.
+  # Runs once per fresh database, so the initial snapshot demonstrates pre-filtering a seeded backlog.
+  seed:
+    <<: *mongosh
+    depends_on:
+      mongo-rs-init:
+        condition: service_completed_successfully
+    environment:
+      SEED_LISTS: ${SEED_LISTS:-20}
+      SEED_TODOS_PER_LIST: ${SEED_TODOS_PER_LIST:-800}
+      SEED_ARCHIVED_RATIO: ${SEED_ARCHIVED_RATIO:-0.5}
+      SEED_BATCH_SIZE: ${SEED_BATCH_SIZE:-5000}
+    entrypoint:
+      ["mongosh", "--quiet", "${PS_DATA_SOURCE_URI}", "/scripts/seed.js"]
+
+  # Runs the PowerSync API and replication worker with MongoDB Replication Pre-filtering.
+  # Waits for seeding to finish, then loads this demo's service and sync config from /config.
+  powersync:
+    extends:
+      # Shared PowerSync partial: supplies startup, environment variables, healthcheck, and port mapping.
+      file: ../../services/powersync.yaml
+      service: powersync
+    image: container-registry.journeyapps.com/powersync-service:next
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+    volumes:
+      - ./powersync:/config
+
+  # Optional mongosh tool: inserts archived and active todos to demonstrate live replication pre-filtering.
+  # The `tools` profile keeps it out of normal startup.
+  # Run with: docker compose run --rm stream-writer
+  stream-writer:
+    <<: *mongosh
+    profiles: ["tools"]
+    # depends_on:
+    # powersync:
+    # condition: service_healthy
+    environment:
+      STREAM_BATCHES: ${STREAM_BATCHES:-20}
+      STREAM_BATCH_SIZE: ${STREAM_BATCH_SIZE:-1000}
+      STREAM_ARCHIVED_RATIO: ${STREAM_ARCHIVED_RATIO:-0.9}
+      STREAM_INTERVAL_MS: ${STREAM_INTERVAL_MS:-1000}
+    entrypoint:
+      ["mongosh", "--quiet", "${PS_DATA_SOURCE_URI}", "/scripts/stream.js"]
+
+  # Optional mongosh tool: prints total, archived, and active source counts to compare against the client.
+  # The `tools` profile keeps it out of normal startup.
+  # Run with: docker compose run --rm stats
+  stats:
+    <<: *mongosh
+    profiles: ["tools"]
+    depends_on:
+      mongo-rs-init:
+        condition: service_completed_successfully
+    entrypoint:
+      ["mongosh", "--quiet", "${PS_DATA_SOURCE_URI}", "/scripts/stats.js"]

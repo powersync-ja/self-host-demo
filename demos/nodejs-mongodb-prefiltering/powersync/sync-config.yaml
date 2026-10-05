@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-sync-rules@latest/schema/sync_config.json
+#
+# See Documentation for more information:
+# https://docs.powersync.com/sync/streams/overview
+#
+# Note that changes to this file are not watched.
+# The service needs to be restarted for changes to take effect.
+
+config:
+  edition: 3
+  # MongoDB Replication Pre-filtering is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
+  # Documents excluded here are never snapshotted or streamed into bucket storage.
+  # Unqualified keys match the SQL below and use the connection's default database.
+  source_table_options:
+    lists:
+      mongodb_filter_expression:
+        $eq: ["$$doc.archived", false]
+
+    todos:
+      mongodb_filter_expression:
+        $eq: ["$$doc.archived", false]
+
+streams:
+  global:
+    auto_subscribe: true
+    queries:
+      # mongodb uses _id as the primary key. * excludes _ fields.
+      # `*` comes first so the `_id as id` alias takes precedence over any source `id` field.
+      # These queries deliberately do not filter on `archived`, so the source prefilter above
+      # is the only thing keeping archived documents out of sync.
+      - select *, _id as id from lists
+      # - select *, _id as id from todos

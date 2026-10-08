@@ -15,14 +15,22 @@ function createTodo({ id, listId, createdAt, description, createdBy, archived })
   };
 }
 
-function envInt(name, fallback) {
+function envInt(name, fallback, minimum = 0) {
   const value = process.env[name];
-  return value == null || value === '' ? fallback : parseInt(value, 10);
+  const parsed = value == null || value === '' ? fallback : Number(value);
+  if ((value != null && value !== '' && value.trim() === '') || !Number.isSafeInteger(parsed) || parsed < minimum) {
+    throw new Error(`${name} must be a safe integer greater than or equal to ${minimum}`);
+  }
+  return parsed;
 }
 
-function envFloat(name, fallback) {
+function envRatio(name, fallback) {
   const value = process.env[name];
-  return value == null || value === '' ? fallback : parseFloat(value);
+  const parsed = value == null || value === '' ? fallback : Number(value);
+  if ((value != null && value !== '' && value.trim() === '') || !Number.isFinite(parsed) || parsed < 0 || parsed > 1) {
+    throw new Error(`${name} must be a finite number between 0 and 1`);
+  }
+  return parsed;
 }
 
 // mongo-rs-init only issues rs.initiate(); the member can take a few seconds to become primary.

@@ -3,10 +3,10 @@
 // Runs once before the PowerSync service starts, so the data is picked up by the initial snapshot.
 load('/scripts/common.js');
 
-const LISTS = envInt('SEED_LISTS', 20);
+const LISTS = envInt('SEED_LISTS', 20, 1);
 const TODOS_PER_LIST = envInt('SEED_TODOS_PER_LIST', 800);
-const ARCHIVED_RATIO = envFloat('SEED_ARCHIVED_RATIO', 0.5);
-const BATCH_SIZE = envInt('SEED_BATCH_SIZE', 5000);
+const ARCHIVED_RATIO = envRatio('SEED_ARCHIVED_RATIO', 0.5);
+const BATCH_SIZE = envInt('SEED_BATCH_SIZE', 5000, 1);
 
 waitForPrimary();
 

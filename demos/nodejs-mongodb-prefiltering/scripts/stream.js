@@ -4,8 +4,8 @@
 load('/scripts/common.js');
 
 const BATCHES = envInt('STREAM_BATCHES', 20);
-const BATCH_SIZE = envInt('STREAM_BATCH_SIZE', 1000);
-const ARCHIVED_RATIO = envFloat('STREAM_ARCHIVED_RATIO', 0.9);
+const BATCH_SIZE = envInt('STREAM_BATCH_SIZE', 1000, 1);
+const ARCHIVED_RATIO = envRatio('STREAM_ARCHIVED_RATIO', 0.9);
 const INTERVAL_MS = envInt('STREAM_INTERVAL_MS', 1000);
 
 waitForPrimary();

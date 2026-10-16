@@ -41,7 +41,8 @@ services:
       # Shared PowerSync partial: supplies startup, environment variables, healthcheck, and port mapping.
       file: ../../services/powersync.yaml
       service: powersync
-    image: container-registry.journeyapps.com/powersync-service:next
+      # This uses a custom channel/tag while the feature is in development
+    image: container-registry.journeyapps.com/powersync-service:mongodb_filters
     depends_on:
       seed:
         condition: service_completed_successfully

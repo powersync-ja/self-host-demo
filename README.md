@@ -20,6 +20,7 @@ This repository contains basic demonstrations in the `demos` folder.
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb/docker-compose.yaml up`
 
 - [Node.js (MongoDB Replication Pre-filtering)](./demos/nodejs-mongodb-prefiltering/README.md)
+  - This demo is restricted: MongoDB Replication Pre-filtering is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans, and the demo pulls the PowerSync service image from a private registry.
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb-prefiltering/docker-compose.yaml up`
 
 - [Node.js (MySQL)](./demos/nodejs-mysql/README.md)

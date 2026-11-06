@@ -7,6 +7,17 @@ const LISTS = envInt('SEED_LISTS', 20, 1);
 const TODOS_PER_LIST = envInt('SEED_TODOS_PER_LIST', 800);
 const ARCHIVED_RATIO = envRatio('SEED_ARCHIVED_RATIO', 0.5);
 const BATCH_SIZE = envInt('SEED_BATCH_SIZE', 5000, 1);
+// The seed is deterministic, so a rerun after an interrupted seed regenerates the same `_id`s.
+// Upserting replaces documents already written by the interrupted run instead of failing on duplicates.
+function upsertAll(collection, docs) {
+  if (docs.length === 0) {
+    return;
+  }
+  collection.bulkWrite(
+    docs.map((doc) => ({ replaceOne: { filter: { _id: doc._id }, replacement: doc, upsert: true } })),
+    { ordered: false }
+  );
+}
 
 waitForPrimary();
 
@@ -29,17 +40,9 @@ const random = createRandom(42);
 const createdAt = new Date().toISOString();
 const started = Date.now();
 
-let lists = [];
+const lists = [];
 let todos = [];
-let inserted = 0;
-
-function flushTodos() {
-  if (todos.length > 0) {
-    db.todos.insertMany(todos, { ordered: false });
-    inserted += todos.length;
-    todos = [];
-  }
-}
+let written = 0;
 
 for (let l = 0; l < LISTS; l++) {
   const listId = `seed-list-${String(l).padStart(6, '0')}`;
@@ -66,15 +69,18 @@ for (let l = 0; l < LISTS; l++) {
       })
     );
     if (todos.length >= BATCH_SIZE) {
-      flushTodos();
-      print(`  inserted ${inserted} todos...`);
+      upsertAll(db.todos, todos);
+      written += todos.length;
+      todos = [];
+      print(`  wrote ${written} todos...`);
     }
   }
 }
 
-db.lists.insertMany(lists, { ordered: false });
-flushTodos();
+upsertAll(db.lists, lists);
+upsertAll(db.todos, todos);
 
+// Written last, so an interrupted seed is resumed on the next start.
 db.seed_meta.insertOne({
   _id: 'seed',
   seeded_at: new Date(),

@@ -54,9 +54,9 @@ services:
   stream-writer:
     <<: *mongosh
     profiles: ["tools"]
-    # depends_on:
-    # powersync:
-    # condition: service_healthy
+    depends_on:
+      mongo-rs-init:
+        condition: service_completed_successfully
     environment:
       STREAM_BATCHES: ${STREAM_BATCHES:-20}
       STREAM_BATCH_SIZE: ${STREAM_BATCH_SIZE:-1000}

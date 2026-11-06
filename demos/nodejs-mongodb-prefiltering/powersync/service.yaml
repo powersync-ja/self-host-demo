@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://unpkg.com/@powersync/service-schema@latest/json-schema/powersync-config.json
 _type: self-hosted # sorry
 telemetry:
-  # Opt out of reporting anonymized usage metrics to PowerSync telemetry service
+  # Set to true to opt out of reporting anonymized usage metrics to PowerSync telemetry service
   disable_telemetry_sharing: false
 
 # Settings for source database replication

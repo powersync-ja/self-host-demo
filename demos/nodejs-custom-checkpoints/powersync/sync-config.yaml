@@ -9,7 +9,7 @@ config:
   edition: 3
 
 event_definitions:
-  # Note this event is only supported for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
+  # For self-hosted deployments, this event is only supported for [Enterprise](https://www.powersync.com/pricing) customers.
   write_checkpoints:
     payloads:
       #  This defines where the replicated custom Write Checkpoints should be extracted from

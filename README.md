@@ -14,13 +14,14 @@ This repository contains basic demonstrations in the `demos` folder.
   - This can be started from the repo root with `docker compose -f demos/nodejs/docker-compose.yaml up`
 
 - [Node.js (Postgres + Custom Write Checkpoints)](./demos/nodejs-custom-checkpoints/README.md)
+  - For self-hosted deployments, Custom Write Checkpoints are only available to [Enterprise](https://www.powersync.com/pricing) customers. This demo requires access to the private PowerSync service image.
   - This can be started from the repo root with `docker compose -f demos/nodejs-custom-checkpoints/docker-compose.yaml up`
 
 - [Node.js (MongoDB)](./demos/nodejs-mongodb/README.md)
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb/docker-compose.yaml up`
 
 - [Node.js (MongoDB Replication Pre-filtering)](./demos/nodejs-mongodb-prefiltering/README.md)
-  - This demo is restricted: MongoDB Replication Pre-filtering is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans, and the demo pulls the PowerSync service image from a private registry.
+  - For self-hosted deployments, MongoDB Replication Pre-filtering is only available to [Enterprise](https://www.powersync.com/pricing) customers. This demo requires access to the private PowerSync service image.
   - This can be started from the repo root with `docker compose -f demos/nodejs-mongodb-prefiltering/docker-compose.yaml up`
 
 - [Node.js (MySQL)](./demos/nodejs-mysql/README.md)

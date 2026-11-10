@@ -1,6 +1,8 @@
 # JavaScript PowerSync + MongoDB Replication Pre-filtering Demo
 
-This demo extends the [MongoDB demo](../nodejs-mongodb/README.md) with MongoDB Replication Pre-filtering. Pre-filtering excludes source documents before they are replicated, so they never reach bucket storage: excluded documents are skipped during the initial snapshot, and during change-stream replication. This feature is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
+This demo extends the [MongoDB demo](../nodejs-mongodb/README.md) with MongoDB Replication Pre-filtering. Pre-filtering excludes source documents before they are replicated, so they never reach bucket storage: excluded documents are skipped during the initial snapshot, and during change-stream replication.
+
+For self-hosted deployments, this feature is only available to [Enterprise](https://www.powersync.com/pricing) customers.
 
 The filter used here keeps documents with `archived: false`, configured in [`powersync/sync-config.yaml`](./powersync/sync-config.yaml):
 

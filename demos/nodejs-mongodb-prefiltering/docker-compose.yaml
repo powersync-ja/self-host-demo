@@ -1,4 +1,4 @@
-# MongoDB Replication Pre-filtering is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
+# Self-hosted MongoDB Replication Pre-filtering is only available to [Enterprise](https://www.powersync.com/pricing) customers.
 # This demo keeps active documents and excludes archived documents during snapshots and live replication.
 # Include syntax requires Docker compose > 2.20.3
 # https://docs.docker.com/compose/release-notes/#2203

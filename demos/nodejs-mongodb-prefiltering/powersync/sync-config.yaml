@@ -8,7 +8,7 @@
 
 config:
   edition: 3
-  # MongoDB Replication Pre-filtering is only available for customers on [Team and Enterprise](https://www.powersync.com/pricing) plans.
+  # Self-hosted MongoDB Replication Pre-filtering is only available to [Enterprise](https://www.powersync.com/pricing) customers.
   # Documents excluded here are never snapshotted or streamed into bucket storage.
   # Unqualified keys match the SQL below and use the connection's default database.
   source_table_options:

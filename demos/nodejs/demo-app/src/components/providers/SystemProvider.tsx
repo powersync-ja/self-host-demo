@@ -22,7 +22,7 @@ const ConnectorContext = React.createContext<DemoConnector | null>(null);
 export const useConnector = () => React.useContext(ConnectorContext);
 
 export const SystemProvider = ({ children }: { children: React.ReactNode }) => {
-  const [connector] = React.useState(new DemoConnector());
+  const [connector] = React.useState(() => new DemoConnector());
   const [powerSync] = React.useState(db);
 
   React.useEffect(() => {
@@ -34,7 +34,11 @@ export const SystemProvider = ({ children }: { children: React.ReactNode }) => {
     (window as any)._powersync = powerSync;
 
     powerSync.init();
-    powerSync.connect(connector);
+    powerSync.connect({
+      powerSyncEndpoint: import.meta.env.VITE_POWERSYNC_URL,
+      authenticator: connector,
+      upload: connector.upload
+    });
   }, [powerSync, connector]);
 
   return (
